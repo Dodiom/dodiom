@@ -1,0 +1,73 @@
+version: "3.5"
+
+services:
+  mwe-db:
+    image: postgres:12.2-alpine
+    container_name: mwe-db
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - mwexpress
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mwedb123
+      POSTGRES_USER: mwe
+      POSTGRES_DB: mwedb
+
+  mwe-db-ui:
+    image: adminer
+    container_name: mwe-db-ui
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mwexpress
+    depends_on:
+      - mwe-db
+    environment:
+      ADMINER_DEFAULT_SERVER: "mwe-db"
+
+  mwe-logs:
+    image: datalust/seq:2020.1.3949-pre
+    container_name: mwe-logs
+    ports:
+    - 5341:80
+    networks:
+      - mwexpress
+    volumes:
+      - log_data:/data
+    environment:
+      ACCEPT_EULA: Y
+      
+  mwexpress:
+    build:
+      dockerfile: docker/MWExpress.Dockerfile
+      context: ..
+    image: mwexpress:latest
+    container_name: mwexpress
+    networks:
+      - mwexpress
+    depends_on:
+      - mwe-db
+      - mwe-logs
+    environment:
+      DB_HOST: mwe-db
+      DB_USER: mwe
+      DB_PASSWORD: mwedb123
+      DB_NAME: mwedb
+      TELEGRAM_API_KEY: <TELEGRAM_API_TOKEN_HERE>
+      SEQ_LOG_HOST: mwe-logs
+
+      
+networks:
+  mwexpress:
+    name: mwexpress
+    driver: bridge
+
+volumes:
+  log_data:
+    driver: local
+  db_data:
+    driver: local
