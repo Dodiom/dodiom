@@ -47,6 +47,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     submission_mwe_lemmas = [submission.words[x] for x in range(len(submission.lemmas)) if submission.lemmas[x] in todays_mwe.lemmas]
     submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
     submission_mwe_lemmas_str += "* %s *%s" % (get_language_token(user.language, Token.AND), submission_mwe_lemmas[-1])
+    submission.mwe_words = submission_mwe_lemmas
 
     reply_to(user, update,
              get_language_token(user.language, Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,

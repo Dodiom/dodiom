@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MWExpress",
+            "type": "python",
+            "request": "launch",
+            "program": "src/main.py",
+            "console": "integratedTerminal",
+            "env": {
+                "TELEGRAM_API_KEY": "1001072555:AAFQInkUNugVHfgPRVOwMl-YkhQY7OeKhyE",
+                "DB_HOST": "localhost",
+                "DB_NAME": "mwedb",
+                "DB_USER": "mwe",
+                "DB_PASSWORD": "mwedb123",
+                "SEQ_LOG_HOST": "localhost"
+            }
+        }
+    ]
+}

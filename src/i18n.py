@@ -55,6 +55,8 @@ class Token(Enum):
     FORMS_SPECIAL_MEANING = auto()
     DOES_NOT_FORM_SPECIAL_MEANING = auto()
     AND = auto()
+    REVIEW_QUESTION_POSITIVE = auto()
+    REVIEW_QUESTION_NEGATIVE = auto()
 
 
 lang_en = {
@@ -126,7 +128,11 @@ Have fun!
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: "Do the words *%s* form a special meaning?",
     Token.FORMS_SPECIAL_MEANING: "Yes, they do",
     Token.DOES_NOT_FORM_SPECIAL_MEANING: "Nope",
-    Token.AND: "and"
+    Token.AND: "and",
+    Token.REVIEW_QUESTION_POSITIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does form a \
+special meaning together, would you agree?",
+    Token.REVIEW_QUESTION_NEGATIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does *not* form a \
+special meaning together, would you agree?"
 }
 
 lang_tr = {
@@ -198,7 +204,11 @@ kullanılmış.
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: "*%s* kelimeleri bu örnekte özel bir anlam ifade ediyor mu?",
     Token.FORMS_SPECIAL_MEANING: "Eve, ediyor",
     Token.DOES_NOT_FORM_SPECIAL_MEANING: "Hayır",
-    Token.AND: "ve"
+    Token.AND: "ve",
+    Token.REVIEW_QUESTION_POSITIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
+ediyor denmiş, buna katılıyor musunuz?",
+    Token.REVIEW_QUESTION_NEGATIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
+*etmiyor* denmiş, buna katılıyor musunuz?"
 }
 
 

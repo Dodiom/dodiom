@@ -4,6 +4,9 @@ from stanza.models.common.doc import Word
 
 from i18n import Language
 
+# stanza.download("en")
+# stanza.download("tr")
+
 nlp_en = stanza.Pipeline('en', processors='tokenize,pos,lemma')
 nlp_tr = stanza.Pipeline('tr', processors='tokenize,pos,lemma')
 
