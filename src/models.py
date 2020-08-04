@@ -1,12 +1,18 @@
 import enum
 from enum import auto
 
-from sqlalchemy import Column, Integer, Date, String, ForeignKey, Enum, Boolean, ARRAY, Float
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import Column, Integer, Date, String, ForeignKey, Enum, Boolean, ARRAY, Float, Text
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-from database import Base
 from i18n import Language
+
+Base = declarative_base()
+
+
+class MweCategory(enum.Enum):
+    VPC = auto()  # verb-particle construction
+    VID = auto()  # verbal idiom
 
 
 class Mwe(Base):
@@ -18,6 +24,7 @@ class Mwe(Base):
     meaning = Column(String)
     language = Column(Enum(Language))
     lemmas = Column(ARRAY(String))
+    category = Column(Enum(MweCategory))
 
     submissions = relationship("Submission", back_populates="mwe")
     reviews = relationship("Review", back_populates="mwe")
@@ -63,6 +70,8 @@ class Submission(Base):
     words = Column(ARRAY(String))
     points = Column(Float)
     mwe_words = Column(ARRAY(String))
+    mwe_indices = Column(ARRAY(Integer))
+    conllu = Column(Text)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="submissions")
@@ -71,10 +80,6 @@ class Submission(Base):
     mwe = relationship("Mwe", back_populates="submissions")
 
     reviews = relationship("Review", back_populates="submission")
-
-    @hybrid_property
-    def review_count(self):
-        return len(self.reviews)
 
     def __repr__(self):
         return "<Value(id='%s', value='%s')>" % (self.id, self.value)

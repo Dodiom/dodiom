@@ -1,13 +1,21 @@
+import logging
 import os
 from telegram.ext import Updater
 
 from bot.handlers.message import message_handler
 from bot.handlers.start import start_handler
 
-updater = Updater(os.environ["TELEGRAM_API_KEY"], use_context=True)
-dispatcher = updater.dispatcher
-bot = dispatcher.bot
 
+class MWExpress:
+    def __init__(self):
+        self.updater = Updater(os.environ["TELEGRAM_API_KEY"], use_context=True)
+        self.dispatcher = self.updater.dispatcher
+        self.bot = self.dispatcher.bot
 
-dispatcher.add_handler(start_handler)
-dispatcher.add_handler(message_handler)
+        self.dispatcher.add_handler(start_handler)
+        self.dispatcher.add_handler(message_handler)
+
+    def listen(self):
+        logging.info("Listening Telegram for connections...")
+        self.updater.start_polling()
+        self.updater.idle()

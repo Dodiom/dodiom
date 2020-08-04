@@ -6,7 +6,7 @@ from telegram.ext import CallbackContext
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import clear_state, State, set_state
 from bot.helpers.user_helper import reply_to
-from database import session
+from database import database
 from i18n import Token, get_language_token, Language
 from models import User
 
@@ -21,6 +21,7 @@ def language_change_handler(user: User, update: Update, context: CallbackContext
 
 
 def change_user_language(user: User, language: Language) -> None:
+    session = database.get_session()
     user.language = language
     session.commit()
     logging.info("User {user_name} changed language to: {language}",

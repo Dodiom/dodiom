@@ -1,4 +1,10 @@
 {
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": false,
+    "python.pythonPath": "venv/bin/python",
+    "python.autoComplete.extraPaths": ["./src"],
+    "python.linting.pylintArgs": [
+        "--init-hook",
+        "import sys; sys.path.append('src')"
+    ]
 }

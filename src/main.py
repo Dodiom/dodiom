@@ -1,16 +1,14 @@
 import logging
 
-from database import init_database
-from bot.main import updater
-
+from bot.main import MWExpress
+from test_data import load_test_data
 from log import init_seqlog
 
 init_seqlog()
 
 logging.info("Starting MWExpress...")
 
-init_database()
+load_test_data()
 
-logging.info("Listening Telegram for connections...")
-updater.start_polling()
-updater.idle()
+bot = MWExpress()
+bot.listen()

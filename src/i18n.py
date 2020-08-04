@@ -57,6 +57,8 @@ class Token(Enum):
     AND = auto()
     REVIEW_QUESTION_POSITIVE = auto()
     REVIEW_QUESTION_NEGATIVE = auto()
+    PLEASE_ENTER_ONE_SENTENCE = auto()
+    MULTIPLE_LEMMA_OCCURRENCE = auto()
 
 
 lang_en = {
@@ -132,7 +134,10 @@ Have fun!
     Token.REVIEW_QUESTION_POSITIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does form a \
 special meaning together, would you agree?",
     Token.REVIEW_QUESTION_NEGATIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does *not* form a \
-special meaning together, would you agree?"
+special meaning together, would you agree?",
+    Token.PLEASE_ENTER_ONE_SENTENCE: "Your submission contains %d sentences, please enter just one sentence.",
+    Token.MULTIPLE_LEMMA_OCCURRENCE: "Your submission contains multiple \
+occurrences of the word *%s*, can you help me decide which one belongs to the MWE?"
 }
 
 lang_tr = {
@@ -208,7 +213,10 @@ kullanılmış.
     Token.REVIEW_QUESTION_POSITIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
 ediyor denmiş, buna katılıyor musunuz?",
     Token.REVIEW_QUESTION_NEGATIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
-*etmiyor* denmiş, buna katılıyor musunuz?"
+*etmiyor* denmiş, buna katılıyor musunuz?",
+    Token.PLEASE_ENTER_ONE_SENTENCE: "Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin.",
+    Token.MULTIPLE_LEMMA_OCCURRENCE: "Gönderinizde *%s* kelimesi birden fazla yerde geçiyor, MWE'nin \
+içindeki kullanım hangisinde bulmama yardımcı olabilir misin?"
 }
 
 

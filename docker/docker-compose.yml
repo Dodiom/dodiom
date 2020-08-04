@@ -30,14 +30,12 @@ services:
       ADMINER_DEFAULT_SERVER: "mwe-db"
 
   mwe-logs:
-    image: datalust/seq:2020.1.3949-pre
+    image: datalust/seq:2020.1.4292
     container_name: mwe-logs
     ports:
     - 5341:80
     networks:
       - mwexpress
-    volumes:
-      - log_data:/data
     environment:
       ACCEPT_EULA: Y
       

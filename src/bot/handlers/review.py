@@ -4,17 +4,18 @@ from telegram.ext import CallbackContext
 from bot.helpers.mwe_helper import get_todays_mwe
 from bot.helpers.user_helper import reply_to
 from i18n import Token, get_language_token
-from bot.helpers.keyboard_helper import Keyboard
-from database import session
+from database import database
 from models import Submission, SubmissionCategory, User
 from operator import and_
-import telegram
+
 
 def user_not_in_reviewers(submission: Submission, user: User) -> bool:
     all_reviewer_names = [x.user.username for x in submission.reviews]
     return user.username not in all_reviewer_names
 
+
 def review_handler(user: User, update: Update, context: CallbackContext):
+    session = database.get_session()
     submissions = session.query(Submission).filter(and_(Submission.user_id != user.id, Submission.language == user.language)).all()
     submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
     submissions = [x for x in submissions if user_not_in_reviewers(x, user)]

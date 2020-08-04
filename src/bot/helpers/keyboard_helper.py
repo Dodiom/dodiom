@@ -32,3 +32,7 @@ class Keyboard:
             [get_language_token(language, Token.LANGUAGE_TURKISH)],
         ]
         return ReplyKeyboardMarkup(language_change_keyboard)
+
+    @staticmethod
+    def numeric_keyboard(start: int, end: int):
+        return ReplyKeyboardMarkup([[str(x)] for x in range(start, end + 1)])

@@ -7,6 +7,7 @@ from telegram.ext import CallbackContext
 class State(Enum):
     """Enum for storing user states"""
     NONE = auto(),
+    SUBMISSION = auto()
     TYPING_EXAMPLE = auto()
     CHOOSING_SUBMISSION_CATEGORY = auto()
     CHANGING_LANGUAGE = auto()
