@@ -226,6 +226,12 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     session.commit()
 
     clear_state(context)
+    del context.user_data["sub_state"]
+    del context.user_data["submission_value"]
+    del context.user_data["submission_lemmas"]
+    del context.user_data["submission_words"]
+    del context.user_data["doc"]
+    del context.user_data["mwe_lemma_positions"]
 
     reply_to(user, update,
              get_language_token(user.language, Token.THANKS_FOR_SUBMISSION) % (

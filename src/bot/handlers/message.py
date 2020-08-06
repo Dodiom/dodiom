@@ -3,6 +3,7 @@ import logging
 from telegram import ParseMode, Update
 from telegram.ext import MessageHandler, Filters, CallbackContext
 
+from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
 from bot.handlers.submit import main_submit_handler
@@ -41,6 +42,8 @@ def message(update: Update, context: CallbackContext):
                 help_handler(user, update)
             elif update.message.text == get_language_token(user.language, Token.REVIEW):
                 review_handler(user, update, context)
+            elif update.message.text == get_language_token(user.language, Token.FEEDBACK):
+                feedback_handler(user, update, context)
             else:
                 update.message.reply_text(
                     get_language_token(user.language, Token.ENTER_VALID_COMMAND),

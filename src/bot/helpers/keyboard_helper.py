@@ -10,6 +10,7 @@ class Keyboard:
             [get_language_token(language, Token.TODAYS_MWE), get_language_token(language, Token.SUBMIT)],
             [get_language_token(language, Token.REVIEW), get_language_token(language, Token.HELP)],
             [get_language_token(language, Token.SHOW_SCOREBOARD), get_language_token(language, Token.CHANGE_LANGUAGE)],
+            [get_language_token(language, Token.FEEDBACK)]
         ]
         return ReplyKeyboardMarkup(main_keyboard)
 

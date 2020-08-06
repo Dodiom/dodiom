@@ -59,6 +59,9 @@ class Token(Enum):
     REVIEW_QUESTION_NEGATIVE = auto()
     PLEASE_ENTER_ONE_SENTENCE = auto()
     MULTIPLE_LEMMA_OCCURRENCE = auto()
+    FEEDBACK = auto()
+    FEEDBACK_MESSAGE = auto()
+    FEEDBACK_URL = auto()
 
 
 lang_en = {
@@ -137,7 +140,11 @@ special meaning together, would you agree?",
 special meaning together, would you agree?",
     Token.PLEASE_ENTER_ONE_SENTENCE: "Your submission contains %d sentences, please enter just one sentence.",
     Token.MULTIPLE_LEMMA_OCCURRENCE: "Your submission contains multiple \
-occurrences of the word *%s*, can you help me decide which one belongs to the MWE?"
+occurrences of the word *%s*, can you help me decide which one belongs to the MWE?",
+    Token.FEEDBACK: "Send Feedback",
+    Token.FEEDBACK_MESSAGE: "Thank you for your interest, you can send a feedback using \
+following link.",
+    Token.FEEDBACK_URL: "https://forms.gle/hPA8LNptA1GSPLnf8"
 }
 
 lang_tr = {
@@ -216,7 +223,11 @@ ediyor denmiş, buna katılıyor musunuz?",
 *etmiyor* denmiş, buna katılıyor musunuz?",
     Token.PLEASE_ENTER_ONE_SENTENCE: "Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin.",
     Token.MULTIPLE_LEMMA_OCCURRENCE: "Gönderinizde *%s* kelimesi birden fazla yerde geçiyor, MWE'nin \
-içindeki kullanım hangisinde bulmama yardımcı olabilir misin?"
+içindeki kullanım hangisinde bulmama yardımcı olabilir misin?",
+    Token.FEEDBACK: "Geri bildirim gönder",
+    Token.FEEDBACK_MESSAGE: "İlginiz için teşekkürler, geri bildirim yapmak için\
+aşağıdaki linki kullanabilirsiniz.",
+    Token.FEEDBACK_URL: "https://forms.gle/6vueZwyF54arkCmMA"
 }
 
 
