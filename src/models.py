@@ -2,7 +2,8 @@ import enum
 from enum import auto
 from typing import List
 
-from sqlalchemy import Column, Integer, Date, String, ForeignKey, Enum, Boolean, ARRAY, Float, Text, select, func
+from sqlalchemy import Column, Integer, Date, String, ForeignKey, Enum, Boolean, ARRAY, Float, Text, select, func, \
+    BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, column_property
 
@@ -98,6 +99,7 @@ class Submission(Base):
     mwe_words = Column(ARRAY(String))
     mwe_indices = Column(ARRAY(Integer))
     conllu = Column(Text)
+    hash = Column(String)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="submissions")

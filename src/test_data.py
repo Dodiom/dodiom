@@ -16,7 +16,7 @@ def load_test_data() -> None:
     amy = api.add_user("amy", Language.ENGLISH)
     boyle = api.add_user("boyle", Language.ENGLISH)
 
-    sub1 = add_submission_using_text(jake, "I give up", todays_mwe_en, [1, 2],
+    sub1 = add_submission_using_text(jake, "I give up.", todays_mwe_en, [1, 2],
                                      True)
     sub2 = add_submission_using_text(amy,
                                      "I didn't know giving up was that easy...",

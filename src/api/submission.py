@@ -1,4 +1,5 @@
 from typing import List
+import hashlib
 
 from stanza import Document
 
@@ -43,7 +44,8 @@ def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
         user=user,
         mwe_words=[submission_words[x] for x in mwe_indices],
         mwe_indices=mwe_indices,
-        conllu=cupt.doc_to_cupt(doc, mwe.id, mwe.category, [x + 1 for x in mwe_indices])
+        conllu=cupt.doc_to_cupt(doc, mwe.id, mwe.category, [x + 1 for x in mwe_indices]),
+        hash=get_submission_hash(doc)
     )
     session.add(submission)
     session.commit()
@@ -69,12 +71,17 @@ def _get_category_score(language: Language, category: SubmissionCategory) -> flo
         SubmissionCategory.NEGATIVE_TOGETHER: 40,
         SubmissionCategory.NEGATIVE_SEPARATED: 30
     }
-    return _compound_interest(
+    return round(_compound_interest(
         category_initial_points[category],
         -0.05,
         all_submissions_count
-    )
+    ), 2)
 
 
 def _compound_interest(p: int, r: float, n: float) -> float:
     return p * ((1 + r) ** n)
+
+
+def get_submission_hash(doc: Document) -> str:
+    submission_string = "".join([x.lemma for x in doc.iter_words() if x.pos != "PUNCT"])
+    return hashlib.md5(submission_string.encode('utf-8')).hexdigest()

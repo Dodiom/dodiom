@@ -7,6 +7,7 @@ from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
 from bot.handlers.review import main_review_handler
+from bot.handlers.scoreboard import scoreboard_handler
 from bot.handlers.submit import main_submit_handler
 from bot.handlers.todays_mwe import todays_mwe_handler
 from bot.helpers.general import send_typing_action
@@ -46,6 +47,8 @@ def message(update: Update, context: CallbackContext):
                 main_review_handler(user, update, context)
             elif update.message.text == get_language_token(user.language, Token.FEEDBACK):
                 feedback_handler(user, update, context)
+            elif update.message.text == get_language_token(user.language, Token.SHOW_SCOREBOARD):
+                scoreboard_handler(user, update, context)
             else:
                 update.message.reply_text(
                     get_language_token(user.language, Token.ENTER_VALID_COMMAND),

@@ -68,6 +68,8 @@ class Token(Enum):
     FEEDBACK = auto()
     FEEDBACK_MESSAGE = auto()
     FEEDBACK_URL = auto()
+    DUPLICATE_SUBMISSION = auto()
+    YOU = auto()
 
 
 lang_en = {
@@ -150,7 +152,9 @@ occurrences of the word *%s*, can you help me decide which one belongs to the MW
     Token.FEEDBACK: "Send Feedback",
     Token.FEEDBACK_MESSAGE: "Thank you for your interest, you can send a feedback using \
 following link.",
-    Token.FEEDBACK_URL: "https://forms.gle/hPA8LNptA1GSPLnf8"
+    Token.FEEDBACK_URL: "https://forms.gle/hPA8LNptA1GSPLnf8",
+    Token.DUPLICATE_SUBMISSION: "A similar submission exists, please send another one.",
+    Token.YOU: "You"
 }
 
 lang_tr = {
@@ -233,7 +237,9 @@ içindeki kullanım hangisinde bulmama yardımcı olabilir misin?",
     Token.FEEDBACK: "Geri bildirim gönder",
     Token.FEEDBACK_MESSAGE: "İlginiz için teşekkürler, geri bildirim yapmak için\
 aşağıdaki linki kullanabilirsiniz.",
-    Token.FEEDBACK_URL: "https://forms.gle/6vueZwyF54arkCmMA"
+    Token.FEEDBACK_URL: "https://forms.gle/6vueZwyF54arkCmMA",
+    Token.DUPLICATE_SUBMISSION: "Benzer bir gönderi daha önce gönderilmiş, lütfen başka bir örnek girin.",
+    Token.YOU: "Sen"
 }
 
 

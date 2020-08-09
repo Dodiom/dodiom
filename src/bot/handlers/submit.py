@@ -5,13 +5,14 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
-from api.submission import add_submission_using_doc
+from api.submission import add_submission_using_doc, get_submission_hash
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to
 from i18n import get_language_token, Token, get_random_congrats_message
-from models import User, Mwe
+from models import User, Mwe, Submission
 from nlp.stanza import process_sentence
+from database import session
 
 """
 SUBMISSION
@@ -77,6 +78,13 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
                  get_language_token(user.language, Token.SUBMISSION_DOES_NOT_CONTAIN_MWE) % todays_mwe.name)
         return
 
+    # Duplicate check
+    submission_hash = get_submission_hash(doc)
+    if session.query(Submission).filter(Submission.hash == submission_hash).count() > 0:
+        reply_to(user, update,
+                 get_language_token(user.language, Token.DUPLICATE_SUBMISSION))
+        return
+
     # Find MWE position
     mwe_lemma_positions = dict()
     for mwe_lemma in todays_mwe.lemmas:
@@ -91,8 +99,6 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
         context.user_data["sub_state"] = "handle_multiple_occurrence"
         mwe_position_multiple_occurrence_handler(user, update, context, True)
         return
-
-    # TODO: Check if mwe is submitted before, don't allow duplicates
 
     submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
     submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
