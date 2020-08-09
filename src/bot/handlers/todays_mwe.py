@@ -3,7 +3,7 @@ import logging
 from telegram import Update
 
 from bot.helpers.keyboard_helper import Keyboard
-from bot.helpers.mwe_helper import get_todays_mwe
+from api.mwe import get_todays_mwe
 from bot.helpers.user_helper import reply_to
 from i18n import Token, get_language_token
 from models import User

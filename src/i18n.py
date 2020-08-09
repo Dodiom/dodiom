@@ -6,6 +6,12 @@ class Language(Enum):
     ENGLISH = auto(),
     TURKISH = auto()
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
 
 class Token(Enum):
     MAIN_KEYBOARD = auto()
@@ -171,7 +177,7 @@ lang_tr = {
     Token.WORDS_ARE_TOGETHER: 'Örnekte “%s” kelimeleri yanyana 👏 geçiyorr',
     Token.WORDS_ARE_SEPARATED: 'Örnekte “%s” kelimeleri 🙌 ayrı geçiyor',
     Token.NO_EXAMPLES_TO_REVIEW: "Şu an incelebileceğiniz örnek yok. 🙄 Lütfen daha sonra tekrar deneyin.",
-    Token.AGREE_NICE_EXAMPLE: '👍 Kaıtlıyorum. Bu kategori için güzel bir örnek',
+    Token.AGREE_NICE_EXAMPLE: '👍 Katılıyorum. Bu kategori için güzel bir örnek',
     Token.DO_NOT_LIKE_EXAMPLE: '👎 Bu örneği beğenmedim',
     Token.SKIP_THIS_ONE: '⏭ Bu örneği geç',
     Token.QUIT_REVIEWING: '😱 İncelemeyi bitir',
@@ -214,7 +220,7 @@ kullanılmış.
 İyi eğlenceler!
 """,
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: "*%s* kelimeleri bu örnekte özel bir anlam ifade ediyor mu?",
-    Token.FORMS_SPECIAL_MEANING: "Eve, ediyor",
+    Token.FORMS_SPECIAL_MEANING: "Evet, ediyor",
     Token.DOES_NOT_FORM_SPECIAL_MEANING: "Hayır",
     Token.AND: "ve",
     Token.REVIEW_QUESTION_POSITIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \

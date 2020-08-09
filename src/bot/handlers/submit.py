@@ -4,15 +4,13 @@ from stanza.models.common.doc import Sentence
 from telegram import Update
 from telegram.ext import CallbackContext
 
+from api.mwe import get_todays_mwe
+from api.submission import add_submission_using_doc
 from bot.helpers.keyboard_helper import Keyboard
-from bot.helpers.mwe_helper import get_todays_mwe
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to
-from database import database
-from i18n import get_language_token, Token, get_random_congrats_message, Language
-from models import User, Submission, Mwe, SubmissionCategory
-from nlp import cupt
-from nlp.lemma import get_lemmas, get_words
+from i18n import get_language_token, Token, get_random_congrats_message
+from models import User, Mwe
 from nlp.stanza import process_sentence
 
 """
@@ -59,13 +57,6 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     """ Gets the submission text from user """
     todays_mwe = get_todays_mwe(user.language)
 
-    # submission = Submission(
-    #     value=update.message.text,
-    #     lemmas=get_lemmas(user.language, update.message.text),
-    #     words=get_words(user.language, update.message.text),
-    #     language=user.language,
-    #     points=0
-    # )
     submission_value = update.message.text
     context.user_data["submission_value"] = submission_value
     doc = process_sentence(user.language, submission_value)
@@ -181,49 +172,13 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
                  Keyboard.main(user.language))
         return
 
-    submission_value = context.user_data["submission_value"]
     mwe_lemma_positions = context.user_data["mwe_lemma_positions"]
     mwe_indices = [x[0] for x in mwe_lemma_positions.values()]
 
-    sorted_mwe_indices = sorted(mwe_indices)
-    together = all(y - x == 1 for x, y in zip(sorted_mwe_indices, sorted_mwe_indices[1:]))
-    positive = update.message.text == get_language_token(user.language, Token.FORMS_SPECIAL_MEANING)
-    if together and positive:
-        submission_category = SubmissionCategory.POSITIVE_TOGETHER
-    elif not together and positive:
-        submission_category = SubmissionCategory.POSITIVE_SEPARATED
-    elif together and not positive:
-        submission_category = SubmissionCategory.NEGATIVE_TOGETHER
-    else:
-        submission_category = SubmissionCategory.NEGATIVE_SEPARATED
-
-    submission_points = get_category_score(
-        user.language,
-        submission_category
-    )
-
     doc = context.user_data["doc"]
     todays_mwe = get_todays_mwe(user.language)
-    submission_lemmas = context.user_data["submission_lemmas"]
-    submission_words = context.user_data["submission_words"]
-    submission = Submission(
-        value=submission_value,
-        lemmas=submission_lemmas,
-        words=submission_words,
-        language=user.language,
-        points=submission_points,
-        category=submission_category,
-        mwe=todays_mwe,
-        user=user,
-        mwe_words=[submission_words[x] for x in range(len(submission_lemmas)) if
-                   submission_lemmas[x] in todays_mwe.lemmas],
-        mwe_indices=mwe_indices,
-        conllu=cupt.doc_to_cupt(doc, todays_mwe.id, todays_mwe.category, [x + 1 for x in mwe_indices])
-    )
-
-    session = database.get_session()
-    session.add(submission)
-    session.commit()
+    positive = update.message.text == get_language_token(user.language, Token.FORMS_SPECIAL_MEANING)
+    submission = add_submission_using_doc(user, doc, todays_mwe, mwe_indices, positive)
 
     clear_state(context)
     del context.user_data["sub_state"]
@@ -239,78 +194,8 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
              Keyboard.main(user.language))
 
 
-def create_submission_from_text(message: str, mwe: Mwe, language: Language) -> Submission:
-    submission = Submission(
-        value=message,
-        lemmas=get_lemmas(language, message),
-        words=get_words(language, message),
-        language=language,
-        points=0,
-        mwe=mwe
-    )
-    submission_mwe_lemmas = [submission.words[x] for x in range(len(submission.lemmas)) if
-                             submission.lemmas[x] in mwe.lemmas]
-    submission.mwe_words = submission_mwe_lemmas
-
-    return submission
-
-
-def finalize_submission(submission: Submission, positive: bool) -> None:
-    submission.category = get_submission_category(
-        get_todays_mwe(submission.language),
-        submission,
-        positive
-    )
-    submission.points = get_category_score(
-        submission.language,
-        submission.category
-    )
-
-
 def submission_contains_mwe(mwe: Mwe, submission: List[str]) -> bool:
     for mwe_lemma in mwe.lemmas:
         if mwe_lemma not in submission:
             return False
     return True
-
-
-def get_submission_category(mwe: Mwe, submission: Submission, positive: bool) -> SubmissionCategory:
-    submission_lemmas_bitmap = [(x in mwe.lemmas) for x in submission.lemmas]
-
-    first_occurrence = submission_lemmas_bitmap.index(True)
-    last_occurrence = len(submission_lemmas_bitmap) - 1 - submission_lemmas_bitmap[::-1].index(True)
-    together = last_occurrence - first_occurrence == len(mwe.lemmas) - 1
-
-    if together and positive:
-        return SubmissionCategory.POSITIVE_TOGETHER
-    elif not together and positive:
-        return SubmissionCategory.POSITIVE_SEPARATED
-    elif together and not positive:
-        return SubmissionCategory.NEGATIVE_TOGETHER
-    else:
-        return SubmissionCategory.NEGATIVE_SEPARATED
-
-
-def get_category_score(language: Language, category: SubmissionCategory) -> float:
-    session = database.get_session()
-    all_submissions = session \
-        .query(Submission) \
-        .filter(Submission.language == language) \
-        .filter(Submission.category == category) \
-        .filter(Submission.points > 0) \
-        .all()
-    category_initial_points = {
-        SubmissionCategory.POSITIVE_TOGETHER: 10,
-        SubmissionCategory.POSITIVE_SEPARATED: 20,
-        SubmissionCategory.NEGATIVE_TOGETHER: 40,
-        SubmissionCategory.NEGATIVE_SEPARATED: 30
-    }
-    return compound_interest(
-        category_initial_points[category],
-        -0.05,
-        len(all_submissions)
-    )
-
-
-def compound_interest(p: int, r: float, n: float) -> float:
-    return p * ((1 + r) ** n)

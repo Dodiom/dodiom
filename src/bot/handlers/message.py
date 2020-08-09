@@ -6,9 +6,9 @@ from telegram.ext import MessageHandler, Filters, CallbackContext
 from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
+from bot.handlers.review import main_review_handler
 from bot.handlers.submit import main_submit_handler
 from bot.handlers.todays_mwe import todays_mwe_handler
-from bot.handlers.review import review_handler
 from bot.helpers.general import send_typing_action
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import State, get_state
@@ -31,6 +31,8 @@ def message(update: Update, context: CallbackContext):
                 main_submit_handler(user, update, context)
             elif state == State.CHANGING_LANGUAGE:
                 language_update_handler(user, update, context)
+            elif state == State.REVIEWING:
+                main_review_handler(user, update, context)
         else:
             if update.message.text == get_language_token(user.language, Token.TODAYS_MWE):
                 todays_mwe_handler(user, update)
@@ -41,7 +43,7 @@ def message(update: Update, context: CallbackContext):
             elif update.message.text == get_language_token(user.language, Token.HELP):
                 help_handler(user, update)
             elif update.message.text == get_language_token(user.language, Token.REVIEW):
-                review_handler(user, update, context)
+                main_review_handler(user, update, context)
             elif update.message.text == get_language_token(user.language, Token.FEEDBACK):
                 feedback_handler(user, update, context)
             else:

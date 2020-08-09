@@ -37,3 +37,13 @@ class Keyboard:
     @staticmethod
     def numeric_keyboard(start: int, end: int):
         return ReplyKeyboardMarkup([[str(x)] for x in range(start, end + 1)])
+
+    @staticmethod
+    def review_keyboard(language: Language):
+        review_keyboard = [
+            [get_language_token(language, Token.AGREE_NICE_EXAMPLE)],
+            [get_language_token(language, Token.DO_NOT_LIKE_EXAMPLE)],
+            [get_language_token(language, Token.SKIP_THIS_ONE)],
+            [get_language_token(language, Token.QUIT_REVIEWING)]
+        ]
+        return ReplyKeyboardMarkup(review_keyboard)

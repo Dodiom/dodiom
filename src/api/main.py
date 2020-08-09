@@ -14,7 +14,9 @@ class MWExpressApi:
         user = User(
             username=name,
             language=language,
-            viewed_help=False
+            viewed_help=False,
+            score=0.0,
+            score_today=0.0
         )
         self.session.add(user)
         self.session.commit()
@@ -27,10 +29,6 @@ class MWExpressApi:
 
     def get_user(self, uid: str) -> User:
         return self.session.query(User).filter(User.id == uid).first()
-
-    def add_submission(self, text: str, user: User, mwe: Mwe, positive: bool,
-                       positions: List[int]):
-        pass
 
 
 api = MWExpressApi()

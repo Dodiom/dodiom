@@ -18,6 +18,8 @@ def get_user_from_update(update: Update) -> User:
             id=update.effective_user.id,
             username=update.effective_user.username,
             language=Language.ENGLISH,
+            score=0.0,
+            score_today=0.0,
             viewed_help=False)
         if new_user.username is None:
             new_user.username = str(new_user.id)

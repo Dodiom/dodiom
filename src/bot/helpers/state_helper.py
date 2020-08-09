@@ -11,6 +11,7 @@ class State(Enum):
     TYPING_EXAMPLE = auto()
     CHOOSING_SUBMISSION_CATEGORY = auto()
     CHANGING_LANGUAGE = auto()
+    REVIEWING = auto()
 
 
 def clear_state(context: CallbackContext) -> None:

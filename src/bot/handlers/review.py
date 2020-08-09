@@ -1,12 +1,15 @@
+from operator import and_
+
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from bot.helpers.mwe_helper import get_todays_mwe
+from bot.helpers.keyboard_helper import Keyboard
+from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to
-from i18n import Token, get_language_token
-from database import database
-from models import Submission, SubmissionCategory, User
-from operator import and_
+from database import session
+from i18n import get_language_token, Token
+from models import Submission, User, SubmissionCategory, ReviewCategory
+from api.review import add_review
 
 
 def user_not_in_reviewers(submission: Submission, user: User) -> bool:
@@ -14,39 +17,73 @@ def user_not_in_reviewers(submission: Submission, user: User) -> bool:
     return user.username not in all_reviewer_names
 
 
-def review_handler(user: User, update: Update, context: CallbackContext):
-    session = database.get_session()
-    submissions = session.query(Submission).filter(and_(Submission.user_id != user.id, Submission.language == user.language)).all()
+def main_review_handler(user: User, update: Update, context: CallbackContext):
+    set_state(context, State.REVIEWING)
+
+    if "submission" in context.user_data:
+        _review_answer_handler(user, update, context)
+        return
+
+    _send_submission_to_review(user, update, context)
+
+
+def _send_submission_to_review(user: User, update: Update, context: CallbackContext):
+    submissions = session.query(Submission).filter(
+        and_(Submission.user_id != user.id, Submission.language == user.language)).all()
     submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
     submissions = [x for x in submissions if user_not_in_reviewers(x, user)]
 
     if len(submissions) > 0:
-        todays_mwe = get_todays_mwe(user.language)
-        submission = submissions[0]
+        submission: Submission = submissions[0]
+        context.user_data["submission"] = submission
 
-        submission_category_messages = {
-            "together": get_language_token(user.language, Token.FORM_SPECIAL_MEANING_TOGETHER) % todays_mwe.lemmas,
-            "separated": get_language_token(user.language, Token.ARE_WORDS_SEPARATED) % todays_mwe.lemmas,
-            "non-mwe": get_language_token(user.language, Token.DOESNT_FORM_SPECIAL_MEANING_TOGETHER) % todays_mwe.lemmas
-        }
+        if submission.category == SubmissionCategory.POSITIVE_SEPARATED or \
+                submission.category == SubmissionCategory.POSITIVE_TOGETHER:
+            review_question = get_language_token(user.language, Token.REVIEW_QUESTION_POSITIVE)\
+                              % (submission.value, ",".join(submission.mwe_words))
+            reply_to(user, update, review_question,
+                     Keyboard.review_keyboard(user.language))
+        else:
+            review_question = get_language_token(user.language, Token.REVIEW_QUESTION_NEGATIVE) \
+                              % (submission.value, ",".join(submission.mwe_words))
+            reply_to(user, update, review_question,
+                     Keyboard.review_keyboard(user.language))
+    else:
+        clear_state(context)
+        if "submission" in context.user_data:
+            del context.user_data["submission"]
+        reply_to(user, update, get_language_token(user.language, Token.NO_SUBMISSIONS),
+                 Keyboard.main(user.language))
 
-        if submission.category == SubmissionCategory.POSITIVE_TOGETHER or \
-            submission.category == SubmissionCategory.POSITIVE_SEPARATED:
-            reply_message = get_language_token(user.language, Token.REVIEW_QUESTION_POSITIVE) % (submission.value, submission.mwe_words)
-            reply_to(user, update, reply_message)
 
-    #     context.user_data["state"] = "review"
-    #     context.user_data['submission'] = submission
+def _review_answer_handler(user: User, update: Update, context: CallbackContext):
+    available_inputs = [
+        get_language_token(user.language, Token.AGREE_NICE_EXAMPLE),
+        get_language_token(user.language, Token.DO_NOT_LIKE_EXAMPLE),
+        get_language_token(user.language, Token.SKIP_THIS_ONE),
+        get_language_token(user.language, Token.QUIT_REVIEWING)
+    ]
 
-    #     reply_message = get_language_token(user.language, Token.REVIEW_MESSAGE) % (submission.value, submission_category_messages[submission.category])
-    #     update.message.reply_text(reply_message,
-    #                               parse_mode=telegram.ParseMode.MARKDOWN,
-    #                               reply_markup=get_review_type_keyboard_keyboard_markup(user.language))
-    # else:
-    #     if "state" in context.user_data:
-    #         del context.user_data["state"]
-    #     update.message.reply_text(
-    #         get_language_token(user.language, Token.NO_EXAMPLES_TO_REVIEW),
-    #         parse_mode=telegram.ParseMode.MARKDOWN,
-    #         reply_markup=Keyboard.main(user.language)
-    #     )
+    if update.message.text not in available_inputs:
+        reply_to(user, update,
+                 get_language_token(user.language, Token.PLEASE_ENTER_VALID_REVIEW),
+                 Keyboard.review_keyboard(user.language))
+        return
+
+    submission = context.user_data["submission"]
+
+    if update.message.text == get_language_token(user.language, Token.AGREE_NICE_EXAMPLE):
+        add_review(user, submission, ReviewCategory.LIKE)
+    elif update.message.text == get_language_token(user.language, Token.DO_NOT_LIKE_EXAMPLE):
+        add_review(user, submission, ReviewCategory.DISLIKE)
+    elif update.message.text == get_language_token(user.language, Token.SKIP_THIS_ONE):
+        add_review(user, submission, ReviewCategory.SKIP)
+    else:
+        reply_to(user, update,
+                 get_language_token(user.language, Token.OPERATION_CANCELLED),
+                 Keyboard.main(user.language))
+        del context.user_data["submission"]
+        clear_state(context)
+        return
+
+    _send_submission_to_review(user, update, context)
