@@ -35,7 +35,7 @@ def scoreboard_handler(user: User, update: Update, context: CallbackContext):
         if not user_appeared_in_first_five:
             for i in range(len(users_sorted_by_score)):
                 if users_sorted_by_score[i].id == user.id:
-                    scoreboard_message += "...\n"
+                    scoreboard_message += "\.\.\.\n"
                     scoreboard_message += "%d\. %s \- %d" % (i + 1, user.username, users_sorted_by_score[i].score_today) + "\n"
 
         update.message.reply_text(

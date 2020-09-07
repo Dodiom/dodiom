@@ -8,7 +8,7 @@ init_seqlog()
 
 logging.info("Starting MWExpress...")
 
-load_test_data()
+# load_test_data()
 
 bot = MWExpress()
 bot.listen()
