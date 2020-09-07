@@ -1,6 +1,6 @@
-from typing import List, Dict
+from typing import List
+import itertools
 
-from stanza.models.common.doc import Sentence
 from telegram import Update
 from telegram.ext import CallbackContext
 
@@ -23,7 +23,6 @@ Main workflow:
     -> Retry if submission is duplicate
     -> Retry if the submission language is different from the user language
 2. Find MWE parts in submission and mark them
-    -> Ask user if parts of the MWE occur more than once.
 3. Get category from user
     -> 
 """
@@ -39,8 +38,6 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
         start_submit_handler(user, update, context)
     elif sub_state == "typing_example":
         submit_message_handler(user, update, context)
-    elif sub_state == "handle_multiple_occurrence":
-        mwe_position_multiple_occurrence_handler(user, update, context, False)
     elif sub_state == "choosing_category":
         submit_category_handler(user, update, context)
 
@@ -93,62 +90,12 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
             if lemma == mwe_lemma:
                 mwe_lemma_positions[mwe_lemma].append(ix)
 
-    context.user_data["mwe_lemma_positions"] = mwe_lemma_positions
+    xxxx = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
+    yyyy = sorted(xxxx, key=lambda x: max(x) - min(x))
 
-    if any([len(x) > 1 for x in mwe_lemma_positions.values()]):
-        context.user_data["sub_state"] = "handle_multiple_occurrence"
-        mwe_position_multiple_occurrence_handler(user, update, context, True)
-        return
+    mwe_indices = yyyy[0]
+    context.user_data["mwe_indices"] = mwe_indices
 
-    submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
-    submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
-    submission_mwe_lemmas_str += "* %s *%s" % (get_language_token(user.language, Token.AND), submission_mwe_lemmas[-1])
-
-    context.user_data["sub_state"] = "choosing_category"
-    reply_to(user, update,
-             get_language_token(user.language, Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
-             Keyboard.submission_category(user.language))
-
-
-def mwe_position_multiple_occurrence_handler(user: User, update: Update,
-                                             context: CallbackContext,
-                                             called_from_another_handler: bool) -> None:
-    mwe_lemma_positions: Dict[str, List] = context.user_data["mwe_lemma_positions"]
-    doc = context.user_data["doc"]
-    sentence: Sentence = doc.sentences[0]
-    todays_mwe = get_todays_mwe(user.language)
-
-    if not called_from_another_handler:
-        current_multiple_occurrence = context.user_data["current_multiple_occurrence"]
-        message = update.message.text
-        if not message.isdigit():
-            reply_to(user, update,
-                     get_language_token(user.language, Token.ENTER_VALID_COMMAND))
-            return
-        if not (1 <= int(message) <= len(mwe_lemma_positions[current_multiple_occurrence])):
-            reply_to(user, update,
-                     get_language_token(user.language, Token.ENTER_VALID_COMMAND))
-            return
-        mwe_lemma_positions[current_multiple_occurrence] = [
-            mwe_lemma_positions[current_multiple_occurrence][int(message) - 1]]
-
-    for lemma, lemma_positions in mwe_lemma_positions.items():
-        if len(lemma_positions) > 1:
-            context.user_data["current_multiple_occurrence"] = lemma
-            reply_to(user, update,
-                     get_language_token(user.language, Token.MULTIPLE_LEMMA_OCCURRENCE) % lemma,
-                     reply_markup=Keyboard.numeric_keyboard(1, len(lemma_positions)))
-            ret_sentence = context.user_data["submission_value"]
-            ix = len(lemma_positions)
-            for lemma_pos in reversed(lemma_positions):
-                ret_sentence = ret_sentence[:sentence.tokens[lemma_pos].end_char] + "(" + str(ix) + ")" + ret_sentence[
-                                                                                                          sentence.tokens[
-                                                                                                              lemma_pos].end_char:]
-                ix -= 1
-            reply_to(user, update, ret_sentence, Keyboard.numeric_keyboard(1, len(lemma_positions)))
-            return
-
-    submission_words = [x.text for x in doc.iter_words()]
     submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
     submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
     submission_mwe_lemmas_str += "* %s *%s" % (get_language_token(user.language, Token.AND), submission_mwe_lemmas[-1])
@@ -178,8 +125,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
                  Keyboard.main(user.language))
         return
 
-    mwe_lemma_positions = context.user_data["mwe_lemma_positions"]
-    mwe_indices = [x[0] for x in mwe_lemma_positions.values()]
+    mwe_indices = context.user_data["mwe_indices"]
 
     doc = context.user_data["doc"]
     todays_mwe = get_todays_mwe(user.language)
@@ -192,7 +138,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     del context.user_data["submission_lemmas"]
     del context.user_data["submission_words"]
     del context.user_data["doc"]
-    del context.user_data["mwe_lemma_positions"]
+    del context.user_data["mwe_indices"]
 
     reply_to(user, update,
              get_language_token(user.language, Token.THANKS_FOR_SUBMISSION) % (
