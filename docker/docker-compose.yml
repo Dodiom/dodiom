@@ -30,7 +30,7 @@ services:
       ADMINER_DEFAULT_SERVER: "mwe-db"
 
   mwe-logs:
-    image: datalust/seq:2020.1.4292
+    image: datalust/seq:2020.2.4593
     container_name: mwe-logs
     ports:
     - 5341:80
@@ -40,10 +40,7 @@ services:
       ACCEPT_EULA: Y
       
   mwexpress:
-    build:
-      dockerfile: docker/MWExpress.Dockerfile
-      context: ..
-    image: mwexpress:latest
+    image: docker.pkg.github.com/alisentas/mwexpress/mwexpress
     container_name: mwexpress
     networks:
       - mwexpress
@@ -51,12 +48,11 @@ services:
       - mwe-db
       - mwe-logs
     environment:
-      DB_HOST: mwe-db
-      DB_USER: mwe
-      DB_PASSWORD: mwedb123
-      DB_NAME: mwedb
-      TELEGRAM_API_KEY: <TELEGRAM_API_TOKEN_HERE>
+      DB_CONNECTION_STRING: postgresql://mwe:mwedb123@mwe-db:5432/mwedb
+      TELEGRAM_API_KEY: TG_API_KEY_HERE
       SEQ_LOG_HOST: mwe-logs
+      START_HOUR: 9
+      END_HOUR: 22
 
       
 networks:
