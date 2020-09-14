@@ -8,7 +8,6 @@ class Token(Enum):
     SUBMIT = auto()
     REVIEW = auto()
     CHANGE_LANGUAGE = auto()
-    SUGGEST_MWE = auto()
     SHOW_SCOREBOARD = auto()
     LANGUAGE_ENGLISH = auto()
     LANGUAGE_TURKISH = auto()
@@ -18,30 +17,18 @@ class Token(Enum):
     PLEASE_SELECT_VALID_LANGUAGE = auto()
     WELCOME_MESSAGE = auto()
     PLEASE_ENTER_EXAMPLE = auto()
-    SPECIAL_MEANING = auto()
-    FORM_SPECIAL_MEANING_TOGETHER = auto()
-    DOESNT_FORM_SPECIAL_MEANING_TOGETHER = auto()
     ENTER_VALID_MWE_CATEGORY = auto()
     THANKS_FOR_SUBMISSION = auto()
-    ARE_WORDS_SEPARATED = auto()
-    WORDS_ARE_TOGETHER = auto()
-    WORDS_ARE_SEPARATED = auto()
-    NO_EXAMPLES_TO_REVIEW = auto()
     AGREE_NICE_EXAMPLE = auto()
     DO_NOT_LIKE_EXAMPLE = auto()
     SKIP_THIS_ONE = auto()
     QUIT_REVIEWING = auto()
-    REVIEW_MESSAGE = auto()
     SOMEONE_LOVED_YOUR_EXAMPLE = auto()
-    THANKS_FOR_CONTRIBUTION = auto()
     PLEASE_ENTER_VALID_REVIEW = auto()
     TOP_FIVE_USERS = auto()
     NO_SUBMISSIONS = auto()
     ENTER_VALID_COMMAND = auto()
     SUBMISSION_DOES_NOT_CONTAIN_MWE = auto()
-    PLEASE_SELECT_SUBMISSION_CATEGORY = auto()
-    LITERAL = auto()
-    FIGURATIVE = auto()
     CANCEL = auto()
     OPERATION_CANCELLED = auto()
     HELP = auto()
@@ -53,11 +40,9 @@ class Token(Enum):
     REVIEW_QUESTION_POSITIVE = auto()
     REVIEW_QUESTION_NEGATIVE = auto()
     PLEASE_ENTER_ONE_SENTENCE = auto()
-    MULTIPLE_LEMMA_OCCURRENCE = auto()
     FEEDBACK = auto()
     FEEDBACK_MESSAGE = auto()
     FEEDBACK_URL = auto()
-    DUPLICATE_SUBMISSION = auto()
     YOU = auto()
     GAME_HOURS_FINISHED = auto()
     GAME_STARTED = auto()
@@ -76,54 +61,126 @@ class Language(Enum):
 
     def get(self, token: Token):
         if self == Language.ENGLISH:
-            return lang_en[token]
+            return translations[token]["en"]
         elif self == Language.TURKISH:
-            return lang_tr[token]
+            return translations[token]["tr"]
 
 
-lang_en = {
-    Token.TODAYS_MWE: "Today's MWE",
-    Token.SUBMIT: "Submit",
-    Token.REVIEW: "Review",
-    Token.CHANGE_LANGUAGE: "Change language",
-    Token.SUGGEST_MWE: "Suggest MWE",
-    Token.SHOW_SCOREBOARD: "Show Scoreboard",
-    Token.LANGUAGE_ENGLISH: "English (EN) 🇬🇧",
-    Token.LANGUAGE_TURKISH: "Türkçe (TR) 🇹🇷",
-    Token.TODAYS_MWE_REPLY_TEXT: "Today's MWE is '*%s*', meaning: _%s_",
-    Token.SELECT_LANGUAGE: "Please select a language",
-    Token.LANGUAGE_CHANGE_SUCCESSFUL: "Language set to *English*.",
-    Token.PLEASE_SELECT_VALID_LANGUAGE: "Please select a valid language",
-    Token.WELCOME_MESSAGE: "Welcome to MWExpress, *%s*",
-    Token.PLEASE_ENTER_EXAMPLE: "Please enter your example for the MWE: '*%s*'",
-    Token.SPECIAL_MEANING: "Does '%s' form a special meaning in this sentence?",
-    Token.FORM_SPECIAL_MEANING_TOGETHER: "Words '%s' do form a special meaning together 🙌.",
-    Token.DOESNT_FORM_SPECIAL_MEANING_TOGETHER: "Words *%s* do NOT form a special meaning together ✋ 🤚.",
-    Token.ENTER_VALID_MWE_CATEGORY: "Please enter a valid category",
-    Token.THANKS_FOR_SUBMISSION: "%s! Thank you for your submission, you'll win %.2f points when someone likes your example.",
-    Token.ARE_WORDS_SEPARATED: 'Are the words "%s" next to each other or are they separated?',
-    Token.WORDS_ARE_TOGETHER: 'All the words in “%s” are 👏 together',
-    Token.WORDS_ARE_SEPARATED: 'Some words in “%s” are 🙌 separated',
-    Token.NO_EXAMPLES_TO_REVIEW: "Currently there are no examples ready for reviewing. 🙄 Please try later.",
-    Token.AGREE_NICE_EXAMPLE: '👍 I agree. Nice example for this category',
-    Token.DO_NOT_LIKE_EXAMPLE: '👎 I do not like this example',
-    Token.SKIP_THIS_ONE: '⏭ Skip this one',
-    Token.QUIT_REVIEWING: '😱 Quit reviewing',
-    Token.REVIEW_MESSAGE: "'*%s*'. This example was provided for the category where %s.",
-    Token.SOMEONE_LOVED_YOUR_EXAMPLE: "%s! Someone else loved your great example, and you’ve earned %d points",
-    Token.THANKS_FOR_CONTRIBUTION: "Thank you for your contribution!",
-    Token.PLEASE_ENTER_VALID_REVIEW: "Please enter a valid review",
-    Token.TOP_FIVE_USERS: "Here are the top 5 users for today:\n",
-    Token.NO_SUBMISSIONS: "There are no submissions and users at this time.",
-    Token.ENTER_VALID_COMMAND: "Please enter a valid command",
-    Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: "It looks like your submission does not contain todays MWE (*%s*), please enter again.",
-    Token.PLEASE_SELECT_SUBMISSION_CATEGORY: "Please choose a category for your submission.",
-    Token.LITERAL: "Literal",
-    Token.FIGURATIVE: "Figurative",
-    Token.CANCEL: "Cancel",
-    Token.OPERATION_CANCELLED: "Operation cancelled",
-    Token.HELP: "Help",
-    Token.HELP_MESSAGE: """\
+translations = {
+    Token.TODAYS_MWE: {
+        "en": "Today's MWE",
+        "tr": "Bugünün MWEsi"
+    },
+    Token.SUBMIT: {
+        "en": "Submit",
+        "tr": "Örnek gönder"
+    },
+    Token.REVIEW: {
+        "en": "Review",
+        "tr": "Örnekleri oyla"
+    },
+    Token.CHANGE_LANGUAGE: {
+        "en": "Change language",
+        "tr": "Dili değiştir"
+    },
+    Token.SHOW_SCOREBOARD: {
+        "en": "Show Scoreboard",
+        "tr": "Sıralamaları göster"
+    },
+    Token.LANGUAGE_ENGLISH: {
+        "en": "English (EN) 🇬🇧",
+        "tr": "English (EN) 🇬🇧"
+    },
+    Token.LANGUAGE_TURKISH: {
+        "en": "Türkçe (TR) 🇹🇷",
+        "tr": "Türkçe (TR) 🇹🇷"
+    },
+    Token.TODAYS_MWE_REPLY_TEXT: {
+        "en": "Today's MWE is '*%s*', meaning: _%s_",
+        "tr": "Bugünün MWEsi '*%s*', anlamı da: _%s_"
+    },
+    Token.SELECT_LANGUAGE: {
+        "en": "Please select a language",
+        "tr": "Lütfen bir dil seçin"
+    },
+    Token.LANGUAGE_CHANGE_SUCCESSFUL: {
+        "en": "Language set to *English*.",
+        "tr": "Dil *Türkçe* olarak ayarlandı."
+    },
+    Token.PLEASE_SELECT_VALID_LANGUAGE: {
+        "en": "Please select a valid language",
+        "tr": "Lütfen geçerli bir dil seçin."
+    },
+    Token.WELCOME_MESSAGE: {
+        "en": "Welcome to MWExpress, *%s*",
+        "tr": "MWExpress'e hoşgeldiniz, *%s*"
+    },
+    Token.PLEASE_ENTER_EXAMPLE: {
+        "en": "Please enter your example for the MWE: '*%s*'",
+        "tr": "Lütfen MWE '*%s*' için örneğinizi girin"
+    },
+    Token.ENTER_VALID_MWE_CATEGORY: {
+        "en": "Please enter a valid category",
+        "tr": "Lütfen geçerli bir kategori seçin"
+    },
+    Token.THANKS_FOR_SUBMISSION: {
+        "en": "%s! Thank you for your submission, you'll win %.2f points when someone likes your example.",
+        "tr": "%s! Gönderiniz için teşekkürler, birisi sizin gönderinizi beğendiğinde %.2f puan kazanacaksınız."
+    },
+    Token.AGREE_NICE_EXAMPLE: {
+        "en": '👍 I agree. Nice example for this category',
+        "tr": '👍 Katılıyorum. Bu kategori için güzel bir örnek'
+    },
+    Token.DO_NOT_LIKE_EXAMPLE: {
+        "en": '👎 I do not like this example',
+        "tr": '👎 Bu örneği beğenmedim'
+    },
+    Token.SKIP_THIS_ONE: {
+        "en": '⏭ Skip this one',
+        "tr": '⏭ Bu örneği geç'
+    },
+    Token.QUIT_REVIEWING: {
+        "en": '😱 Quit reviewing',
+        "tr": '😱 İncelemeyi bitir'
+    },
+    Token.SOMEONE_LOVED_YOUR_EXAMPLE: {
+        "en": "%s! Someone else loved your great example, and you’ve earned %d points",
+        "tr": "%s! Birisi örneğini beğendi, sen de %d puan kazandın."
+    },
+    Token.PLEASE_ENTER_VALID_REVIEW: {
+        "en": "Please enter a valid review",
+        "tr": "Lütfen geçerli bir inceleme seçin"
+    },
+    Token.TOP_FIVE_USERS: {
+        "en": "Here are the top 5 users for today:\n",
+        "tr": "İşte bugünün ilk beşi:\n"
+    },
+    Token.NO_SUBMISSIONS: {
+        "en": "There are no submissions and users at this time.",
+        "tr": "Henüz gönderi ya da oylama yok."
+    },
+    Token.ENTER_VALID_COMMAND: {
+        "en": "Please enter a valid command",
+        "tr": "Lütfen geçerli bir komut girin."
+    },
+    Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: {
+        "en": "It looks like your submission does not contain todays MWE (*%s*), please enter again.",
+        "tr": "Öyle görünüyor ki girdiğin örnekte günün MWE'si (*%s*) bulunmamakta, lütfen tekrar gir."
+    },
+    Token.CANCEL: {
+        "en": "Cancel",
+        "tr": "İptal"
+    },
+    Token.OPERATION_CANCELLED: {
+        "en": "Operation cancelled",
+        "tr": "İşlem iptal edildi."
+    },
+    Token.HELP: {
+        "en": "Help",
+        "tr": "Yardım"
+    },
+    Token.HELP_MESSAGE: {
+        "en": """\
 Hello and welcome to MWExpress,
 
 The game has two modes. You either *submit* an MWE example or you *review* \
@@ -147,72 +204,7 @@ category.
 
 Have fun!
 """,
-    Token.DOES_WORDS_FORM_SPECIAL_MEANING: "Do the words *%s* form a special meaning?",
-    Token.FORMS_SPECIAL_MEANING: "Yes, they do",
-    Token.DOES_NOT_FORM_SPECIAL_MEANING: "Nope",
-    Token.AND: "and",
-    Token.REVIEW_QUESTION_POSITIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does form a \
-special meaning together, would you agree?",
-    Token.REVIEW_QUESTION_NEGATIVE: "In the sentence: \n\n%s\n\nIt's said that words %s does *not* form a \
-special meaning together, would you agree?",
-    Token.PLEASE_ENTER_ONE_SENTENCE: "Your submission contains %d sentences, please enter just one sentence.",
-    Token.MULTIPLE_LEMMA_OCCURRENCE: "Your submission contains multiple \
-occurrences of the word *%s*, can you help me decide which one belongs to the MWE?",
-    Token.FEEDBACK: "Send Feedback",
-    Token.FEEDBACK_MESSAGE: "Thank you for your interest, you can send a feedback using \
-following link.",
-    Token.FEEDBACK_URL: "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
-    Token.DUPLICATE_SUBMISSION: "A similar submission exists, please send another one.",
-    Token.YOU: "You",
-    Token.GAME_HOURS_FINISHED: "Game is finished for today, you should wait for \
-%d am. to play.",
-    Token.GAME_STARTED: "Good morning, the game is started.",
-    Token.GAME_ENDED: "The game is ended for today, thank you for playing."
-}
-
-lang_tr = {
-    Token.TODAYS_MWE: "Bugünün MWEsi",
-    Token.SUBMIT: "Örnek gönder",
-    Token.REVIEW: "Örnekleri oyla",
-    Token.CHANGE_LANGUAGE: "Dili değiştir",
-    Token.SUGGEST_MWE: "Yeni MWE öner",
-    Token.SHOW_SCOREBOARD: "Sıralamaları göster",
-    Token.LANGUAGE_ENGLISH: "English (EN) 🇬🇧",
-    Token.LANGUAGE_TURKISH: "Türkçe (TR) 🇹🇷",
-    Token.TODAYS_MWE_REPLY_TEXT: "Bugünün MWEsi '*%s*', anlamı da: _%s_",
-    Token.SELECT_LANGUAGE: "Lütfen bir dil seçin",
-    Token.LANGUAGE_CHANGE_SUCCESSFUL: "Dil *Türkçe* olarak ayarlandı.",
-    Token.PLEASE_SELECT_VALID_LANGUAGE: "Lütfen geçerli bir dil seçin.",
-    Token.WELCOME_MESSAGE: "MWExpress'e hoşgeldiniz, *%s*",
-    Token.PLEASE_ENTER_EXAMPLE: "Lütfen MWE '*%s*' için örneğinizi girin",
-    Token.SPECIAL_MEANING: "'*%s*' bu cümlede deyimsel bir anlam içeriyor mu?",
-    Token.FORM_SPECIAL_MEANING_TOGETHER: "'%s' kelimeleri bir arada deyimsel bir anlam ifade ediyor 🙌.",
-    Token.DOESNT_FORM_SPECIAL_MEANING_TOGETHER: "'%s' kelimeleri bir arada deyimsel bir anlam ifade ETMİYOR ✋ 🤚.",
-    Token.ENTER_VALID_MWE_CATEGORY: "Lütfen geçerli bir kategori seçin",
-    Token.THANKS_FOR_SUBMISSION: "%s! Gönderiniz için teşekkürler, birisi sizin gönderinizi beğendiğinde %.2f puan kazanacaksınız.",
-    Token.ARE_WORDS_SEPARATED: '"%s" kelimeleri örnekte yanyana mı yoksa ayrı mı geçiyor?',
-    Token.WORDS_ARE_TOGETHER: 'Örnekte “%s” kelimeleri yanyana 👏 geçiyorr',
-    Token.WORDS_ARE_SEPARATED: 'Örnekte “%s” kelimeleri 🙌 ayrı geçiyor',
-    Token.NO_EXAMPLES_TO_REVIEW: "Şu an incelebileceğiniz örnek yok. 🙄 Lütfen daha sonra tekrar deneyin.",
-    Token.AGREE_NICE_EXAMPLE: '👍 Katılıyorum. Bu kategori için güzel bir örnek',
-    Token.DO_NOT_LIKE_EXAMPLE: '👎 Bu örneği beğenmedim',
-    Token.SKIP_THIS_ONE: '⏭ Bu örneği geç',
-    Token.QUIT_REVIEWING: '😱 İncelemeyi bitir',
-    Token.REVIEW_MESSAGE: "'*%s*'. Bu örnek %s kategorisinde verilmiş.",
-    Token.SOMEONE_LOVED_YOUR_EXAMPLE: "%s! Birisi örneğini beğendi, sen de %d puan kazandın.",
-    Token.THANKS_FOR_CONTRIBUTION: "Katkılarınız için teşekkürler!",
-    Token.PLEASE_ENTER_VALID_REVIEW: "Lütfen geçerli bir inceleme seçin",
-    Token.TOP_FIVE_USERS: "İşte bugünün ilk beşi:\n",
-    Token.NO_SUBMISSIONS: "Henüz gönderi ya da oylama yok.",
-    Token.ENTER_VALID_COMMAND: "Lütfen geçerli bir komut girin.",
-    Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: "Öyle görünüyor ki girdiğin örnekte günün MWE'si (*%s*) bulunmamakta, lütfen tekrar gir.",
-    Token.PLEASE_SELECT_SUBMISSION_CATEGORY: "Lütfen gönderinizin kategorisini seçin.",
-    Token.LITERAL: "Gerçek",
-    Token.FIGURATIVE: "Mecazi",
-    Token.CANCEL: "İptal",
-    Token.OPERATION_CANCELLED: "İşlem iptal edildi.",
-    Token.HELP: "Yardım",
-    Token.HELP_MESSAGE: """\
+        "tr": """\
 MWExpress'e hoşgeldiniz,
 
 Bu oyunda iki mod bulunmaktadır. *Örnek gönderebilir* ya da diğerlerinin \
@@ -235,37 +227,71 @@ kullanılmış.
 İpucu: Eğer ikinci kategoride örnekler girerseniz daha yüksek puan alacaksınız.
 
 İyi eğlenceler!
-""",
-    Token.DOES_WORDS_FORM_SPECIAL_MEANING: "*%s* kelimeleri bu örnekte özel bir anlam ifade ediyor mu?",
-    Token.FORMS_SPECIAL_MEANING: "Evet, ediyor",
-    Token.DOES_NOT_FORM_SPECIAL_MEANING: "Hayır",
-    Token.AND: "ve",
-    Token.REVIEW_QUESTION_POSITIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
-ediyor denmiş, buna katılıyor musunuz?",
-    Token.REVIEW_QUESTION_NEGATIVE: "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
-*etmiyor* denmiş, buna katılıyor musunuz?",
-    Token.PLEASE_ENTER_ONE_SENTENCE: "Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin.",
-    Token.MULTIPLE_LEMMA_OCCURRENCE: "Gönderinizde *%s* kelimesi birden fazla yerde geçiyor, MWE'nin \
-içindeki kullanım hangisinde bulmama yardımcı olabilir misin?",
-    Token.FEEDBACK: "Geri bildirim gönder",
-    Token.FEEDBACK_MESSAGE: "İlginiz için teşekkürler, geri bildirim yapmak için \
-aşağıdaki linki kullanabilirsiniz.",
-    Token.FEEDBACK_URL: "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
-    Token.DUPLICATE_SUBMISSION: "Benzer bir gönderi daha önce gönderilmiş, lütfen başka bir örnek girin.",
-    Token.YOU: "Sen",
-    Token.GAME_HOURS_FINISHED: "Oyun bugünlük bitti, yeni günün onunu saat \
-%d'da tekrar başlayacak.",
-    Token.GAME_STARTED: "Günaydın, oyun başladı.",
-    Token.GAME_ENDED: "Oyun bugünlük bitti, oynadığınız için teşekkürler."
+"""
+    },
+    Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
+        "en": "Do the words *%s* form a special meaning?",
+        "tr": "*%s* kelimeleri bu örnekte özel bir anlam ifade ediyor mu?"
+    },
+    Token.FORMS_SPECIAL_MEANING: {
+        "en": "Yes, they do",
+        "tr": "Evet, ediyor"
+    },
+    Token.DOES_NOT_FORM_SPECIAL_MEANING: {
+        "en": "Nope",
+        "tr": "Hayır"
+    },
+    Token.AND: {
+        "en": "and",
+        "tr": "ve"
+    },
+    Token.REVIEW_QUESTION_POSITIVE: {
+        "en": "In the sentence: \n\n%s\n\nIt's said that words %s does form a \
+special meaning together, would you agree?",
+        "tr": "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
+ediyor denmiş, buna katılıyor musunuz?"
+    },
+    Token.REVIEW_QUESTION_NEGATIVE: {
+        "en": "In the sentence: \n\n%s\n\nIt's said that words %s does *not* form a \
+special meaning together, would you agree?",
+        "tr": "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
+*etmiyor* denmiş, buna katılıyor musunuz?"
+    },
+    Token.PLEASE_ENTER_ONE_SENTENCE: {
+        "en": "Your submission contains %d sentences, please enter just one sentence.",
+        "tr": "Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin."
+    },
+    Token.FEEDBACK: {
+        "en": "Send Feedback",
+        "tr": "Geri bildirim gönder"
+    },
+    Token.FEEDBACK_MESSAGE: {
+        "en": "Thank you for your interest, you can send a feedback using \
+following link.",
+        "tr": "İlginiz için teşekkürler, geri bildirim yapmak için \
+aşağıdaki linki kullanabilirsiniz."
+    },
+    Token.FEEDBACK_URL: {
+        "en": "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
+        "tr": "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s"
+    },
+    Token.YOU: {
+        "en": "You",
+        "tr": "Sen"
+    },
+    Token.GAME_HOURS_FINISHED: {
+        "en": "Game is finished for today, you should wait for %d am. to play.",
+        "tr": "Oyun bugünlük bitti, yeni günün onunu saat %d'da tekrar başlayacak."
+    },
+    Token.GAME_STARTED: {
+        "en": "Good morning, the game is started.",
+        "tr": "Günaydın, oyun başladı."
+    },
+    Token.GAME_ENDED: {
+        "en": "The game is ended for today, thank you for playing.",
+        "tr": "Oyun bugünlük bitti, oynadığınız için teşekkürler."
+    }
 }
-
-
-def get_language_token(language: Language, token: Token) -> str:
-    if language == Language.ENGLISH:
-        return lang_en[token]
-    elif language == Language.TURKISH:
-        return lang_tr[token]
-
 
 congrats_messages = {
     Language.ENGLISH: [

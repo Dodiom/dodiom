@@ -14,7 +14,7 @@ from bot.helpers.general import send_typing_action
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import State, get_state
 from bot.helpers.user_helper import get_user_from_update
-from i18n import get_language_token, Token
+from i18n import Token
 
 
 @send_typing_action
@@ -35,29 +35,30 @@ def message(update: Update, context: CallbackContext):
             elif state == State.REVIEWING:
                 main_review_handler(user, update, context)
         else:
-            if update.message.text == get_language_token(user.language, Token.TODAYS_MWE):
+            if update.message.text == user.language.get(Token.TODAYS_MWE):
                 todays_mwe_handler(user, update)
-            elif update.message.text == get_language_token(user.language, Token.SUBMIT):
+            elif update.message.text == user.language.get(Token.SUBMIT):
                 main_submit_handler(user, update, context)
-            elif update.message.text == get_language_token(user.language, Token.CHANGE_LANGUAGE):
+            elif update.message.text == user.language.get(Token.CHANGE_LANGUAGE):
                 language_change_handler(user, update, context)
-            elif update.message.text == get_language_token(user.language, Token.HELP):
+            elif update.message.text == user.language.get(Token.HELP):
                 help_handler(user, update)
-            elif update.message.text == get_language_token(user.language, Token.REVIEW):
+            elif update.message.text == user.language.get(Token.REVIEW):
                 main_review_handler(user, update, context)
-            elif update.message.text == get_language_token(user.language, Token.FEEDBACK):
+            elif update.message.text == user.language.get(Token.FEEDBACK):
                 feedback_handler(user, update, context)
-            elif update.message.text == get_language_token(user.language, Token.SHOW_SCOREBOARD):
+            elif update.message.text == user.language.get(Token.SHOW_SCOREBOARD):
                 scoreboard_handler(user, update, context)
             else:
                 update.message.reply_text(
-                    get_language_token(user.language, Token.ENTER_VALID_COMMAND),
+                    user.language.get(Token.ENTER_VALID_COMMAND),
                     parse_mode=ParseMode.MARKDOWN,
                     reply_markup=Keyboard.main(user.language)
                 )
 
     except Exception as ex:
         logging.exception(str(ex))
+        # TODO: don't send error message to user here
         update.message.reply_text(str(ex))
 
 

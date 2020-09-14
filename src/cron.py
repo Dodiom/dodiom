@@ -9,7 +9,7 @@ from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.user_helper import send_message_to_user
 from config import mwexpress_config
 from bot.main import mwexpress_bot
-from i18n import get_language_token, Token
+from i18n import Token
 from database import session
 
 
@@ -17,11 +17,10 @@ def send_game_starting_message_to_all() -> None:
     all_users = get_all_users()
     for user in all_users:
         send_message_to_user(mwexpress_bot.bot, user,
-                             get_language_token(user.language,
-                                                Token.GAME_STARTED))
+                             user.language.get(Token.GAME_STARTED))
         todays_mwe = get_todays_mwe(user.language)
         send_message_to_user(mwexpress_bot.bot, user,
-                             get_language_token(user.language, Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
+                             user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
                              reply_markup=Keyboard.main(user.language))
     logging.info("Sent game started message to all users")
 
@@ -30,8 +29,7 @@ def send_game_over_message_to_all() -> None:
     all_users = get_all_users()
     for user in all_users:
         send_message_to_user(mwexpress_bot.bot, user,
-                             get_language_token(user.language,
-                                                Token.GAME_ENDED))
+                             user.language.get(Token.GAME_ENDED))
     print("hey")
 
 

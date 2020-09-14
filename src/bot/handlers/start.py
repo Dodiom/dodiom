@@ -5,7 +5,7 @@ from telegram.ext import CallbackContext, CommandHandler
 
 from bot.helpers.state_helper import clear_state
 from bot.helpers.user_helper import get_user_from_update, reply_to
-from i18n import get_language_token, Token
+from i18n import Token
 from bot.helpers.keyboard_helper import Keyboard
 
 
@@ -18,7 +18,7 @@ def start(update: Update, context: CallbackContext):
     clear_state(context)
 
     reply_to(user, update,
-             get_language_token(user.language, Token.WELCOME_MESSAGE) % user.username,
+             user.language.get(Token.WELCOME_MESSAGE) % user.username,
              Keyboard.main(user.language))
 
 

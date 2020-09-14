@@ -4,11 +4,12 @@ from telegram.ext import Updater
 
 from bot.handlers.message import message_handler
 from bot.handlers.start import start_handler
+from config import mwexpress_config
 
 
 class MWExpress:
     def __init__(self):
-        self.updater = Updater(os.environ["TELEGRAM_API_KEY"], use_context=True)
+        self.updater = Updater(mwexpress_config.telegram_api_key, use_context=True)
         self.dispatcher = self.updater.dispatcher
         self.bot = self.dispatcher.bot
 

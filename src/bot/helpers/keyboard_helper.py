@@ -1,6 +1,6 @@
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
-from i18n import get_language_token, Language, Token
+from i18n import Language, Token
 
 
 class Keyboard:
@@ -20,16 +20,16 @@ class Keyboard:
     @staticmethod
     def submission_category(language: Language) -> ReplyKeyboardMarkup:
         submit_category_keyboard = [
-            [get_language_token(language, Token.FORMS_SPECIAL_MEANING), get_language_token(language, Token.DOES_NOT_FORM_SPECIAL_MEANING)],
-            [get_language_token(language, Token.CANCEL)],
+            [language.get(Token.FORMS_SPECIAL_MEANING), language.get(Token.DOES_NOT_FORM_SPECIAL_MEANING)],
+            [language.get(Token.CANCEL)],
         ]
         return ReplyKeyboardMarkup(submit_category_keyboard)
 
     @staticmethod
     def language_selection(language: Language) -> ReplyKeyboardMarkup:
         language_change_keyboard = [
-            [get_language_token(language, Token.LANGUAGE_ENGLISH)],
-            [get_language_token(language, Token.LANGUAGE_TURKISH)],
+            [language.get(Token.LANGUAGE_ENGLISH)],
+            [language.get(Token.LANGUAGE_TURKISH)],
         ]
         return ReplyKeyboardMarkup(language_change_keyboard)
 
@@ -40,9 +40,9 @@ class Keyboard:
     @staticmethod
     def review_keyboard(language: Language):
         review_keyboard = [
-            [get_language_token(language, Token.AGREE_NICE_EXAMPLE)],
-            [get_language_token(language, Token.DO_NOT_LIKE_EXAMPLE)],
-            [get_language_token(language, Token.SKIP_THIS_ONE)],
-            [get_language_token(language, Token.QUIT_REVIEWING)]
+            [language.get(Token.AGREE_NICE_EXAMPLE)],
+            [language.get(Token.DO_NOT_LIKE_EXAMPLE)],
+            [language.get(Token.SKIP_THIS_ONE)],
+            [language.get(Token.QUIT_REVIEWING)]
         ]
         return ReplyKeyboardMarkup(review_keyboard)

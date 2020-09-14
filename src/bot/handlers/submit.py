@@ -5,14 +5,14 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
-from api.submission import add_submission_using_doc, get_submission_hash
+from api.submission import add_submission_using_doc
 from api.user import mute_user, unmute_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.time_helper import get_time_in_turkey
 from bot.helpers.user_helper import reply_to
 from config import mwexpress_config
-from i18n import get_language_token, Token, get_random_congrats_message
+from i18n import Token, get_random_congrats_message
 from models import User, Mwe
 from nlp.stanza import process_sentence
 
@@ -54,7 +54,7 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
         _safe_delete_context_data(context, "submission_words")
         _safe_delete_context_data(context, "doc")
         _safe_delete_context_data(context, "mwe_indices")
-        reply_to(user, update, get_language_token(user.language, Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
+        reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
                  reply_markup=Keyboard.main(user.language))
 
 
@@ -63,7 +63,7 @@ def start_submit_handler(user: User, update: Update, context: CallbackContext) -
     todays_mwe = get_todays_mwe(user.language)
     context.user_data["sub_state"] = "typing_example"
     reply_to(user, update,
-             get_language_token(user.language, Token.PLEASE_ENTER_EXAMPLE) % todays_mwe.name,
+             user.language.get(Token.PLEASE_ENTER_EXAMPLE) % todays_mwe.name,
              reply_markup=Keyboard.remove())
 
 
@@ -78,7 +78,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     if len(doc.sentences) > 1:
         reply_to(user, update,
-                 get_language_token(user.language, Token.PLEASE_ENTER_ONE_SENTENCE) % len(doc.sentences))
+                 user.language.get(Token.PLEASE_ENTER_ONE_SENTENCE) % len(doc.sentences))
         return
 
     submission_lemmas = [x.lemma for x in doc.iter_words()]
@@ -88,7 +88,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     if not submission_contains_mwe(todays_mwe, submission_lemmas):
         reply_to(user, update,
-                 get_language_token(user.language, Token.SUBMISSION_DOES_NOT_CONTAIN_MWE) % todays_mwe.name)
+                 user.language.get(Token.SUBMISSION_DOES_NOT_CONTAIN_MWE) % todays_mwe.name)
         return
 
     # Duplicate check
@@ -114,31 +114,31 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
     submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
-    submission_mwe_lemmas_str += "* %s *%s" % (get_language_token(user.language, Token.AND), submission_mwe_lemmas[-1])
+    submission_mwe_lemmas_str += "* %s *%s" % (user.language.get(Token.AND), submission_mwe_lemmas[-1])
 
     context.user_data["sub_state"] = "choosing_category"
     reply_to(user, update,
-             get_language_token(user.language, Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
+             user.language.get(Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
              Keyboard.submission_category(user.language))
 
 
 def submit_category_handler(user: User, update: Update, context: CallbackContext) -> None:
     available_inputs = [
-        get_language_token(user.language, Token.FORMS_SPECIAL_MEANING),
-        get_language_token(user.language, Token.DOES_NOT_FORM_SPECIAL_MEANING),
-        get_language_token(user.language, Token.CANCEL)
+        user.language.get(Token.FORMS_SPECIAL_MEANING),
+        user.language.get(Token.DOES_NOT_FORM_SPECIAL_MEANING),
+        user.language.get(Token.CANCEL)
     ]
     if update.message.text not in available_inputs:
         reply_to(user, update,
-                 get_language_token(user.language, Token.ENTER_VALID_MWE_CATEGORY),
+                 user.language.get(Token.ENTER_VALID_MWE_CATEGORY),
                  Keyboard.submission_category(user.language))
         return
 
-    if update.message.text == get_language_token(user.language, Token.CANCEL):
+    if update.message.text == user.language.get(Token.CANCEL):
         clear_state(context)
         unmute_user(user.id)
         reply_to(user, update,
-                 get_language_token(user.language, Token.OPERATION_CANCELLED),
+                 user.language.get(Token.OPERATION_CANCELLED),
                  Keyboard.main(user.language))
         return
 
@@ -146,7 +146,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
 
     doc = context.user_data["doc"]
     todays_mwe = get_todays_mwe(user.language)
-    positive = update.message.text == get_language_token(user.language, Token.FORMS_SPECIAL_MEANING)
+    positive = update.message.text == user.language.get(Token.FORMS_SPECIAL_MEANING)
     submission = add_submission_using_doc(user, doc, todays_mwe, mwe_indices, positive)
 
     clear_state(context)
@@ -159,7 +159,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     del context.user_data["mwe_indices"]
 
     reply_to(user, update,
-             get_language_token(user.language, Token.THANKS_FOR_SUBMISSION) % (
+             user.language.get(Token.THANKS_FOR_SUBMISSION) % (
                  get_random_congrats_message(user.language), submission.points),
              Keyboard.main(user.language))
 

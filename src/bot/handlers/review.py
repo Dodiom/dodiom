@@ -10,7 +10,7 @@ from bot.helpers.time_helper import get_time_in_turkey
 from bot.helpers.user_helper import reply_to, send_message_to_user
 from config import mwexpress_config
 from database import session
-from i18n import get_language_token, Token, get_random_congrats_message
+from i18n import Token, get_random_congrats_message
 from models import Submission, User, SubmissionCategory, ReviewCategory
 from api.review import add_review
 
@@ -35,7 +35,7 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
         unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
         reply_to(user, update,
-                 get_language_token(user.language, Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
+                 user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
                  reply_markup=Keyboard.main(user.language))
 
 
@@ -51,12 +51,12 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
 
         if submission.category == SubmissionCategory.POSITIVE_SEPARATED or \
                 submission.category == SubmissionCategory.POSITIVE_TOGETHER:
-            review_question = get_language_token(user.language, Token.REVIEW_QUESTION_POSITIVE)\
+            review_question = user.language.get(Token.REVIEW_QUESTION_POSITIVE)\
                               % (submission.value, ",".join(submission.mwe_words))
             reply_to(user, update, review_question,
                      Keyboard.review_keyboard(user.language))
         else:
-            review_question = get_language_token(user.language, Token.REVIEW_QUESTION_NEGATIVE) \
+            review_question = user.language.get(Token.REVIEW_QUESTION_NEGATIVE) \
                               % (submission.value, ",".join(submission.mwe_words))
             reply_to(user, update, review_question,
                      Keyboard.review_keyboard(user.language))
@@ -64,40 +64,40 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         clear_state(context)
         if "submission" in context.user_data:
             del context.user_data["submission"]
-        reply_to(user, update, get_language_token(user.language, Token.NO_SUBMISSIONS),
+        reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
                  Keyboard.main(user.language))
 
 
 def _review_answer_handler(user: User, update: Update, context: CallbackContext):
     mute_user(user.id)
     available_inputs = [
-        get_language_token(user.language, Token.AGREE_NICE_EXAMPLE),
-        get_language_token(user.language, Token.DO_NOT_LIKE_EXAMPLE),
-        get_language_token(user.language, Token.SKIP_THIS_ONE),
-        get_language_token(user.language, Token.QUIT_REVIEWING)
+        user.language.get(Token.AGREE_NICE_EXAMPLE),
+        user.language.get(Token.DO_NOT_LIKE_EXAMPLE),
+        user.language.get(Token.SKIP_THIS_ONE),
+        user.language.get(Token.QUIT_REVIEWING)
     ]
 
     if update.message.text not in available_inputs:
         reply_to(user, update,
-                 get_language_token(user.language, Token.PLEASE_ENTER_VALID_REVIEW),
+                 user.language.get(Token.PLEASE_ENTER_VALID_REVIEW),
                  Keyboard.review_keyboard(user.language))
         return
 
     submission = context.user_data["submission"]
 
-    if update.message.text == get_language_token(user.language, Token.AGREE_NICE_EXAMPLE):
+    if update.message.text == user.language.get(Token.AGREE_NICE_EXAMPLE):
         add_review(user, submission, ReviewCategory.LIKE)
         if not submission.user.muted:
             send_message_to_user(context.bot, submission.user,
-                                 get_language_token(submission.user.language, Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (get_random_congrats_message(submission.user.language), submission.points))
-    elif update.message.text == get_language_token(user.language, Token.DO_NOT_LIKE_EXAMPLE):
+                                 user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (get_random_congrats_message(submission.user.language), submission.points))
+    elif update.message.text == user.language.get(Token.DO_NOT_LIKE_EXAMPLE):
         add_review(user, submission, ReviewCategory.DISLIKE)
-    elif update.message.text == get_language_token(user.language, Token.SKIP_THIS_ONE):
+    elif update.message.text == user.language.get(Token.SKIP_THIS_ONE):
         add_review(user, submission, ReviewCategory.SKIP)
     else:
         unmute_user(user.id)
         reply_to(user, update,
-                 get_language_token(user.language, Token.OPERATION_CANCELLED),
+                 user.language.get(Token.OPERATION_CANCELLED),
                  Keyboard.main(user.language))
         del context.user_data["submission"]
         clear_state(context)

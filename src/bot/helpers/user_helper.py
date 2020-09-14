@@ -3,7 +3,7 @@ from typing import Optional
 
 from telegram import Update, ParseMode, Bot, ReplyMarkup
 
-from api.user import get_user, add_user, add_user_with_id
+from api.user import get_user, add_user_with_id
 from database import database
 from i18n import Language
 from models import User
