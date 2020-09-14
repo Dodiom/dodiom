@@ -3,3 +3,6 @@ python-telegram-bot
 psycopg2
 stanza
 seqlog
+schedule
+pytz
+envparse

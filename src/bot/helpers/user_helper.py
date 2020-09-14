@@ -3,27 +3,23 @@ from typing import Optional
 
 from telegram import Update, ParseMode, Bot, ReplyMarkup
 
+from api.user import get_user, add_user, add_user_with_id
 from database import database
 from i18n import Language
 from models import User
-from api.main import api
 
 
 def get_user_from_update(update: Update) -> User:
     session = database.get_session()
-    user = api.get_user(update.effective_user.id)
+    user = get_user(update.effective_user.id)
 
     if user is None:
-        new_user = User(
-            id=update.effective_user.id,
-            username=update.effective_user.username,
-            language=Language.ENGLISH,
-            score=0.0,
-            score_today=0.0,
-            viewed_help=False)
-        if new_user.username is None:
-            new_user.username = str(new_user.id)
-        return api.add_user_object(new_user)
+        username = update.effective_user.username
+        if username is None:
+            username = update.effective_user.id
+        return add_user_with_id(update.effective_user.id,
+                                username,
+                                Language.TURKISH)
     else:
         if (user.username == str(user.id) or user.username is None) and update.effective_user.username is not None:
             user.username = update.effective_user.username
@@ -32,10 +28,12 @@ def get_user_from_update(update: Update) -> User:
     return user
 
 
-def send_message_to_user(bot: Bot, user: User, msg: str) -> None:
+def send_message_to_user(bot: Bot, user: User, msg: str,
+                         reply_markup: ReplyMarkup = None) -> None:
     bot.send_message(chat_id=user.id,
                      text=msg,
-                     parse_mode=ParseMode.MARKDOWN)
+                     parse_mode=ParseMode.MARKDOWN,
+                     reply_markup=reply_markup)
 
 
 def reply_to(user: User, update: Update, message: str,

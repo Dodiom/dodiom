@@ -7,10 +7,9 @@ class Keyboard:
     @staticmethod
     def main(language: Language) -> ReplyKeyboardMarkup:
         main_keyboard = [
-            [get_language_token(language, Token.TODAYS_MWE), get_language_token(language, Token.SUBMIT)],
-            [get_language_token(language, Token.REVIEW), get_language_token(language, Token.HELP)],
-            [get_language_token(language, Token.SHOW_SCOREBOARD), get_language_token(language, Token.CHANGE_LANGUAGE)],
-            [get_language_token(language, Token.FEEDBACK)]
+            [language.get(Token.TODAYS_MWE), language.get(Token.SUBMIT)],
+            [language.get(Token.REVIEW), language.get(Token.HELP)],
+            [language.get(Token.SHOW_SCOREBOARD), language.get(Token.CHANGE_LANGUAGE)]
         ]
         return ReplyKeyboardMarkup(main_keyboard)
 

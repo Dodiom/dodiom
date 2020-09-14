@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 import hashlib
 
@@ -45,7 +46,8 @@ def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
         mwe_words=[submission_words[x] for x in mwe_indices],
         mwe_indices=mwe_indices,
         conllu=cupt.doc_to_cupt(doc, mwe.id, mwe.category, [x + 1 for x in mwe_indices]),
-        hash=get_submission_hash(doc)
+        hash=get_submission_hash(doc),
+        created=datetime.now()
     )
     session.add(submission)
     session.commit()

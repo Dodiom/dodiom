@@ -57,7 +57,7 @@ def message(update: Update, context: CallbackContext):
                 )
 
     except Exception as ex:
-        logging.error(str(ex))
+        logging.exception(str(ex))
         update.message.reply_text(str(ex))
 
 

@@ -1,9 +1,11 @@
 import enum
+import uuid
 from enum import auto
 from typing import List
 
-from sqlalchemy import Column, Integer, Date, String, ForeignKey, Enum, Boolean, ARRAY, Float, Text, select, func, \
-    BigInteger
+from sqlalchemy import Column, Integer, Date, String, ForeignKey, \
+    Enum, Boolean, ARRAY, Float, Text, select, func, DateTime
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, column_property
 
@@ -58,6 +60,7 @@ class Review(Base):
 
     id = Column(Integer, primary_key=True)
     review_type = Column(Enum(ReviewCategory))
+    created = Column(DateTime)
 
     mwe_id = Column(Integer, ForeignKey('mwes.id'))
     mwe = relationship("Mwe", back_populates="reviews")
@@ -100,6 +103,7 @@ class Submission(Base):
     mwe_indices = Column(ARRAY(Integer))
     conllu = Column(Text)
     hash = Column(String)
+    created = Column(DateTime)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="submissions")
@@ -120,13 +124,40 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
-    language = Column(Enum(Language))
+    language: Language = Column(Enum(Language))
     viewed_help = Column(Boolean)
     score = Column(Float)
-    score_today = Column(Float)
+    score_today_en = Column(Float)
+    score_today_tr = Column(Float)
+    muted = Column(Boolean)
+    created = Column(DateTime)
 
-    submissions = relationship("Submission", back_populates="user")
-    reviews = relationship("Review", back_populates="user")
+    submissions: List[Submission] = relationship("Submission", back_populates="user")
+    reviews: List[Review] = relationship("Review", back_populates="user")
 
     def __repr__(self):
         return "<User(id='%s', name='%s')>" % (self.id, self.username)
+
+    def score_today(self) -> float:
+        if self.language == Language.ENGLISH:
+            return self.score_today_en
+        elif self.language == Language.TURKISH:
+            return self.score_today_tr
+        else:
+            return -1
+
+
+class FeedbackData(Base):
+    __tablename__ = 'feedback_data'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship("User")
+
+    submission_count = Column(Integer)
+    review_count = Column(Integer)
+    created = Column(DateTime)
+
+    def __repr__(self):
+        return "<Feedback(id='%s')>" % self.id

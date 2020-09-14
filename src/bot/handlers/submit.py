@@ -6,13 +6,15 @@ from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
 from api.submission import add_submission_using_doc, get_submission_hash
+from api.user import mute_user, unmute_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
+from bot.helpers.time_helper import get_time_in_turkey
 from bot.helpers.user_helper import reply_to
+from config import mwexpress_config
 from i18n import get_language_token, Token, get_random_congrats_message
-from models import User, Mwe, Submission
+from models import User, Mwe
 from nlp.stanza import process_sentence
-from database import session
 
 """
 SUBMISSION
@@ -34,12 +36,26 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
         if "sub_state" in context.user_data \
         else None
 
-    if sub_state is None:
-        start_submit_handler(user, update, context)
-    elif sub_state == "typing_example":
-        submit_message_handler(user, update, context)
-    elif sub_state == "choosing_category":
-        submit_category_handler(user, update, context)
+    turkey_time = get_time_in_turkey()
+    if mwexpress_config.start_hour <= turkey_time.hour < mwexpress_config.end_hour:
+        mute_user(user.id)
+        if sub_state is None:
+            start_submit_handler(user, update, context)
+        elif sub_state == "typing_example":
+            submit_message_handler(user, update, context)
+        elif sub_state == "choosing_category":
+            submit_category_handler(user, update, context)
+    else:
+        unmute_user(user.id)
+        clear_state(context)
+        _safe_delete_context_data(context, "sub_state")
+        _safe_delete_context_data(context, "submission_value")
+        _safe_delete_context_data(context, "submission_lemmas")
+        _safe_delete_context_data(context, "submission_words")
+        _safe_delete_context_data(context, "doc")
+        _safe_delete_context_data(context, "mwe_indices")
+        reply_to(user, update, get_language_token(user.language, Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
+                 reply_markup=Keyboard.main(user.language))
 
 
 def start_submit_handler(user: User, update: Update, context: CallbackContext) -> None:
@@ -76,11 +92,11 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
         return
 
     # Duplicate check
-    submission_hash = get_submission_hash(doc)
-    if session.query(Submission).filter(Submission.hash == submission_hash).count() > 0:
-        reply_to(user, update,
-                 get_language_token(user.language, Token.DUPLICATE_SUBMISSION))
-        return
+    # submission_hash = get_submission_hash(doc)
+    # if session.query(Submission).filter(Submission.hash == submission_hash).count() > 0:
+    #     reply_to(user, update,
+    #              get_language_token(user.language, Token.DUPLICATE_SUBMISSION))
+    #     return
 
     # Find MWE position
     mwe_lemma_positions = dict()
@@ -120,6 +136,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
 
     if update.message.text == get_language_token(user.language, Token.CANCEL):
         clear_state(context)
+        unmute_user(user.id)
         reply_to(user, update,
                  get_language_token(user.language, Token.OPERATION_CANCELLED),
                  Keyboard.main(user.language))
@@ -133,6 +150,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     submission = add_submission_using_doc(user, doc, todays_mwe, mwe_indices, positive)
 
     clear_state(context)
+    unmute_user(user.id)
     del context.user_data["sub_state"]
     del context.user_data["submission_value"]
     del context.user_data["submission_lemmas"]
@@ -151,3 +169,8 @@ def submission_contains_mwe(mwe: Mwe, submission: List[str]) -> bool:
         if mwe_lemma not in submission:
             return False
     return True
+
+
+def _safe_delete_context_data(context: CallbackContext, name: str) -> None:
+    if name in context.user_data:
+        del context.user_data[name]

@@ -1,4 +1,4 @@
-from api.main import api
+from api.user import add_user
 from api.mwe import get_todays_mwe
 from api.submission import add_submission_using_text
 from api.review import add_review
@@ -12,9 +12,9 @@ def load_test_data() -> None:
 
     todays_mwe_en = get_todays_mwe(Language.ENGLISH)
 
-    jake = api.add_user("jake", Language.ENGLISH)
-    amy = api.add_user("amy", Language.ENGLISH)
-    boyle = api.add_user("boyle", Language.ENGLISH)
+    jake = add_user("jake", Language.ENGLISH)
+    amy = add_user("amy", Language.ENGLISH)
+    boyle = add_user("boyle", Language.ENGLISH)
 
     sub1 = add_submission_using_text(jake, "I give up.", todays_mwe_en, [1, 2],
                                      True)

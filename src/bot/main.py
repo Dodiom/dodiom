@@ -18,4 +18,7 @@ class MWExpress:
     def listen(self):
         logging.info("Listening Telegram for connections...")
         self.updater.start_polling()
-        self.updater.idle()
+        # self.updater.idle()
+
+
+mwexpress_bot = MWExpress()

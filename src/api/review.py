@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from database import session
+from i18n import Language
 from models import User, Submission, ReviewCategory, Review
 
 
@@ -10,12 +13,17 @@ def add_review(user: User, submission: Submission,
         user=user,
         submission=submission,
         review_type=category,
-        mwe=submission.mwe
+        mwe=submission.mwe,
+        created=datetime.now()
     )
     if category == ReviewCategory.LIKE:
-        submission.user.score_today += submission.points
+        if submission.language == Language.ENGLISH:
+            submission.user.score_today_en += submission.points
+            user.score_today_en += 1
+        elif submission.language == Language.TURKISH:
+            submission.user.score_today_tr += submission.points
+            user.score_today_tr += 1
         submission.user.score += submission.points
-    user.score_today += 1
     user.score += 1
     session.add(review)
     session.commit()

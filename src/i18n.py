@@ -2,17 +2,6 @@ from enum import Enum, auto
 import random
 
 
-class Language(Enum):
-    ENGLISH = auto(),
-    TURKISH = auto()
-
-    def __str__(self):
-        return self.name
-
-    def __repr__(self):
-        return self.name
-
-
 class Token(Enum):
     MAIN_KEYBOARD = auto()
     TODAYS_MWE = auto()
@@ -70,6 +59,26 @@ class Token(Enum):
     FEEDBACK_URL = auto()
     DUPLICATE_SUBMISSION = auto()
     YOU = auto()
+    GAME_HOURS_FINISHED = auto()
+    GAME_STARTED = auto()
+    GAME_ENDED = auto()
+
+
+class Language(Enum):
+    ENGLISH = auto(),
+    TURKISH = auto()
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+    def get(self, token: Token):
+        if self == Language.ENGLISH:
+            return lang_en[token]
+        elif self == Language.TURKISH:
+            return lang_tr[token]
 
 
 lang_en = {
@@ -79,8 +88,8 @@ lang_en = {
     Token.CHANGE_LANGUAGE: "Change language",
     Token.SUGGEST_MWE: "Suggest MWE",
     Token.SHOW_SCOREBOARD: "Show Scoreboard",
-    Token.LANGUAGE_ENGLISH: "English (EN)",
-    Token.LANGUAGE_TURKISH: "Türkçe (TR)",
+    Token.LANGUAGE_ENGLISH: "English (EN) 🇬🇧",
+    Token.LANGUAGE_TURKISH: "Türkçe (TR) 🇹🇷",
     Token.TODAYS_MWE_REPLY_TEXT: "Today's MWE is '*%s*', meaning: _%s_",
     Token.SELECT_LANGUAGE: "Please select a language",
     Token.LANGUAGE_CHANGE_SUCCESSFUL: "Language set to *English*.",
@@ -152,9 +161,13 @@ occurrences of the word *%s*, can you help me decide which one belongs to the MW
     Token.FEEDBACK: "Send Feedback",
     Token.FEEDBACK_MESSAGE: "Thank you for your interest, you can send a feedback using \
 following link.",
-    Token.FEEDBACK_URL: "https://forms.gle/hPA8LNptA1GSPLnf8",
+    Token.FEEDBACK_URL: "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
     Token.DUPLICATE_SUBMISSION: "A similar submission exists, please send another one.",
-    Token.YOU: "You"
+    Token.YOU: "You",
+    Token.GAME_HOURS_FINISHED: "Game is finished for today, you should wait for \
+%d am. to play.",
+    Token.GAME_STARTED: "Good morning, the game is started.",
+    Token.GAME_ENDED: "The game is ended for today, thank you for playing."
 }
 
 lang_tr = {
@@ -164,8 +177,8 @@ lang_tr = {
     Token.CHANGE_LANGUAGE: "Dili değiştir",
     Token.SUGGEST_MWE: "Yeni MWE öner",
     Token.SHOW_SCOREBOARD: "Sıralamaları göster",
-    Token.LANGUAGE_ENGLISH: "English (EN)",
-    Token.LANGUAGE_TURKISH: "Türkçe (TR)",
+    Token.LANGUAGE_ENGLISH: "English (EN) 🇬🇧",
+    Token.LANGUAGE_TURKISH: "Türkçe (TR) 🇹🇷",
     Token.TODAYS_MWE_REPLY_TEXT: "Bugünün MWEsi '*%s*', anlamı da: _%s_",
     Token.SELECT_LANGUAGE: "Lütfen bir dil seçin",
     Token.LANGUAGE_CHANGE_SUCCESSFUL: "Dil *Türkçe* olarak ayarlandı.",
@@ -235,11 +248,15 @@ ediyor denmiş, buna katılıyor musunuz?",
     Token.MULTIPLE_LEMMA_OCCURRENCE: "Gönderinizde *%s* kelimesi birden fazla yerde geçiyor, MWE'nin \
 içindeki kullanım hangisinde bulmama yardımcı olabilir misin?",
     Token.FEEDBACK: "Geri bildirim gönder",
-    Token.FEEDBACK_MESSAGE: "İlginiz için teşekkürler, geri bildirim yapmak için\
+    Token.FEEDBACK_MESSAGE: "İlginiz için teşekkürler, geri bildirim yapmak için \
 aşağıdaki linki kullanabilirsiniz.",
-    Token.FEEDBACK_URL: "https://forms.gle/6vueZwyF54arkCmMA",
+    Token.FEEDBACK_URL: "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
     Token.DUPLICATE_SUBMISSION: "Benzer bir gönderi daha önce gönderilmiş, lütfen başka bir örnek girin.",
-    Token.YOU: "Sen"
+    Token.YOU: "Sen",
+    Token.GAME_HOURS_FINISHED: "Oyun bugünlük bitti, yeni günün onunu saat \
+%d'da tekrar başlayacak.",
+    Token.GAME_STARTED: "Günaydın, oyun başladı.",
+    Token.GAME_ENDED: "Oyun bugünlük bitti, oynadığınız için teşekkürler."
 }
 
 
