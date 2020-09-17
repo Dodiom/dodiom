@@ -42,7 +42,7 @@ def message(update: Update, context: CallbackContext):
             elif update.message.text == user.language.get(Token.CHANGE_LANGUAGE):
                 language_change_handler(user, update, context)
             elif update.message.text == user.language.get(Token.HELP):
-                help_handler(user, update)
+                help_handler(user, update, context)
             elif update.message.text == user.language.get(Token.REVIEW):
                 main_review_handler(user, update, context)
             elif update.message.text == user.language.get(Token.FEEDBACK):
@@ -63,3 +63,13 @@ def message(update: Update, context: CallbackContext):
 
 
 message_handler = MessageHandler(Filters.text, message)
+
+
+def sticker(update: Update, context: CallbackContext):
+    print(update.message.text)
+    context.bot.send_sticker(update.effective_chat.id, update.message.sticker.file_id)
+    print(update.message.sticker.file_id)
+    pass
+
+
+sticker_handler = MessageHandler(Filters.sticker, sticker)

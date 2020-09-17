@@ -1,3 +1,5 @@
+import random
+from datetime import datetime
 from typing import List
 import itertools
 
@@ -9,8 +11,8 @@ from api.submission import add_submission_using_doc
 from api.user import mute_user, unmute_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
-from bot.helpers.time_helper import get_time_in_turkey
-from bot.helpers.user_helper import reply_to
+from bot.helpers.tip_helper import send_i_need_submission_category_message
+from bot.helpers.user_helper import reply_to, reply_html
 from config import mwexpress_config
 from i18n import Token, get_random_congrats_message
 from models import User, Mwe
@@ -36,8 +38,8 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
         if "sub_state" in context.user_data \
         else None
 
-    turkey_time = get_time_in_turkey()
-    if mwexpress_config.start_hour <= turkey_time.hour < mwexpress_config.end_hour:
+    now = datetime.now().time()
+    if mwexpress_config.start_time <= now < mwexpress_config.end_time:
         mute_user(user.id)
         if sub_state is None:
             start_submit_handler(user, update, context)
@@ -47,14 +49,8 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
             submit_category_handler(user, update, context)
     else:
         unmute_user(user.id)
-        clear_state(context)
-        _safe_delete_context_data(context, "sub_state")
-        _safe_delete_context_data(context, "submission_value")
-        _safe_delete_context_data(context, "submission_lemmas")
-        _safe_delete_context_data(context, "submission_words")
-        _safe_delete_context_data(context, "doc")
-        _safe_delete_context_data(context, "mwe_indices")
-        reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
+        _clear_context(context)
+        reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
                  reply_markup=Keyboard.main(user.language))
 
 
@@ -62,9 +58,16 @@ def start_submit_handler(user: User, update: Update, context: CallbackContext) -
     """ Starts the submission cycle for user. """
     todays_mwe = get_todays_mwe(user.language)
     context.user_data["sub_state"] = "typing_example"
-    reply_to(user, update,
-             user.language.get(Token.PLEASE_ENTER_EXAMPLE) % todays_mwe.name,
-             reply_markup=Keyboard.remove())
+    reply_html(user, update,
+               user.language.get(Token.PLEASE_ENTER_EXAMPLE) % _get_word_list_str_from_mwe(todays_mwe),
+               reply_markup=Keyboard.remove())
+
+
+def _get_word_list_str_from_mwe(mwe: Mwe):
+    mwe_words = [f"<b><u>{x}</u></b>" for x in mwe.lemmas]
+    first_ones = mwe_words[:-1]
+    last_one = mwe_words[-1]
+    return f'{", ".join(first_ones)} {mwe.language.get(Token.AND)} {last_one}'
 
 
 def submit_message_handler(user: User, update: Update, context: CallbackContext) -> None:
@@ -88,7 +91,8 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     if not submission_contains_mwe(todays_mwe, submission_lemmas):
         reply_to(user, update,
-                 user.language.get(Token.SUBMISSION_DOES_NOT_CONTAIN_MWE) % todays_mwe.name)
+                 user.language.get(Token.SUBMISSION_DOES_NOT_CONTAIN_MWE) % todays_mwe.name,
+                 reply_markup=Keyboard.remove())
         return
 
     # Duplicate check
@@ -114,12 +118,12 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
     submission_mwe_lemmas_str = ", ".join(submission_mwe_lemmas[:-1])
-    submission_mwe_lemmas_str += "* %s *%s" % (user.language.get(Token.AND), submission_mwe_lemmas[-1])
+    submission_mwe_lemmas_str += "</u></b> %s <b><u>%s" % (user.language.get(Token.AND), submission_mwe_lemmas[-1])
 
     context.user_data["sub_state"] = "choosing_category"
-    reply_to(user, update,
-             user.language.get(Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
-             Keyboard.submission_category(user.language))
+    reply_html(user, update,
+               user.language.get(Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
+               Keyboard.submission_category(user.language))
 
 
 def submit_category_handler(user: User, update: Update, context: CallbackContext) -> None:
@@ -149,19 +153,25 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     positive = update.message.text == user.language.get(Token.FORMS_SPECIAL_MEANING)
     submission = add_submission_using_doc(user, doc, todays_mwe, mwe_indices, positive)
 
-    clear_state(context)
     unmute_user(user.id)
-    del context.user_data["sub_state"]
-    del context.user_data["submission_value"]
-    del context.user_data["submission_lemmas"]
-    del context.user_data["submission_words"]
-    del context.user_data["doc"]
-    del context.user_data["mwe_indices"]
+    _clear_context(context)
 
     reply_to(user, update,
              user.language.get(Token.THANKS_FOR_SUBMISSION) % (
                  get_random_congrats_message(user.language), submission.points),
              Keyboard.main(user.language))
+    if random.random() < 0.2:
+        send_i_need_submission_category_message(user, update, submission.category)
+
+
+def _clear_context(context: CallbackContext):
+    clear_state(context)
+    _safe_delete_context_data(context, "sub_state")
+    _safe_delete_context_data(context, "submission_value")
+    _safe_delete_context_data(context, "submission_lemmas")
+    _safe_delete_context_data(context, "submission_words")
+    _safe_delete_context_data(context, "doc")
+    _safe_delete_context_data(context, "mwe_indices")
 
 
 def submission_contains_mwe(mwe: Mwe, submission: List[str]) -> bool:

@@ -9,7 +9,7 @@ class Keyboard:
         main_keyboard = [
             [language.get(Token.TODAYS_MWE), language.get(Token.SUBMIT)],
             [language.get(Token.REVIEW), language.get(Token.HELP)],
-            [language.get(Token.SHOW_SCOREBOARD), language.get(Token.CHANGE_LANGUAGE)]
+            [language.get(Token.SHOW_SCOREBOARD)]
         ]
         return ReplyKeyboardMarkup(main_keyboard)
 

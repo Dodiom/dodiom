@@ -30,7 +30,7 @@ class Token(Enum):
     ENTER_VALID_COMMAND = auto()
     SUBMISSION_DOES_NOT_CONTAIN_MWE = auto()
     CANCEL = auto()
-    OPERATION_CANCELLED = auto()
+    REVIEW_CANCELLED = auto()
     HELP = auto()
     HELP_MESSAGE = auto()
     DOES_WORDS_FORM_SPECIAL_MEANING = auto()
@@ -47,6 +47,11 @@ class Token(Enum):
     GAME_HOURS_FINISHED = auto()
     GAME_STARTED = auto()
     GAME_ENDED = auto()
+    THANKS_FOR_REVIEW = auto()
+    I_NEED_PT_EXAMPLES = auto()
+    I_NEED_PS_EXAMPLES = auto()
+    I_NEED_NT_EXAMPLES = auto()
+    I_NEED_NS_EXAMPLES = auto()
 
 
 class Language(Enum):
@@ -69,7 +74,7 @@ class Language(Enum):
 translations = {
     Token.TODAYS_MWE: {
         "en": "Today's MWE",
-        "tr": "Bugünün MWEsi"
+        "tr": "Günün Deyimi"
     },
     Token.SUBMIT: {
         "en": "Submit",
@@ -96,12 +101,12 @@ translations = {
         "tr": "Türkçe (TR) 🇹🇷"
     },
     Token.TODAYS_MWE_REPLY_TEXT: {
-        "en": "Today's MWE is '*%s*', meaning: _%s_",
-        "tr": "Bugünün MWEsi '*%s*', anlamı da: _%s_"
+        "en": "Today's MWE is '<b><u>%s</u></b>', meaning: <i>%s</i>",
+        "tr": "Günün deyimi '<b><u>%s</u></b>', anlamı da: <i>%s</i>"
     },
     Token.SELECT_LANGUAGE: {
         "en": "Please select a language",
-        "tr": "Lütfen bir dil seçin"
+        "tr": "Lütfen bir dil seçin."
     },
     Token.LANGUAGE_CHANGE_SUCCESSFUL: {
         "en": "Language set to *English*.",
@@ -116,24 +121,24 @@ translations = {
         "tr": "MWExpress'e hoşgeldiniz, *%s*"
     },
     Token.PLEASE_ENTER_EXAMPLE: {
-        "en": "Please enter your example for the MWE: '*%s*'",
-        "tr": "Lütfen MWE '*%s*' için örneğinizi girin"
+        "en": "Please enter your example for the MWE: '<b><u>%s</u></b>'",
+        "tr": "Lütfen '%s' sözcüklerini  içeren örnek bir cümle girin."
     },
     Token.ENTER_VALID_MWE_CATEGORY: {
         "en": "Please enter a valid category",
         "tr": "Lütfen geçerli bir kategori seçin"
     },
     Token.THANKS_FOR_SUBMISSION: {
-        "en": "%s! Thank you for your submission, you'll win %.2f points when someone likes your example.",
-        "tr": "%s! Gönderiniz için teşekkürler, birisi sizin gönderinizi beğendiğinde %.2f puan kazanacaksınız."
+        "en": "%s! Thank you for your submission, you'll win %d points when someone likes your example.",
+        "tr": "%s! Gönderiniz için teşekkürler, birisi sizin gönderinizi beğendiğinde %d puan kazanacaksınız."
     },
     Token.AGREE_NICE_EXAMPLE: {
         "en": '👍 I agree. Nice example for this category',
-        "tr": '👍 Katılıyorum. Bu kategori için güzel bir örnek'
+        "tr": '👍 Katılıyorum. Doğru tespit.'
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
         "en": '👎 I do not like this example',
-        "tr": '👎 Bu örneği beğenmedim'
+        "tr": '👎 Bu örneği beğenmedim.'
     },
     Token.SKIP_THIS_ONE: {
         "en": '⏭ Skip this one',
@@ -165,15 +170,15 @@ translations = {
     },
     Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: {
         "en": "It looks like your submission does not contain todays MWE (*%s*), please enter again.",
-        "tr": "Öyle görünüyor ki girdiğin örnekte günün MWE'si (*%s*) bulunmamakta, lütfen tekrar gir."
+        "tr": "Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir."
     },
     Token.CANCEL: {
         "en": "Cancel",
         "tr": "İptal"
     },
-    Token.OPERATION_CANCELLED: {
-        "en": "Operation cancelled",
-        "tr": "İşlem iptal edildi."
+    Token.REVIEW_CANCELLED: {
+        "en": "Thank you for your reviews.",
+        "tr": "İncelemeleriniz için teşekkürler."
     },
     Token.HELP: {
         "en": "Help",
@@ -204,38 +209,27 @@ category.
 
 Have fun!
 """,
-        "tr": """\
-MWExpress'e hoşgeldiniz,
+        "tr": """
+Merhaba 😊 
 
-Bu oyunda iki mod bulunmaktadır. *Örnek gönderebilir* ya da diğerlerinin \
-gönderdiği örnekleri *inceleyebilirsiniz*.
+Dodo Türkçe öğrenmeye çalışıyor ancak Türkçe deyimleri öğrenmekte çok zorlanıyor. 
+Ona yardım eder misin? Senden ricamız Dodo’ya deyimlerin nasıl kullanıldığını anlaması için ona bol bol örnek vermen. 
 
-*MWE nedir?*
-TODO: Describe MWE here
+Dodo’nun deyim olan ve olmayan pek çok örneğe ihtiyacı var.
+Mesela “ayvayı yemek” deyimini öğrenmesi için 
+“İşte şimdi ayvayı yedik.” deyim örneği ve
+“Az önce iki ayva yedim.” deyim olmayan örneği olabilir.
 
-*MWE kategorileri nelerdir?*
-Bir örnek gönderdikten sonra sana örneğin kategorisinin ne olduğunu soracağız, \
-bu kategori basitçe örneğin MWE olup olmadığıyla ilgili. Örnek MWE olabilir \
-(pozitif)(mecazi anlammış gibi düşünün) ya da olmayabilir (negatif)(gerçek \
-anlamında kullanılmış gibi).
-Örneğin, MWE ayvayı yemek kötü bir duruma düşmek anlamında kullanılır ve eğer \
-_"İşte şimdi ayvayı yedim."_ gibi bu anlamda kullanılan bir cümle girerseniz \
-pozitif kategorisini seçin ama _"Annemin bana uzattığı ayvayı yedim."?_ gibi \
-bir cümle girerseniz ise negatif anlamı seçin çünkü bu cümlede ayvayı yemek \
-kötü bir duruma düşmekten ziyade meyve olan ayvayı yemek gibi gerçek anlamıyla \
-kullanılmış.
-İpucu: Eğer ikinci kategoride örnekler girerseniz daha yüksek puan alacaksınız.
-
-İyi eğlenceler!
+Hadi hemen Dodo’ya yardıma başla.
 """
     },
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
-        "en": "Do the words *%s* form a special meaning?",
-        "tr": "*%s* kelimeleri bu örnekte özel bir anlam ifade ediyor mu?"
+        "en": "Do the words <b><u>%s</u></b> form a special meaning?",
+        "tr": "<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?"
     },
     Token.FORMS_SPECIAL_MEANING: {
         "en": "Yes, they do",
-        "tr": "Evet, ediyor"
+        "tr": "Evet"
     },
     Token.DOES_NOT_FORM_SPECIAL_MEANING: {
         "en": "Nope",
@@ -246,16 +240,14 @@ kullanılmış.
         "tr": "ve"
     },
     Token.REVIEW_QUESTION_POSITIVE: {
-        "en": "In the sentence: \n\n%s\n\nIt's said that words %s does form a \
+        "en": "In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a \
 special meaning together, would you agree?",
-        "tr": "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
-ediyor denmiş, buna katılıyor musunuz?"
+        "tr": "%s\n\nCümlesinde %ssözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
-        "en": "In the sentence: \n\n%s\n\nIt's said that words %s does *not* form a \
+        "en": "%s\n\nIt's said that words %s does <b><u>not</u></b>❌ form a \
 special meaning together, would you agree?",
-        "tr": "%s\n\nCümlesinde %s kelimeleri birlikte özel bir anlam ifade \
-*etmiyor* denmiş, buna katılıyor musunuz?"
+        "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>kullanılMIyor</u></b>❌ denmiş, buna katılıyor musunuz?"
     },
     Token.PLEASE_ENTER_ONE_SENTENCE: {
         "en": "Your submission contains %d sentences, please enter just one sentence.",
@@ -281,7 +273,7 @@ aşağıdaki linki kullanabilirsiniz."
     },
     Token.GAME_HOURS_FINISHED: {
         "en": "Game is finished for today, you should wait for %d am. to play.",
-        "tr": "Oyun bugünlük bitti, yeni günün onunu saat %d'da tekrar başlayacak."
+        "tr": "Oyun bugünlük bitti, yeni günün oyunu saat %d'da tekrar başlayacak."
     },
     Token.GAME_STARTED: {
         "en": "Good morning, the game is started.",
@@ -290,6 +282,50 @@ aşağıdaki linki kullanabilirsiniz."
     Token.GAME_ENDED: {
         "en": "The game is ended for today, thank you for playing.",
         "tr": "Oyun bugünlük bitti, oynadığınız için teşekkürler."
+    },
+    Token.THANKS_FOR_REVIEW: {
+        "en": "%s! You earned %d points.",
+        "tr": "%s! %d puan kazandın."
+    },
+    Token.I_NEED_PT_EXAMPLES: {
+        "en": "",
+        "tr": """
+Eyvah, işte şimdi <b><u>ayvayı</u></b> <b><u>yedim</u></b>.
+
+Şu an buna benzer, deyimdeki kelimelerin yanyana geçtiği ve deyim olan örnekler arıyorum.
+
+Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
+"""
+    },
+    Token.I_NEED_PS_EXAMPLES: {
+        "en": "",
+        "tr": """
+Eyvah, işte <b><u>ayvayı</u></b> şimdi <b><u>yedim</u></b>.
+
+Şu an buna benzer, deyimdeki kelimelerin birbirinden uzakta olduğu ama deyim olan örnekler arıyorum.
+
+Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
+"""
+    },
+    Token.I_NEED_NT_EXAMPLES: {
+        "en": "",
+        "tr": """
+Annemin bana soyduğu <b><u>ayvayı</u></b> <b><u>yedim</u></b>.
+
+Şu an buna benzer, deyimdeki kelimelerin yanyana geçtiği ama deyim <u>olmayan</u> örnekler arıyorum.
+
+Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
+"""
+    },
+    Token.I_NEED_NS_EXAMPLES: {
+        "en": "",
+        "tr": """
+Annemin bana soyduğu <b><u>ayvayı</u></b> bir güzel <b><u>yedim</u></b>.
+
+Şu an buna benzer, deyimdeki kelimelerin birbirinden uzakta olduğu ve deyim <u>olmayan</u> örnekler arıyorum.
+
+Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
+"""
     }
 }
 

@@ -1,18 +1,21 @@
+from datetime import datetime
 from operator import and_
 
+from stanza.protobuf import Document
 from telegram import Update
 from telegram.ext import CallbackContext
 
+from api.mwe import get_todays_mwe
 from api.user import unmute_user, mute_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
-from bot.helpers.time_helper import get_time_in_turkey
-from bot.helpers.user_helper import reply_to, send_message_to_user
+from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from config import mwexpress_config
 from database import session
-from i18n import Token, get_random_congrats_message
-from models import Submission, User, SubmissionCategory, ReviewCategory
+from i18n import Token, get_random_congrats_message, Language
+from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe
 from api.review import add_review
+from nlp.stanza import nlp_en, nlp_tr
 
 
 def user_not_in_reviewers(submission: Submission, user: User) -> bool:
@@ -21,8 +24,8 @@ def user_not_in_reviewers(submission: Submission, user: User) -> bool:
 
 
 def main_review_handler(user: User, update: Update, context: CallbackContext):
-    turkey_time = get_time_in_turkey()
-    if mwexpress_config.start_hour <= turkey_time.hour < mwexpress_config.end_hour:
+    now = datetime.now().time()
+    if mwexpress_config.start_time <= now < mwexpress_config.end_time:
         set_state(context, State.REVIEWING)
 
         if "submission" in context.user_data:
@@ -34,14 +37,16 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
         clear_state(context)
         unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
-        reply_to(user, update,
-                 user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_hour,
+        reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
                  reply_markup=Keyboard.main(user.language))
 
 
 def _send_submission_to_review(user: User, update: Update, context: CallbackContext):
-    submissions = session.query(Submission).filter(
-        and_(Submission.user_id != user.id, Submission.language == user.language)).all()
+    todays_mwe = get_todays_mwe(user.language)
+    submissions = session.query(Submission)\
+        .filter(Submission.user != user)\
+        .filter(Submission.mwe == todays_mwe)\
+        .all()
     submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
     submissions = [x for x in submissions if user_not_in_reviewers(x, user)]
 
@@ -49,23 +54,38 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         submission: Submission = submissions[0]
         context.user_data["submission"] = submission
 
+        submission_doc = _get_submission_doc(submission)
+        review_example = submission.value
+        for index in reversed(sorted(submission.mwe_indices)):
+            start_index = submission_doc.sentences[0].tokens[index].start_char
+            end_index = submission_doc.sentences[0].tokens[index].end_char
+            review_example = review_example[:end_index] + "</u></b>" + review_example[end_index:]
+            review_example = review_example[:start_index] + "<b><u>" + review_example[start_index:]
+
         if submission.category == SubmissionCategory.POSITIVE_SEPARATED or \
                 submission.category == SubmissionCategory.POSITIVE_TOGETHER:
             review_question = user.language.get(Token.REVIEW_QUESTION_POSITIVE)\
-                              % (submission.value, ",".join(submission.mwe_words))
-            reply_to(user, update, review_question,
-                     Keyboard.review_keyboard(user.language))
+                              % (review_example, _get_word_list_str_from_submission(submission))
+            reply_html(user, update, review_question,
+                       Keyboard.review_keyboard(user.language))
         else:
             review_question = user.language.get(Token.REVIEW_QUESTION_NEGATIVE) \
-                              % (submission.value, ",".join(submission.mwe_words))
-            reply_to(user, update, review_question,
-                     Keyboard.review_keyboard(user.language))
+                              % (review_example, _get_word_list_str_from_submission(submission))
+            reply_html(user, update, review_question,
+                       Keyboard.review_keyboard(user.language))
     else:
         clear_state(context)
         if "submission" in context.user_data:
             del context.user_data["submission"]
         reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
                  Keyboard.main(user.language))
+
+
+def _get_word_list_str_from_submission(submission: Submission):
+    mwe_words = [f"<b><u>{x}</u></b>" for x in submission.mwe_words]
+    first_ones = mwe_words[:-1]
+    last_one = mwe_words[-1]
+    return f'{", ".join(first_ones)} {submission.language.get(Token.AND)} {last_one}'
 
 
 def _review_answer_handler(user: User, update: Update, context: CallbackContext):
@@ -87,19 +107,23 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
 
     if update.message.text == user.language.get(Token.AGREE_NICE_EXAMPLE):
         add_review(user, submission, ReviewCategory.LIKE)
+        reply_to(user, update,
+                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
         if not submission.user.muted:
             send_message_to_user(context.bot, submission.user,
                                  user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (get_random_congrats_message(submission.user.language), submission.points))
     elif update.message.text == user.language.get(Token.DO_NOT_LIKE_EXAMPLE):
         add_review(user, submission, ReviewCategory.DISLIKE)
+        reply_to(user, update,
+                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
     elif update.message.text == user.language.get(Token.SKIP_THIS_ONE):
         add_review(user, submission, ReviewCategory.SKIP)
     else:
         unmute_user(user.id)
         reply_to(user, update,
-                 user.language.get(Token.OPERATION_CANCELLED),
+                 user.language.get(Token.REVIEW_CANCELLED),
                  Keyboard.main(user.language))
-        del context.user_data["submission"]
+        _safe_delete_context_data(context, "submission")
         clear_state(context)
         return
 
@@ -109,3 +133,11 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
 def _safe_delete_context_data(context: CallbackContext, name: str) -> None:
     if name in context.user_data:
         del context.user_data[name]
+
+
+def _get_submission_doc(submission: Submission) -> Document:
+    if submission.language == Language.ENGLISH:
+        return nlp_en(submission.value)
+    elif submission.language == Language.TURKISH:
+        return nlp_tr(submission.value)
+    return None

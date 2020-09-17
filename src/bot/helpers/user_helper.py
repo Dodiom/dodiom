@@ -29,10 +29,11 @@ def get_user_from_update(update: Update) -> User:
 
 
 def send_message_to_user(bot: Bot, user: User, msg: str,
-                         reply_markup: ReplyMarkup = None) -> None:
+                         reply_markup: ReplyMarkup = None,
+                         parse_mode: ParseMode = ParseMode.MARKDOWN) -> None:
     bot.send_message(chat_id=user.id,
                      text=msg,
-                     parse_mode=ParseMode.MARKDOWN,
+                     parse_mode=parse_mode,
                      reply_markup=reply_markup)
 
 
@@ -49,4 +50,12 @@ def reply_to(user: User, update: Update, message: str,
     logging.info("Bot replied to {user_name} with: {message}",
                  user_name=user.username, user_id=user.id, message=message)
     update.message.reply_text(text=message, parse_mode=ParseMode.MARKDOWN,
+                              reply_markup=reply_markup)
+
+
+def reply_html(user: User, update: Update, message: str,
+               reply_markup: Optional[ReplyMarkup] = None) -> None:
+    logging.info("Bot replied to {user_name} with: {message}",
+                 user_name=user.username, user_id=user.id, message=message)
+    update.message.reply_text(text=message, parse_mode=ParseMode.HTML,
                               reply_markup=reply_markup)

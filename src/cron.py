@@ -3,6 +3,8 @@ import logging
 import schedule
 import time
 
+from telegram import ParseMode
+
 from api.mwe import get_todays_mwe
 from api.user import get_all_users
 from bot.helpers.keyboard_helper import Keyboard
@@ -21,7 +23,8 @@ def send_game_starting_message_to_all() -> None:
         todays_mwe = get_todays_mwe(user.language)
         send_message_to_user(mwexpress_bot.bot, user,
                              user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
-                             reply_markup=Keyboard.main(user.language))
+                             reply_markup=Keyboard.main(user.language),
+                             parse_mode=ParseMode.HTML)
     logging.info("Sent game started message to all users")
 
 
@@ -43,9 +46,11 @@ def clear_scores_for_today():
 
 
 def schedule_jobs():
-    schedule.every().day.at(f"{mwexpress_config.start_hour:02}:00").do(send_game_starting_message_to_all)
-    schedule.every().day.at(f"{mwexpress_config.end_hour}:00").do(send_game_over_message_to_all)
-    schedule.every().day.at("23:32").do(clear_scores_for_today)
+    schedule.every().day.at(mwexpress_config.start_time.strftime("%H:%M"))\
+        .do(send_game_starting_message_to_all)
+    schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
+        .do(send_game_over_message_to_all)
+    schedule.every().day.at("23:57").do(clear_scores_for_today)
 
 
 def run_scheduled_jobs():

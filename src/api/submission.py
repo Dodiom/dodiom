@@ -25,9 +25,10 @@ def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
     else:
         submission_category = SubmissionCategory.NEGATIVE_SEPARATED
 
-    submission_points = _get_category_score(
+    submission_points = get_category_score(
         user.language,
-        submission_category
+        submission_category,
+        mwe
     )
 
     submission_lemmas = [x.lemma for x in doc.iter_words()]
@@ -61,11 +62,13 @@ def add_submission_using_text(user: User, sentence: str, mwe: Mwe,
     return add_submission_using_doc(user, doc, mwe, mwe_indices, positive)
 
 
-def _get_category_score(language: Language, category: SubmissionCategory) -> float:
+def get_category_score(language: Language, category: SubmissionCategory,
+                        mwe: Mwe) -> float:
     all_submissions_count = session \
         .query(Submission) \
         .filter(Submission.language == language) \
         .filter(Submission.category == category) \
+        .filter(Submission.mwe == mwe) \
         .count()
     category_initial_points = {
         SubmissionCategory.POSITIVE_TOGETHER: 10,
@@ -73,11 +76,12 @@ def _get_category_score(language: Language, category: SubmissionCategory) -> flo
         SubmissionCategory.NEGATIVE_TOGETHER: 40,
         SubmissionCategory.NEGATIVE_SEPARATED: 30
     }
-    return round(_compound_interest(
+    score = round(_compound_interest(
         category_initial_points[category],
-        -0.05,
+        -0.02,
         all_submissions_count
-    ), 2)
+    ))
+    return score if score > 0 else 1
 
 
 def _compound_interest(p: int, r: float, n: float) -> float:
