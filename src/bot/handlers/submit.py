@@ -14,7 +14,7 @@ from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.tip_helper import send_i_need_submission_category_message
 from bot.helpers.user_helper import reply_to, reply_html
 from config import mwexpress_config
-from i18n import Token, get_random_congrats_message
+from i18n import Token, get_random_congrats_message, Language
 from models import User, Mwe
 from nlp.stanza import process_sentence
 
@@ -104,10 +104,10 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     # Find MWE position
     mwe_lemma_positions = dict()
-    for mwe_lemma in todays_mwe.lemmas:
+    for ix_tm, mwe_lemma in enumerate(todays_mwe.lemmas):
         mwe_lemma_positions[mwe_lemma] = []
         for ix, lemma in enumerate(submission_lemmas):
-            if lemma == mwe_lemma:
+            if lemma == mwe_lemma or check_turkish_mastar(todays_mwe, ix_tm, lemma):
                 mwe_lemma_positions[mwe_lemma].append(ix)
 
     xxxx = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
@@ -124,6 +124,12 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     reply_html(user, update,
                user.language.get(Token.DOES_WORDS_FORM_SPECIAL_MEANING) % submission_mwe_lemmas_str,
                Keyboard.submission_category(user.language))
+
+
+def check_turkish_mastar(mwe: Mwe, ix_tm: int, submission_lemma: str):
+    return mwe.language == Language.TURKISH and \
+           mwe.verb_indices[ix_tm] and (submission_lemma == mwe.lemmas[ix_tm] + "mek" or
+                                        submission_lemma == mwe.lemmas[ix_tm] + "mak")
 
 
 def submit_category_handler(user: User, update: Update, context: CallbackContext) -> None:
@@ -175,9 +181,16 @@ def _clear_context(context: CallbackContext):
 
 
 def submission_contains_mwe(mwe: Mwe, submission: List[str]) -> bool:
-    for mwe_lemma in mwe.lemmas:
-        if mwe_lemma not in submission:
-            return False
+    for is_verb, mwe_lemma in zip(mwe.verb_indices, mwe.lemmas):
+        if mwe.language == Language.ENGLISH:
+            if mwe_lemma not in submission:
+                return False
+        elif mwe.language == Language.TURKISH:
+            if mwe_lemma not in submission and \
+                    (mwe.language == Language.TURKISH and is_verb and
+                     (mwe_lemma + "mek" not in submission and
+                      mwe_lemma + "mak" not in submission)):
+                return False
     return True
 
 

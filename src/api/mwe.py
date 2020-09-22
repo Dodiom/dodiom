@@ -20,13 +20,15 @@ def get_todays_mwe(language: Language) -> Mwe:
 
 
 def add_mwe(name: str, meaning: str,  language: Language, date: date,
-            lemmas: List[str], category: MweCategory) -> None:
+            lemmas: List[str], category: MweCategory,
+            verb_indices: List[bool]) -> None:
     session = database.get_session()
     mwe = Mwe(name=name,
               meaning=meaning,
               language=language,
               date=date,
               lemmas=lemmas,
-              category=category)
+              category=category,
+              verb_indices=verb_indices)
     session.add(mwe)
     session.commit()

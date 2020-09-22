@@ -35,6 +35,7 @@ class Mwe(Base):
     language: Language = Column(Enum(Language))
     lemmas = Column(ARRAY(String))
     category = Column(Enum(MweCategory))
+    verb_indices: List[bool] = Column(ARRAY(Boolean))
 
     submissions = relationship("Submission", back_populates="mwe")
     reviews = relationship("Review", back_populates="mwe")
@@ -126,6 +127,8 @@ class User(Base):
     username = Column(String)
     language: Language = Column(Enum(Language))
     viewed_help = Column(Boolean)
+    viewed_submission_help = Column(Boolean)
+    viewed_review_help = Column(Boolean)
     score = Column(Float)
     score_today_en = Column(Float)
     score_today_tr = Column(Float)
