@@ -127,6 +127,7 @@ class User(Base):
     username = Column(String)
     language: Language = Column(Enum(Language))
     viewed_help = Column(Boolean)
+    viewed_todays_mwe_help = Column(Boolean)
     viewed_submission_help = Column(Boolean)
     viewed_review_help = Column(Boolean)
     score = Column(Float)

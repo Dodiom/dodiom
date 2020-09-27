@@ -8,10 +8,10 @@ from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
 from api.submission import add_submission_using_doc
-from api.user import mute_user, unmute_user
+from api.user import mute_user, unmute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
-from bot.helpers.tip_helper import send_i_need_submission_category_message
+from bot.helpers.tip_helper import send_i_need_submission_category_message, send_hint_message
 from bot.helpers.user_helper import reply_to, reply_html
 from config import mwexpress_config
 from i18n import Token, get_random_congrats_message, Language
@@ -58,6 +58,11 @@ def start_submit_handler(user: User, update: Update, context: CallbackContext) -
     """ Starts the submission cycle for user. """
     todays_mwe = get_todays_mwe(user.language)
     context.user_data["sub_state"] = "typing_example"
+    if not user.viewed_submission_help:
+        reply_html(user, update,
+                   user.language.get(Token.SUBMISSION_HELP_MESSAGE_1))
+        user.viewed_submission_help = True
+        update_user(user)
     reply_html(user, update,
                user.language.get(Token.PLEASE_ENTER_EXAMPLE) % _get_word_list_str_from_mwe(todays_mwe),
                reply_markup=Keyboard.remove())
@@ -126,6 +131,18 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
                Keyboard.submission_category(user.language))
 
 
+def submission_contains_todays_mwe(user: User, submission: str) -> bool:
+    todays_mwe = get_todays_mwe(user.language)
+    submission_value = submission
+    doc = process_sentence(user.language, submission_value)
+    if len(doc.sentences) > 1:
+        return False
+    submission_lemmas = [x.lemma for x in doc.iter_words()]
+    if not submission_contains_mwe(todays_mwe, submission_lemmas):
+        return False
+    return True
+
+
 def check_turkish_mastar(mwe: Mwe, ix_tm: int, submission_lemma: str):
     return mwe.language == Language.TURKISH and \
            mwe.verb_indices[ix_tm] and (submission_lemma == mwe.lemmas[ix_tm] + "mek" or
@@ -166,8 +183,8 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
              user.language.get(Token.THANKS_FOR_SUBMISSION) % (
                  get_random_congrats_message(user.language), submission.points),
              Keyboard.main(user.language))
-    if random.random() < 0.2:
-        send_i_need_submission_category_message(user, update, submission.category)
+    if random.random() < 0.5:
+        send_hint_message(user, update, context)
 
 
 def _clear_context(context: CallbackContext):

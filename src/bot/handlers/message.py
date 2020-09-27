@@ -8,7 +8,7 @@ from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
 from bot.handlers.review import main_review_handler
 from bot.handlers.scoreboard import scoreboard_handler
-from bot.handlers.submit import main_submit_handler
+from bot.handlers.submit import main_submit_handler, submission_contains_todays_mwe
 from bot.handlers.todays_mwe import todays_mwe_handler
 from bot.helpers.general import send_typing_action
 from bot.helpers.keyboard_helper import Keyboard
@@ -49,12 +49,20 @@ def message(update: Update, context: CallbackContext):
                 feedback_handler(user, update, context)
             elif update.message.text == user.language.get(Token.SHOW_SCOREBOARD):
                 scoreboard_handler(user, update, context)
+            elif submission_contains_todays_mwe(user, update.message.text):
+                context.user_data["sub_state"] = "typing_example"
+                main_submit_handler(user, update, context)
             else:
                 update.message.reply_text(
                     user.language.get(Token.ENTER_VALID_COMMAND),
                     parse_mode=ParseMode.MARKDOWN,
                     reply_markup=Keyboard.main(user.language)
                 )
+                context.bot.send_photo(user.id, open("assets/keyboard_button.png", "rb"))
+                update.message.reply_text(
+                         user.language.get(Token.WELCOME_MESSAGE_8),
+                         parse_mode=ParseMode.MARKDOWN,
+                         reply_markup=Keyboard.main(user.language))
 
     except Exception as ex:
         logging.exception(str(ex))

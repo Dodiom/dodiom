@@ -52,6 +52,22 @@ class Token(Enum):
     I_NEED_PS_EXAMPLES = auto()
     I_NEED_NT_EXAMPLES = auto()
     I_NEED_NS_EXAMPLES = auto()
+    WELCOME_MESSAGE_1 = auto()
+    WELCOME_MESSAGE_2 = auto()
+    WELCOME_MESSAGE_3 = auto()
+    WELCOME_MESSAGE_4 = auto()
+    WELCOME_MESSAGE_5 = auto()
+    WELCOME_MESSAGE_6 = auto()
+    WELCOME_MESSAGE_7 = auto()
+    WELCOME_MESSAGE_8 = auto()
+    TODAYS_MWE_HELP_MESSAGE_1 = auto()
+    TODAYS_MWE_HELP_MESSAGE_2 = auto()
+    SUBMISSION_HELP_MESSAGE_1 = auto()
+    REVIEW_HELP_MESSAGE_1 = auto()
+    REVIEW_HELP_MESSAGE_2 = auto()
+    HINT_MESSAGE_1 = auto()
+    HINT_MESSAGE_2 = auto()
+    HINT_MESSAGE_3 = auto()
 
 
 class Language(Enum):
@@ -242,7 +258,7 @@ Hadi hemen Dodo’ya yardıma başla.
     Token.REVIEW_QUESTION_POSITIVE: {
         "en": "In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a \
 special meaning together, would you agree?",
-        "tr": "%s\n\nCümlesinde %ssözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
+        "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
         "en": "%s\n\nIt's said that words %s does <b><u>not</u></b>❌ form a \
@@ -325,6 +341,81 @@ Annemin bana soyduğu <b><u>ayvayı</u></b> bir güzel <b><u>yedim</u></b>.
 Şu an buna benzer, deyimdeki kelimelerin birbirinden uzakta olduğu ve deyim <u>olmayan</u> örnekler arıyorum.
 
 Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
+"""
+    },
+    Token.WELCOME_MESSAGE_1: {
+        "en": "",
+        "tr": "Merhaba ben Dodo."
+    },
+    Token.WELCOME_MESSAGE_2: {
+        "en": "",
+        "tr": "Türkçe öğrenmeye çalışıyorum ancak deyimleri anlamakta çok zorlanıyorum."
+    },
+    Token.WELCOME_MESSAGE_3: {
+        "en": "",
+        "tr": "Bana yardım eder misin?"
+    },
+    Token.WELCOME_MESSAGE_4: {
+        "en": "",
+        "tr": "Nasıl mı?"
+    },
+    Token.WELCOME_MESSAGE_5: {
+        "en": "",
+        "tr": "Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım."
+    },
+    Token.WELCOME_MESSAGE_6: {
+        "en": "",
+        "tr": """
+Mesela “ayvayı yemek” deyimini öğrenmem için 
+“İşte şimdi ayvayı yedik.” deyim örneği
+“Az önce iki ayva yedim.” deyim olmayan örnek
+"""
+    },
+    Token.WELCOME_MESSAGE_7: {
+        "en": "",
+        "tr": "Şimdi bugünün deyimini seçmek için klavyeden <b><u>Günün Deyimi</u></b>'ni seç"
+    },
+    Token.WELCOME_MESSAGE_8: {
+        "en": "",
+        "tr": "Eğer klavyeyi göremiyorsan resimde görülen içinde dört tane daire olan dikdörtgene tıkla."
+    },
+    Token.TODAYS_MWE_HELP_MESSAGE_1: {
+        "en": "",
+        "tr": "Harika, günün deyimini öğrendiğine göre artık örnek göndererek öğrenmeme yardımcı olabilirsin.."
+    },
+    Token.TODAYS_MWE_HELP_MESSAGE_2: {
+        "en": "",
+        "tr": "Örnek göndermek için klavyeden <b><u>Örnek Gönder</u></b>'e tıkla.."
+    },
+    Token.SUBMISSION_HELP_MESSAGE_1: {
+        "en": "",
+        "tr": "Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra \
+dieğr oyuncular senin örneğini beğendiğinde puan kazanacaksın."
+    },
+    Token.REVIEW_HELP_MESSAGE_1: {
+        "en": "",
+        "tr": "Bu kısımda diğer oyuncuların gönderdiği örnekleri oylayabilirsin."
+    },
+    Token.REVIEW_HELP_MESSAGE_2: {
+        "en": "",
+        "tr": "Hem sen hem de örneklerini oyladığın kişiler puan kazanacak."
+    },
+    Token.HINT_MESSAGE_1: {
+        "en": "",
+        "tr": "Acele et. Deyim olmayan örnekler şu anda daha çok puan kazandırıyor."
+    },
+    Token.HINT_MESSAGE_2: {
+        "en": "",
+        "tr": "Daha fazla puan kazanmak için başkalarının örneklerini oylayabilirsin."
+    },
+    Token.HINT_MESSAGE_3: {
+        "en": "",
+        "tr": """
+Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.
+
+Örn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.
+
+Böyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.
 """
     }
 }

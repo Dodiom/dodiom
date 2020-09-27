@@ -1,8 +1,12 @@
+import random
+
 from sqlalchemy import func
 from telegram import Update
+from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
 from api.submission import get_category_score
+from bot.handlers.scoreboard import scoreboard_handler
 from database import session
 from i18n import Token
 from models import SubmissionCategory, User, Mwe, Submission
@@ -49,3 +53,15 @@ def _get_submission_category_count(mwe: Mwe, category: SubmissionCategory) -> in
         .filter(Submission.mwe == mwe)\
         .filter(Submission.category == category)\
         .all()[0][0]
+
+
+def send_hint_message(user: User, update: Update, context: CallbackContext):
+    choice = random.choice([1, 2, 3, 4])
+    if choice == 1:
+        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_1))
+    elif choice == 2:
+        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_2))
+    elif choice == 3:
+        update.message.reply_html(user.language.get(Token.HINT_MESSAGE_3))
+    elif choice == 4:
+        scoreboard_handler(user, update, context)

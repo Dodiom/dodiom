@@ -1,19 +1,19 @@
+import time
 from datetime import datetime
-from operator import and_
 
 from stanza.protobuf import Document
 from telegram import Update
 from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
-from api.user import unmute_user, mute_user
+from api.user import unmute_user, mute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from config import mwexpress_config
 from database import session
 from i18n import Token, get_random_congrats_message, Language
-from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe
+from models import Submission, User, SubmissionCategory, ReviewCategory
 from api.review import add_review
 from nlp.stanza import nlp_en, nlp_tr
 
@@ -42,6 +42,14 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
 
 
 def _send_submission_to_review(user: User, update: Update, context: CallbackContext):
+    if not user.viewed_review_help:
+        reply_to(user, update, user.language.get(Token.REVIEW_HELP_MESSAGE_1))
+        time.sleep(0.5)
+        reply_to(user, update, user.language.get(Token.REVIEW_HELP_MESSAGE_2))
+        time.sleep(0.5)
+        user.viewed_review_help = True
+        update_user(user)
+
     todays_mwe = get_todays_mwe(user.language)
     submissions = session.query(Submission)\
         .filter(Submission.user != user)\
