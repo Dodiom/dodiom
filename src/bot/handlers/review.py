@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+from typing import List
 
 from stanza.protobuf import Document
 from telegram import Update
@@ -13,14 +14,24 @@ from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from config import mwexpress_config
 from database import session
 from i18n import Token, get_random_congrats_message, Language
-from models import Submission, User, SubmissionCategory, ReviewCategory
+from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe
 from api.review import add_review
 from nlp.stanza import nlp_en, nlp_tr
 
 
-def user_not_in_reviewers(submission: Submission, user: User) -> bool:
+def _user_not_in_reviewers(submission: Submission, user: User) -> bool:
     all_reviewer_names = [x.user.username for x in submission.reviews]
     return user.username not in all_reviewer_names
+
+
+def get_submissions_to_review(mwe: Mwe, user: User) -> List[Submission]:
+    submissions = session.query(Submission) \
+        .filter(Submission.user != user) \
+        .filter(Submission.mwe == mwe) \
+        .filter(Submission.flagged == False) \
+        .all()
+    submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
+    return [x for x in submissions if _user_not_in_reviewers(x, user)]
 
 
 def main_review_handler(user: User, update: Update, context: CallbackContext):
@@ -37,6 +48,7 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
         clear_state(context)
         unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
+        _safe_delete_context_data(context, "review_count")
         reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
                  reply_markup=Keyboard.main(user.language))
 
@@ -51,16 +63,13 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         update_user(user)
 
     todays_mwe = get_todays_mwe(user.language)
-    submissions = session.query(Submission)\
-        .filter(Submission.user != user)\
-        .filter(Submission.mwe == todays_mwe)\
-        .all()
-    submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
-    submissions = [x for x in submissions if user_not_in_reviewers(x, user)]
+    submissions = get_submissions_to_review(todays_mwe, user)
 
     if len(submissions) > 0:
         submission: Submission = submissions[0]
         context.user_data["submission"] = submission
+        if "review_count" not in context.user_data:
+            context.user_data["review_count"] = 0
 
         submission_doc = _get_submission_doc(submission)
         review_example = submission.value
@@ -82,11 +91,15 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
             reply_html(user, update, review_question,
                        Keyboard.review_keyboard(user.language))
     else:
+        if "review_count" in context.user_data:
+            reply_to(user, update, user.language.get(Token.NO_SUB_LEFT_TO_REVIEW),
+                     Keyboard.main(user.language))
+        else:
+            reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
+                     Keyboard.main(user.language))
         clear_state(context)
-        if "submission" in context.user_data:
-            del context.user_data["submission"]
-        reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
-                 Keyboard.main(user.language))
+        _safe_delete_context_data(context, "submission")
+        _safe_delete_context_data(context, "review_count")
 
 
 def _get_word_list_str_from_submission(submission: Submission):
@@ -112,6 +125,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
         return
 
     submission = context.user_data["submission"]
+    context.user_data["review_count"] += 1
 
     if update.message.text == user.language.get(Token.AGREE_NICE_EXAMPLE):
         add_review(user, submission, ReviewCategory.LIKE)

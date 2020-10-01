@@ -19,8 +19,8 @@ from i18n import Token
 
 @send_typing_action
 def message(update: Update, context: CallbackContext):
+    user = get_user_from_update(update)
     try:
-        user = get_user_from_update(update)
         logging.info("New message from {user_name}: {message}",
                      user_name=user.username, message=update.message.text)
 
@@ -65,9 +65,9 @@ def message(update: Update, context: CallbackContext):
                          reply_markup=Keyboard.main(user.language))
 
     except Exception as ex:
+        logging.error(f"erroneous message: {update.message.text}")
         logging.exception(str(ex))
-        # TODO: don't send error message to user here
-        update.message.reply_text(str(ex))
+        update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
 
 
 message_handler = MessageHandler(Filters.text, message)

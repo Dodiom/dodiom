@@ -1,4 +1,5 @@
 import random
+import time
 from datetime import datetime
 from typing import List
 import itertools
@@ -184,6 +185,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
                  get_random_congrats_message(user.language), submission.points),
              Keyboard.main(user.language))
     if random.random() < 0.5:
+        time.sleep(1)
         send_hint_message(user, update, context)
 
 

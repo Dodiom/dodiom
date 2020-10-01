@@ -1,3 +1,4 @@
+import datetime
 import enum
 import uuid
 from enum import auto
@@ -29,16 +30,16 @@ class Mwe(Base):
     __tablename__ = 'mwes'
 
     id = Column(Integer, primary_key=True)
-    date = Column(Date)
-    name = Column(String)
-    meaning = Column(String)
-    language: Language = Column(Enum(Language))
-    lemmas = Column(ARRAY(String))
-    category = Column(Enum(MweCategory))
+    date = Column(Date, nullable=False)
+    name = Column(String, nullable=False)
+    meaning = Column(String, nullable=False)
+    language: Language = Column(Enum(Language), nullable=False)
+    lemmas: List[str] = Column(ARRAY(String))
+    category: MweCategory = Column(Enum(MweCategory), nullable=False)
     verb_indices: List[bool] = Column(ARRAY(Boolean))
 
-    submissions = relationship("Submission", back_populates="mwe")
-    reviews = relationship("Review", back_populates="mwe")
+    submissions: List['Submission'] = relationship("Submission", back_populates="mwe")
+    reviews: List['Review'] = relationship("Review", back_populates="mwe")
 
     def __repr__(self):
         return "<Mwe(name='%s', date='%s', lang='%s')>" % (self.name, self.date, self.language)
@@ -60,8 +61,8 @@ class Review(Base):
     __tablename__ = 'reviews'
 
     id = Column(Integer, primary_key=True)
-    review_type = Column(Enum(ReviewCategory))
-    created = Column(DateTime)
+    review_type: ReviewCategory = Column(Enum(ReviewCategory))
+    created = Column(DateTime, default=datetime.datetime.now, nullable=False)
 
     mwe_id = Column(Integer, ForeignKey('mwes.id'))
     mwe = relationship("Mwe", back_populates="reviews")
@@ -93,18 +94,19 @@ class Submission(Base):
     __tablename__ = 'submissions'
 
     id = Column(Integer, primary_key=True)
-    value = Column(String)
-    category = Column(Enum(SubmissionCategory))
+    value = Column(String, nullable=False)
+    category: SubmissionCategory = Column(Enum(SubmissionCategory))
     language: Language = Column(Enum(Language))
-    lemmas = Column(ARRAY(String))
-    words = Column(ARRAY(String))
-    points = Column(Float)
-    score = Column(Float)
+    lemmas: List[str] = Column(ARRAY(String))
+    words: List[str] = Column(ARRAY(String))
+    points = Column(Float, default=0, nullable=False)
+    score = Column(Float, default=0, nullable=False)
     mwe_words: List[str] = Column(ARRAY(String))
-    mwe_indices = Column(ARRAY(Integer))
+    mwe_indices: List[int] = Column(ARRAY(Integer))
     conllu = Column(Text)
-    hash = Column(String)
-    created = Column(DateTime)
+    hash = Column(String, default="", nullable=False)
+    created = Column(DateTime, default=datetime.datetime.now, nullable=False)
+    flagged = Column(Boolean, default=False, nullable=False)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User", back_populates="submissions")
@@ -113,8 +115,8 @@ class Submission(Base):
     mwe = relationship("Mwe", back_populates="submissions")
 
     reviews: List[Review] = relationship("Review", back_populates="submission")
-    review_count = column_property(select([func.count(Review.id)])
-                                   .where(Review.submission_id == id))
+    review_count: int = column_property(select([func.count(Review.id)])
+                                        .where(Review.submission_id == id))
 
     def __repr__(self):
         return "<Value(id='%s', value='%s')>" % (self.id, self.value)
@@ -126,15 +128,15 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String)
     language: Language = Column(Enum(Language))
-    viewed_help = Column(Boolean)
-    viewed_todays_mwe_help = Column(Boolean)
-    viewed_submission_help = Column(Boolean)
-    viewed_review_help = Column(Boolean)
-    score = Column(Float)
-    score_today_en = Column(Float)
-    score_today_tr = Column(Float)
-    muted = Column(Boolean)
-    created = Column(DateTime)
+    viewed_help = Column(Boolean, default=False, nullable=False)
+    viewed_todays_mwe_help = Column(Boolean, default=False, nullable=False)
+    viewed_submission_help = Column(Boolean, default=False, nullable=False)
+    viewed_review_help = Column(Boolean, default=False, nullable=False)
+    score = Column(Float, default=0.0, nullable=False)
+    score_today_en = Column(Float, default=0.0, nullable=False)
+    score_today_tr = Column(Float, default=0.0, nullable=False)
+    muted = Column(Boolean, default=False, nullable=False)
+    created = Column(DateTime, default=datetime.datetime.now, nullable=False)
 
     submissions: List[Submission] = relationship("Submission", back_populates="user")
     reviews: List[Review] = relationship("Review", back_populates="user")
@@ -159,9 +161,9 @@ class FeedbackData(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relationship("User")
 
-    submission_count = Column(Integer)
-    review_count = Column(Integer)
-    created = Column(DateTime)
+    submission_count = Column(Integer, nullable=False)
+    review_count = Column(Integer, nullable=False)
+    created = Column(DateTime, default=datetime.datetime.now, nullable=False)
 
     def __repr__(self):
         return "<Feedback(id='%s')>" % self.id

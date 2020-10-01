@@ -60,7 +60,7 @@ def send_scoreboard_for_en(user: User, update: Update):
         )
     else:
         update.message.reply_text(
-            user.language.get(Token.NO_SUBMISSIONS),
+            user.language.get(Token.SCOREBOARD_EMPTY),
             parse_mode=telegram.ParseMode.MARKDOWN,
             reply_markup=Keyboard.main(user.language)
         )
@@ -104,7 +104,7 @@ def send_scoreboard_for_tr(user: User, update: Update):
         )
     else:
         update.message.reply_text(
-            user.language.get(Token.NO_SUBMISSIONS),
+            user.language.get(Token.SCOREBOARD_EMPTY),
             parse_mode=telegram.ParseMode.MARKDOWN,
             reply_markup=Keyboard.main(user.language)
         )

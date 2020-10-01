@@ -33,7 +33,7 @@ def send_game_over_message_to_all() -> None:
     for user in all_users:
         send_message_to_user(mwexpress_bot.bot, user,
                              user.language.get(Token.GAME_ENDED))
-    print("hey")
+    clear_scores_for_today()
 
 
 def clear_scores_for_today():
@@ -50,7 +50,6 @@ def schedule_jobs():
         .do(send_game_starting_message_to_all)
     schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
         .do(send_game_over_message_to_all)
-    schedule.every().day.at("23:57").do(clear_scores_for_today)
 
 
 def run_scheduled_jobs():

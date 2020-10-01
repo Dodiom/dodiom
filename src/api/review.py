@@ -24,6 +24,7 @@ def add_review(user: User, submission: Submission,
             submission.user.score_today_tr += submission.points
             user.score_today_tr += 1
         submission.user.score += submission.points
+        submission.score += submission.points
     user.score += 1
     session.add(review)
     session.commit()

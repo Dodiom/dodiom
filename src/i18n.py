@@ -68,6 +68,9 @@ class Token(Enum):
     HINT_MESSAGE_1 = auto()
     HINT_MESSAGE_2 = auto()
     HINT_MESSAGE_3 = auto()
+    ERROR_OCCURRED = auto()
+    NO_SUB_LEFT_TO_REVIEW = auto()
+    SCOREBOARD_EMPTY = auto()
 
 
 class Language(Enum):
@@ -178,7 +181,7 @@ translations = {
     },
     Token.NO_SUBMISSIONS: {
         "en": "There are no submissions and users at this time.",
-        "tr": "Henüz gönderi ya da oylama yok."
+        "tr": "Şu anda oylayabileceğin başka örnek yok."
     },
     Token.ENTER_VALID_COMMAND: {
         "en": "Please enter a valid command",
@@ -390,7 +393,7 @@ Mesela “ayvayı yemek” deyimini öğrenmem için
     Token.SUBMISSION_HELP_MESSAGE_1: {
         "en": "",
         "tr": "Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra \
-dieğr oyuncular senin örneğini beğendiğinde puan kazanacaksın."
+diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
     },
     Token.REVIEW_HELP_MESSAGE_1: {
         "en": "",
@@ -417,6 +420,20 @@ Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.
 
 Böyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.
 """
+    },
+    Token.ERROR_OCCURRED: {
+        "en": "An error occurred, please try again later.",
+        "tr": "Bir hata oldu, lütfen daha sonra tekrar dene."
+    },
+    Token.NO_SUB_LEFT_TO_REVIEW: {
+        "en": "",
+        "tr": "Şu anlık oylayabileceğin başka bir örnek kalmadı, daha sonra \
+tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
+    },
+    Token.SCOREBOARD_EMPTY: {
+        "en": "",
+        "tr": "Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak \
+sıralamalarda öne geçebilirsin."
     }
 }
 
