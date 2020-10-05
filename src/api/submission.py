@@ -8,6 +8,7 @@ from i18n import Language
 from models import User, Submission, Mwe, SubmissionCategory
 from database import session
 from nlp import cupt
+from nlp.language_helper import lowercase
 from nlp.stanza import process_sentence
 
 
@@ -31,7 +32,7 @@ def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
         mwe
     )
 
-    submission_lemmas = [x.lemma for x in doc.iter_words()]
+    submission_lemmas = [lowercase(x.lemma, user.language) for x in doc.iter_words()]
     submission_words = [x.text for x in doc.iter_words()]
 
     submission = Submission(
@@ -63,7 +64,7 @@ def add_submission_using_text(user: User, sentence: str, mwe: Mwe,
 
 
 def get_category_score(language: Language, category: SubmissionCategory,
-                        mwe: Mwe) -> float:
+                       mwe: Mwe) -> float:
     all_submissions_count = session \
         .query(Submission) \
         .filter(Submission.language == language) \

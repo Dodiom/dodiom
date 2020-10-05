@@ -12,11 +12,12 @@ from api.submission import add_submission_using_doc
 from api.user import mute_user, unmute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
-from bot.helpers.tip_helper import send_i_need_submission_category_message, send_hint_message
+from bot.helpers.tip_helper import send_hint_message
 from bot.helpers.user_helper import reply_to, reply_html
 from config import mwexpress_config
 from i18n import Token, get_random_congrats_message, Language
 from models import User, Mwe
+from nlp.language_helper import lowercase
 from nlp.stanza import process_sentence
 
 """
@@ -90,7 +91,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
                  user.language.get(Token.PLEASE_ENTER_ONE_SENTENCE) % len(doc.sentences))
         return
 
-    submission_lemmas = [x.lemma for x in doc.iter_words()]
+    submission_lemmas = [lowercase(x.lemma, user.language) for x in doc.iter_words()]
     context.user_data["submission_lemmas"] = submission_lemmas
     submission_words = [x.text for x in doc.iter_words()]
     context.user_data["submission_words"] = submission_words
@@ -116,10 +117,10 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
             if lemma == mwe_lemma or check_turkish_mastar(todays_mwe, ix_tm, lemma):
                 mwe_lemma_positions[mwe_lemma].append(ix)
 
-    xxxx = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
-    yyyy = sorted(xxxx, key=lambda x: max(x) - min(x))
+    mwe_instances = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
+    mwe_instances = sorted(mwe_instances, key=lambda x: max(x) - min(x))
 
-    mwe_indices = yyyy[0]
+    mwe_indices = mwe_instances[0]
     context.user_data["mwe_indices"] = mwe_indices
 
     submission_mwe_lemmas = [submission_words[x] for x in [x[0] for x in mwe_lemma_positions.values()]]
@@ -138,7 +139,7 @@ def submission_contains_todays_mwe(user: User, submission: str) -> bool:
     doc = process_sentence(user.language, submission_value)
     if len(doc.sentences) > 1:
         return False
-    submission_lemmas = [x.lemma for x in doc.iter_words()]
+    submission_lemmas = [lowercase(x.lemma, user.language) for x in doc.iter_words()]
     if not submission_contains_mwe(todays_mwe, submission_lemmas):
         return False
     return True
@@ -205,11 +206,14 @@ def submission_contains_mwe(mwe: Mwe, submission: List[str]) -> bool:
             if mwe_lemma not in submission:
                 return False
         elif mwe.language == Language.TURKISH:
-            if mwe_lemma not in submission and \
-                    (mwe.language == Language.TURKISH and is_verb and
-                     (mwe_lemma + "mek" not in submission and
-                      mwe_lemma + "mak" not in submission)):
-                return False
+            if not is_verb:
+                if mwe_lemma not in submission:
+                    return False
+            else:
+                if mwe_lemma not in submission \
+                        and mwe_lemma + "mek" not in submission \
+                        and mwe_lemma + "mak" not in submission:
+                    return False
     return True
 
 

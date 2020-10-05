@@ -264,9 +264,9 @@ special meaning together, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
-        "en": "%s\n\nIt's said that words %s does <b><u>not</u></b>❌ form a \
+        "en": "%s\n\nIt's said that words %s does <b><u>NOT</u></b>❌ form a \
 special meaning together, would you agree?",
-        "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>kullanılMIyor</u></b>❌ denmiş, buna katılıyor musunuz?"
+        "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>KULLANILMIYOR</u></b>❌ denmiş, buna katılıyor musunuz?"
     },
     Token.PLEASE_ENTER_ONE_SENTENCE: {
         "en": "Your submission contains %d sentences, please enter just one sentence.",
@@ -295,8 +295,8 @@ aşağıdaki linki kullanabilirsiniz."
         "tr": "Oyun bugünlük bitti, yeni günün oyunu saat %d'da tekrar başlayacak."
     },
     Token.GAME_STARTED: {
-        "en": "Good morning, the game is started.",
-        "tr": "Günaydın, oyun başladı."
+        "en": "A new game is started.",
+        "tr": "Yeni oyun başladı."
     },
     Token.GAME_ENDED: {
         "en": "The game is ended for today, thank you for playing.",
