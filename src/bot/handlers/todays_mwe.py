@@ -23,11 +23,12 @@ def todays_mwe_handler(user: User, update: Update):
                                   parse_mode=ParseMode.HTML,
                                   reply_markup=Keyboard.main(user.language))
         if not user.viewed_todays_mwe_help:
+            time.sleep(3)
             update.message.reply_text(
                 text=user.language.get(Token.TODAYS_MWE_HELP_MESSAGE_1),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=Keyboard.main(user.language))
-            time.sleep(0.5)
+            time.sleep(5)
             update.message.reply_text(
                 text=user.language.get(Token.TODAYS_MWE_HELP_MESSAGE_2),
                 parse_mode=ParseMode.HTML,

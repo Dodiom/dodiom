@@ -65,7 +65,7 @@ def message(update: Update, context: CallbackContext):
                          reply_markup=Keyboard.main(user.language))
 
     except Exception as ex:
-        logging.error(f"erroneous message: {update.message.text}")
+        logging.error(f"erroneous message: {user.username}: {update.message.text}")
         logging.exception(str(ex))
         update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
 

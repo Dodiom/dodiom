@@ -1,4 +1,5 @@
 import datetime
+import time
 from collections import namedtuple
 from datetime import date
 
@@ -16,8 +17,6 @@ turkish_mwes = [
             ["orta", "çık"], MweCategory.VID, [False, True]),
         mwe("yer almak", "bir işi hazırlayanlar arasında bulunmak.",
             ["yer", "al"], MweCategory.VID, [False, True]),
-        mwe("dikkat çekmek", "ilgi toplamak, göze batmak, fark edilmek.",
-            ["dikkat", "çek"], MweCategory.VID, [False, True]),
         mwe("öne sürmek", "ortaya bir düşünce atmak.",
             ["ön", "sür"], MweCategory.VID, [False, True]),
         mwe("ortaya koymak", "yapmak, yaratmak, açıklamak, kaybetmeyi göze almak.",
@@ -34,20 +33,38 @@ turkish_mwes = [
             ["karşı", "çık"], MweCategory.VID, [False, True]),
         mwe("adım atmak", "bir işe ilk kez girişmek.",
             ["adım", "at"], MweCategory.VID, [False, True]),
-        mwe("harekete geçmek", "bir işi yapmaya başlamak, bitirmek amacı ile bir işe girişmek.",
-            ["hareket", "geç"], MweCategory.VID, [False, True]),
         mwe("ortaya atmak", "bir düşünceyi herkesin bilgisine sunmak.",
             ["orta", "at"], MweCategory.VID, [False, True]),
         mwe("göz yummak", "kabahatlerini, kusurlarını hoş karşılamak, görmezlikten gelmek, bağışlamak.",
             ["göz", "yum"], MweCategory.VID, [False, True]),
-        mwe("karşı koymak", "engel olmaya çalışmak, direnmek, güç kullanarak dayanmak, boyun eğmemek.",
-            ["karşı", "koy"], MweCategory.VID, [False, True]),
         mwe("el koymak", "zorla almak, sorumluluğu üstlenmek, yetkili organ bir malı veya bir kuruluşu kendi yönetimine almak.",
             ["el", "koy"], MweCategory.VID, [False, True]),
         mwe("hesap vermek", "herhangi bir davranışının ya da sözünün sebebini açıklamak, bir işin sorumluluğunu üstlenmek.",
             ["hesap", "ver"], MweCategory.VID, [False, True]),
         mwe("altını çizmek", "bir şeyin (daha çok sözün) önemini belirtmek, üzerine dikkati çekmek, vurgulamak.",
             ["alt", "çiz"], MweCategory.VID, [False, True]),
+        mwe("yer vermek", "önemli saymak, imkân tanımak, önemli bir görev vermek, ağırlık vermek.",
+            ["yer", "ver"], MweCategory.VID, [False, True]),
+        mwe("ortaya çıkarmak", "delilleriyle göstermek, ispat etmek.",
+            ["orta", "çıkar"], MweCategory.VID, [False, True]),
+        mwe("rol oynamak", "bir işte önemli katkısı olmak, etkisi bulunmak.",
+            ["rol", "oyna"], MweCategory.VID, [False, True]),
+        mwe("üzerinde durmak", "bir işe önem vermek, o işle yakından ilgilenmek, uğraşmak.",
+            ["üzeri", "dur"], MweCategory.VID, [False, True]),
+        mwe("ağırlık vermek", "önem vermek, dikkati üzerinde yoğunlaştırmak.",
+            ["ağırlık", "ver"], MweCategory.VID, [False, True]),
+        mwe("ortadan kaldırmak", "saklamak, yok etmek, öldürmek.",
+            ["orta", "kaldır"], MweCategory.VID, [False, True]),
+        mwe("kolları sıvamak", "bir işi bütün gücüyle yapmaya hazırlanmak.",
+            ["kol", "sıva"], MweCategory.VID, [False, True]),
+        mwe("yola çıkmak", "herhangi bir şeyi esas almak, oradan başlamak.",
+            ["yol", "çık"], MweCategory.VID, [False, True]),
+        mwe("boyun eğmek", "isteyerek ya da istemeyerek uymak, katlanmak.",
+            ["boyun", "eğ"], MweCategory.VID, [False, True]),
+        mwe("meydana çıkmak", "ortaya çıkmak, görünmek, belli olmak, yetişmek, olmak.",
+            ["meydan", "çık"], MweCategory.VID, [False, True]),
+        mwe("iz bırakmak", "etkisini kalıcı duruma getirmek.",
+            ["iz", "bırak"], MweCategory.VID, [False, True]),
 
 ]
 

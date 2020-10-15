@@ -31,10 +31,13 @@ def get_user_from_update(update: Update) -> User:
 def send_message_to_user(bot: Bot, user: User, msg: str,
                          reply_markup: ReplyMarkup = None,
                          parse_mode: ParseMode = ParseMode.MARKDOWN) -> None:
-    bot.send_message(chat_id=user.id,
-                     text=msg,
-                     parse_mode=parse_mode,
-                     reply_markup=reply_markup)
+    try:
+        bot.send_message(chat_id=user.id,
+                         text=msg,
+                         parse_mode=parse_mode,
+                         reply_markup=reply_markup)
+    except Exception as ex:
+        logging.error(logging.exception(str(ex)))
 
 
 def reply_to(user: User, update: Update, message: str,

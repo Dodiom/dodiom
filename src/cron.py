@@ -16,6 +16,7 @@ from database import session
 
 
 def send_game_starting_message_to_all() -> None:
+    unmute_everyone()
     all_users = get_all_users()
     for user in all_users:
         send_message_to_user(mwexpress_bot.bot, user,
@@ -29,11 +30,12 @@ def send_game_starting_message_to_all() -> None:
 
 
 def send_game_over_message_to_all() -> None:
+    unmute_everyone()
     all_users = get_all_users()
+    clear_scores_for_today()
     for user in all_users:
         send_message_to_user(mwexpress_bot.bot, user,
                              user.language.get(Token.GAME_ENDED))
-    clear_scores_for_today()
 
 
 def clear_scores_for_today():
@@ -42,6 +44,14 @@ def clear_scores_for_today():
     for user in all_users:
         user.score_today_en = 0
         user.score_today_tr = 0
+    session.commit()
+
+
+def unmute_everyone():
+    logging.info("Unmuting everyone")
+    all_users = get_all_users()
+    for user in all_users:
+        user.muted = False
     session.commit()
 
 

@@ -2,7 +2,7 @@ import time
 from datetime import datetime
 from typing import List
 
-from stanza.protobuf import Document
+from stanza import Document
 from telegram import Update
 from telegram.ext import CallbackContext
 
@@ -56,9 +56,9 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
 def _send_submission_to_review(user: User, update: Update, context: CallbackContext):
     if not user.viewed_review_help:
         reply_to(user, update, user.language.get(Token.REVIEW_HELP_MESSAGE_1))
-        time.sleep(0.5)
+        time.sleep(4)
         reply_to(user, update, user.language.get(Token.REVIEW_HELP_MESSAGE_2))
-        time.sleep(0.5)
+        time.sleep(4)
         user.viewed_review_help = True
         update_user(user)
 
@@ -74,8 +74,9 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         submission_doc = _get_submission_doc(submission)
         review_example = submission.value
         for index in reversed(sorted(submission.mwe_indices)):
-            start_index = submission_doc.sentences[0].tokens[index].start_char
-            end_index = submission_doc.sentences[0].tokens[index].end_char
+            start_index, end_index = _find_location_from_word(submission_doc, index)
+#            start_index = submission_doc.sentences[0].words[index].start_char
+#            end_index = submission_doc.sentences[0].words[index].end_char
             review_example = review_example[:end_index] + "</u></b>" + review_example[end_index:]
             review_example = review_example[:start_index] + "<b><u>" + review_example[start_index:]
 
@@ -98,8 +99,17 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
             reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
                      Keyboard.main(user.language))
         clear_state(context)
+        unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
         _safe_delete_context_data(context, "review_count")
+
+
+def _find_location_from_word(doc: Document, word_idx: int) -> (int, int):
+    word_id = doc.sentences[0].words[word_idx].id
+    for token in doc.sentences[0].tokens:
+        if word_id in token.id:
+            return token.start_char, token.end_char
+    raise IndexError("Word not found")
 
 
 def _get_word_list_str_from_submission(submission: Submission):

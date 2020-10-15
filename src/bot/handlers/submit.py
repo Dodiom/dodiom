@@ -63,6 +63,7 @@ def start_submit_handler(user: User, update: Update, context: CallbackContext) -
     if not user.viewed_submission_help:
         reply_html(user, update,
                    user.language.get(Token.SUBMISSION_HELP_MESSAGE_1))
+        time.sleep(7)
         user.viewed_submission_help = True
         update_user(user)
     reply_html(user, update,

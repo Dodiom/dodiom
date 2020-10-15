@@ -136,8 +136,8 @@ translations = {
         "tr": "Lütfen geçerli bir dil seçin."
     },
     Token.WELCOME_MESSAGE: {
-        "en": "Welcome to MWExpress, *%s*",
-        "tr": "MWExpress'e hoşgeldiniz, *%s*"
+        "en": "Welcome to Dodiom, *%s*",
+        "tr": "Dodiom'a hoşgeldiniz, *%s*"
     },
     Token.PLEASE_ENTER_EXAMPLE: {
         "en": "Please enter your example for the MWE: '<b><u>%s</u></b>'",
@@ -205,7 +205,7 @@ translations = {
     },
     Token.HELP_MESSAGE: {
         "en": """\
-Hello and welcome to MWExpress,
+Hello and welcome to Dodiom,
 
 The game has two modes. You either *submit* an MWE example or you *review* \
 examples submitted by others.
@@ -296,11 +296,11 @@ aşağıdaki linki kullanabilirsiniz."
     },
     Token.GAME_STARTED: {
         "en": "A new game is started.",
-        "tr": "Yeni oyun başladı."
+        "tr": "Günaydın, yeni oyun başladı."
     },
     Token.GAME_ENDED: {
         "en": "The game is ended for today, thank you for playing.",
-        "tr": "Oyun bugünlük bitti, oynadığınız için teşekkürler."
+        "tr": "Oyun bugünlük bitti, oynadığınız için teşekkürler. Yeni günün oyunu yarın saat 9:00'da başlayacak."
     },
     Token.THANKS_FOR_REVIEW: {
         "en": "%s! You earned %d points.",
