@@ -71,6 +71,7 @@ class Token(Enum):
     ERROR_OCCURRED = auto()
     NO_SUB_LEFT_TO_REVIEW = auto()
     SCOREBOARD_EMPTY = auto()
+    SUBMISSION_CANCELLED = auto()
 
 
 class Language(Enum):
@@ -148,8 +149,8 @@ translations = {
         "tr": "Lütfen geçerli bir kategori seçin"
     },
     Token.THANKS_FOR_SUBMISSION: {
-        "en": "%s! Thank you for your submission, you'll win %d points when someone likes your example.",
-        "tr": "%s! Gönderiniz için teşekkürler, birisi sizin gönderinizi beğendiğinde %d puan kazanacaksınız."
+        "en": "%s! Thank you for your submission, you'll win %d points every time someone likes your example.",
+        "tr": "%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
     },
     Token.AGREE_NICE_EXAMPLE: {
         "en": '👍 I agree. Nice example for this category',
@@ -434,6 +435,10 @@ tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
         "en": "",
         "tr": "Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak \
 sıralamalarda öne geçebilirsin."
+    },
+    Token.SUBMISSION_CANCELLED: {
+        "en": "Submission is cancelled.",
+        "tr": "Gönderi iptal edildi."
     }
 }
 

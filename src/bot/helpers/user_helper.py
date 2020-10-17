@@ -30,7 +30,7 @@ def get_user_from_update(update: Update) -> User:
 
 def send_message_to_user(bot: Bot, user: User, msg: str,
                          reply_markup: ReplyMarkup = None,
-                         parse_mode: ParseMode = ParseMode.MARKDOWN) -> None:
+                         parse_mode: str = ParseMode.MARKDOWN) -> None:
     try:
         bot.send_message(chat_id=user.id,
                          text=msg,

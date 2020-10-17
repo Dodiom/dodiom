@@ -1,3 +1,4 @@
+import logging
 import statistics
 from datetime import datetime
 
@@ -12,6 +13,7 @@ from models import User, Submission, Review
 
 def stats(update: Update, context: CallbackContext):
     user = get_user_from_update(update)
+    logging.info(f"Stats requested by {user.username}")
 
     today = datetime.now().date()
 
@@ -44,6 +46,14 @@ def stats(update: Update, context: CallbackContext):
     if len(all_subs_today) > 0:
         review_count_average_today = round(statistics.mean([x.review_count for x in all_subs_today]), 2)
     update.message.reply_text(f'Review count average: {review_count_average}({review_count_average_today} today)')
+
+    all_reviews_today = session.query(Review).filter(func.Date(Review.created) == today).all()
+    all_submitted_users_today = set([x.user.id for x in all_subs_today])
+    all_reviewed_users_today = set([x.user.id for x in all_reviews_today])
+
+    update.message.reply_text(f'Users who only submitted: {len([x for x in all_submitted_users_today if x not in all_reviewed_users_today])}')
+    update.message.reply_text(f'Users who only reviewed: {len([x for x in all_reviewed_users_today if x not in all_submitted_users_today])}')
+    update.message.reply_text(f'Users who both submitted and reviewed: {len([x for x in all_submitted_users_today if x in all_reviewed_users_today])}')
 
 
 stats_handler = CommandHandler('stats', stats, run_async=True)

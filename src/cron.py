@@ -34,8 +34,9 @@ def send_game_over_message_to_all() -> None:
     all_users = get_all_users()
     clear_scores_for_today()
     for user in all_users:
-        send_message_to_user(mwexpress_bot.bot, user,
-                             user.language.get(Token.GAME_ENDED))
+        if user.score_today() > 0:
+            send_message_to_user(mwexpress_bot.bot, user,
+                                 user.language.get(Token.GAME_ENDED))
 
 
 def clear_scores_for_today():

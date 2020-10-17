@@ -168,7 +168,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         clear_state(context)
         unmute_user(user.id)
         reply_to(user, update,
-                 user.language.get(Token.OPERATION_CANCELLED),
+                 user.language.get(Token.SUBMISSION_CANCELLED),
                  Keyboard.main(user.language))
         return
 
