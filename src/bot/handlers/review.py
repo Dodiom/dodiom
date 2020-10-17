@@ -30,7 +30,7 @@ def get_submissions_to_review(mwe: Mwe, user: User) -> List[Submission]:
         .filter(Submission.mwe == mwe) \
         .filter(Submission.flagged == False) \
         .all()
-    submissions = sorted(submissions, key=lambda x: x.review_count, reverse=True)
+    submissions = sorted(submissions, key=lambda x: x.review_count)
     return [x for x in submissions if _user_not_in_reviewers(x, user)]
 
 
@@ -75,14 +75,14 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         review_example = submission.value
         for index in reversed(sorted(submission.mwe_indices)):
             start_index, end_index = _find_location_from_word(submission_doc, index)
-#            start_index = submission_doc.sentences[0].words[index].start_char
-#            end_index = submission_doc.sentences[0].words[index].end_char
+            #            start_index = submission_doc.sentences[0].words[index].start_char
+            #            end_index = submission_doc.sentences[0].words[index].end_char
             review_example = review_example[:end_index] + "</u></b>" + review_example[end_index:]
             review_example = review_example[:start_index] + "<b><u>" + review_example[start_index:]
 
         if submission.category == SubmissionCategory.POSITIVE_SEPARATED or \
                 submission.category == SubmissionCategory.POSITIVE_TOGETHER:
-            review_question = user.language.get(Token.REVIEW_QUESTION_POSITIVE)\
+            review_question = user.language.get(Token.REVIEW_QUESTION_POSITIVE) \
                               % (review_example, _get_word_list_str_from_submission(submission))
             reply_html(user, update, review_question,
                        Keyboard.review_keyboard(user.language))
@@ -143,7 +143,8 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
                  user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
         if not submission.user.muted:
             send_message_to_user(context.bot, submission.user,
-                                 user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (get_random_congrats_message(submission.user.language), submission.points))
+                                 user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (
+                                 get_random_congrats_message(submission.user.language), submission.points))
     elif update.message.text == user.language.get(Token.DO_NOT_LIKE_EXAMPLE):
         add_review(user, submission, ReviewCategory.DISLIKE)
         reply_to(user, update,

@@ -1,7 +1,7 @@
 import logging
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session, scoped_session
 
 from config import mwexpress_config
 
@@ -9,7 +9,7 @@ from config import mwexpress_config
 class Database:
     def __init__(self):
         self.engine = create_engine(mwexpress_config.db_connection_string, echo=False)
-        self.Session = sessionmaker(bind=self.engine)
+        self.Session = scoped_session(sessionmaker(bind=self.engine))
         self.session = self.Session()
 
         # noinspection PyUnresolvedReferences

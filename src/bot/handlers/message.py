@@ -70,7 +70,7 @@ def message(update: Update, context: CallbackContext):
         update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
 
 
-message_handler = MessageHandler(Filters.text, message)
+message_handler = MessageHandler(Filters.text, message, run_async=True)
 
 
 def sticker(update: Update, context: CallbackContext):
@@ -80,4 +80,4 @@ def sticker(update: Update, context: CallbackContext):
     pass
 
 
-sticker_handler = MessageHandler(Filters.sticker, sticker)
+sticker_handler = MessageHandler(Filters.sticker, sticker, run_async=True)

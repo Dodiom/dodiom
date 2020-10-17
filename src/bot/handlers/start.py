@@ -56,4 +56,4 @@ def start(update: Update, context: CallbackContext):
              Keyboard.main(user.language))
 
 
-start_handler = CommandHandler('start', start)
+start_handler = CommandHandler('start', start, run_async=True)
