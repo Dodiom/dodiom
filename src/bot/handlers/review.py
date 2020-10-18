@@ -2,7 +2,6 @@ import time
 from datetime import datetime
 from typing import List
 
-from stanza import Document
 from telegram import Update
 from telegram.ext import CallbackContext
 
@@ -13,10 +12,10 @@ from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from config import mwexpress_config
 from database import session
-from i18n import Token, get_random_congrats_message, Language
+from i18n import Token, get_random_congrats_message
 from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe
 from api.review import add_review
-from nlp.stanza import nlp_en, nlp_tr
+from nlp.parsing import parser
 
 
 def _user_not_in_reviewers(submission: Submission, user: User) -> bool:
@@ -71,12 +70,11 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         if "review_count" not in context.user_data:
             context.user_data["review_count"] = 0
 
-        submission_doc = _get_submission_doc(submission)
+        parsed = parser.parse(submission.language, submission.value)
         review_example = submission.value
         for index in reversed(sorted(submission.mwe_indices)):
-            start_index, end_index = _find_location_from_word(submission_doc, index)
-            #            start_index = submission_doc.sentences[0].words[index].start_char
-            #            end_index = submission_doc.sentences[0].words[index].end_char
+            start_index = parsed.token_positions[index][0]
+            end_index = parsed.token_positions[index][1]
             review_example = review_example[:end_index] + "</u></b>" + review_example[end_index:]
             review_example = review_example[:start_index] + "<b><u>" + review_example[start_index:]
 
@@ -102,14 +100,6 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
         _safe_delete_context_data(context, "review_count")
-
-
-def _find_location_from_word(doc: Document, word_idx: int) -> (int, int):
-    word_id = doc.sentences[0].words[word_idx].id
-    for token in doc.sentences[0].tokens:
-        if word_id in token.id:
-            return token.start_char, token.end_char
-    raise IndexError("Word not found")
 
 
 def _get_word_list_str_from_submission(submission: Submission):
@@ -166,11 +156,3 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
 def _safe_delete_context_data(context: CallbackContext, name: str) -> None:
     if name in context.user_data:
         del context.user_data[name]
-
-
-def _get_submission_doc(submission: Submission) -> Document:
-    if submission.language == Language.ENGLISH:
-        return nlp_en(submission.value)
-    elif submission.language == Language.TURKISH:
-        return nlp_tr(submission.value)
-    return None

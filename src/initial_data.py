@@ -11,7 +11,7 @@ mwe = namedtuple("mwe", ["name", "description", "lemmas", "category",
                          "verb_indices"])
 
 turkish_mwes = [
-        mwe("ayvayı yemek", "kötü bir duruma düşmek", ["ayva", "ye"],
+        mwe("ayvayı yemek", "kötü bir duruma düşmek", ["ayva", "yemek"],
             MweCategory.VID, [False, True]),
         mwe("ortaya çıkmak", "yokken var olmak, meydana çıkmak, türemek",
             ["orta", "çık"], MweCategory.VID, [False, True]),

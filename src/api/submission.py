@@ -1,20 +1,13 @@
 from datetime import datetime
-from typing import List
-import hashlib
-
-from stanza import Document
 
 from i18n import Language
 from models import User, Submission, Mwe, SubmissionCategory
 from database import session
-from nlp import cupt
-from nlp.language_helper import lowercase
-from nlp.stanza import process_sentence
+from nlp.parsing import Parsed
 
 
-def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
-                             mwe_indices: List[int],
-                             positive: bool) -> Submission:
+def add_submission(user: User, parsed: Parsed, mwe: Mwe, positive: bool) -> Submission:
+    mwe_indices = parsed.get_mwe_indices(mwe)
     sorted_mwe_indices = sorted(mwe_indices)
     together = all(y - x == 1 for x, y in zip(sorted_mwe_indices, sorted_mwe_indices[1:]))
     if together and positive:
@@ -32,35 +25,25 @@ def add_submission_using_doc(user: User, doc: Document, mwe: Mwe,
         mwe
     )
 
-    submission_lemmas = [lowercase(x.lemma, user.language) for x in doc.iter_words()]
-    submission_words = [x.text for x in doc.iter_words()]
-
     submission = Submission(
-        value=doc.text,
-        lemmas=submission_lemmas,
-        words=submission_words,
+        value=parsed.text,
+        lemmas=parsed.get_lemmas(mwe),
+        words=parsed.tokens,
         language=user.language,
         points=submission_points,
         score=0.0,
         category=submission_category,
         mwe=mwe,
         user=user,
-        mwe_words=[submission_words[x] for x in mwe_indices],
-        mwe_indices=mwe_indices,
-        conllu=cupt.doc_to_cupt(doc, mwe.id, mwe.category, [x + 1 for x in mwe_indices]),
-        hash=get_submission_hash(doc),
+        mwe_words=parsed.get_mwe_tokens(mwe),
+        mwe_indices=list(mwe_indices),
+        conllu="",
+        hash="",
         created=datetime.now()
     )
     session.add(submission)
     session.commit()
     return submission
-
-
-def add_submission_using_text(user: User, sentence: str, mwe: Mwe,
-                              mwe_indices: List[int],
-                              positive: bool) -> Submission:
-    doc = process_sentence(user.language, sentence)
-    return add_submission_using_doc(user, doc, mwe, mwe_indices, positive)
 
 
 def get_category_score(language: Language, category: SubmissionCategory,
@@ -87,8 +70,3 @@ def get_category_score(language: Language, category: SubmissionCategory,
 
 def _compound_interest(p: int, r: float, n: float) -> float:
     return p * ((1 + r) ** n)
-
-
-def get_submission_hash(doc: Document) -> str:
-    submission_string = "".join([x.lemma for x in doc.iter_words() if x.pos != "PUNCT"])
-    return hashlib.md5(submission_string.encode('utf-8')).hexdigest()

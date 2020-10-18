@@ -36,7 +36,6 @@ class Mwe(Base):
     language: Language = Column(Enum(Language), nullable=False)
     lemmas: List[str] = Column(ARRAY(String))
     category: MweCategory = Column(Enum(MweCategory), nullable=False)
-    verb_indices: List[bool] = Column(ARRAY(Boolean))
 
     submissions: List['Submission'] = relationship("Submission", back_populates="mwe")
     reviews: List['Review'] = relationship("Review", back_populates="mwe")

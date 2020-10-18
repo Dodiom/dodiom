@@ -1,6 +1,6 @@
-FROM pytorch/pytorch
+FROM python:3.8
 
-RUN pip install stanza && python -c "import stanza; stanza.download('en'); stanza.download('tr')"
+RUN pip install nltk && python -c "import nltk; nltk.download('punkt');"
 
 WORKDIR /app
 
@@ -12,6 +12,5 @@ RUN apt-get update && apt-get install -y libpq-dev gcc tzdata
 RUN pip install -r requirements.txt
 
 COPY . ./
-RUN pip install nlp/cupt-parser
 
 CMD [ "python", "./main.py" ]
