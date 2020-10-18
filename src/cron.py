@@ -9,6 +9,7 @@ from api.mwe import get_todays_mwe
 from api.user import get_all_users
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.user_helper import send_message_to_user
+from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER
 from config import mwexpress_config
 from bot.main import mwexpress_bot
 from i18n import Token
@@ -19,6 +20,7 @@ def send_game_starting_message_to_all() -> None:
     unmute_everyone()
     all_users = get_all_users()
     for user in all_users:
+        mwexpress_bot.bot.send_sticker(user.id, GOOD_MORNING_STICKER)
         send_message_to_user(mwexpress_bot.bot, user,
                              user.language.get(Token.GAME_STARTED))
         todays_mwe = get_todays_mwe(user.language)
@@ -35,6 +37,7 @@ def send_game_over_message_to_all() -> None:
     clear_scores_for_today()
     for user in all_users:
         if user.score_today() > 0:
+            mwexpress_bot.bot.send_sticker(user.id, GOOD_NIGHT_STICKER)
             send_message_to_user(mwexpress_bot.bot, user,
                                  user.language.get(Token.GAME_ENDED))
 

@@ -6,6 +6,7 @@ from telegram.ext import CallbackContext, CommandHandler
 
 from bot.helpers.state_helper import clear_state
 from bot.helpers.user_helper import get_user_from_update, reply_to
+from bot.stickers import TIPS_FEDORA_STICKER
 from i18n import Token
 from bot.helpers.keyboard_helper import Keyboard
 
@@ -18,8 +19,7 @@ def start(update: Update, context: CallbackContext):
 
     clear_state(context)
 
-    context.bot.send_sticker(update.effective_chat.id,
-                             "CAACAgIAAxkBAAIJbl9hsMfM-cDdZePry73czl7hs2KUAAKbAQACusCVBZcJB3MLKGZWGwQ")
+    context.bot.send_sticker(update.effective_chat.id, TIPS_FEDORA_STICKER)
     reply_to(user, update,
              user.language.get(Token.WELCOME_MESSAGE_1),
              Keyboard.remove())

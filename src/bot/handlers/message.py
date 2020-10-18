@@ -74,10 +74,8 @@ message_handler = MessageHandler(Filters.text, message, run_async=True)
 
 
 def sticker(update: Update, context: CallbackContext):
-    print(update.message.text)
+    logging.info("Got sticker: {sticker_id}", sticker_id=update.message.sticker.file_id)
     context.bot.send_sticker(update.effective_chat.id, update.message.sticker.file_id)
-    print(update.message.sticker.file_id)
-    pass
 
 
 sticker_handler = MessageHandler(Filters.sticker, sticker, run_async=True)
