@@ -43,7 +43,6 @@ class Parsed:
 
         mwe_instances = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
         mwe_instances_sorted = sorted(mwe_instances, key=lambda x: max(x) - min(x))
-
         return mwe_instances_sorted[0]
 
     def get_mwe_tokens(self, mwe: Mwe) -> List[str]:
@@ -61,11 +60,14 @@ class Parsed:
                 if len(lemma) == 1:
                     lemma_list.append(lemma[0])
                 else:
+                    appended_mwe_lemma = False
                     for mwe_lemma in mwe.lemmas:
                         if mwe_lemma in lemma:
+                            appended_mwe_lemma = True
                             lemma_list.append(mwe_lemma)
-                            continue
-                    lemma_list.append(lemma[0])
+                            break
+                    if not appended_mwe_lemma:
+                        lemma_list.append(lemma[0])
             return lemma_list
 
 

@@ -79,9 +79,10 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     """ Gets the submission text from user """
     submission_value = update.message.text
 
-    if parser.get_sentence_count(user.language, submission_value) != 1:
+    sentence_count = parser.get_sentence_count(user.language, submission_value)
+    if sentence_count != 1:
         reply_to(user, update,
-                 user.language.get(Token.PLEASE_ENTER_ONE_SENTENCE) % parser.get_sentence_count())
+                 user.language.get(Token.PLEASE_ENTER_ONE_SENTENCE) % sentence_count)
         return
 
     todays_mwe = get_todays_mwe(user.language)
@@ -134,7 +135,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         return
 
     if update.message.text == user.language.get(Token.CANCEL):
-        clear_state(context)
+        _clear_context(context)
         unmute_user(user.id)
         reply_to(user, update,
                  user.language.get(Token.SUBMISSION_CANCELLED),
