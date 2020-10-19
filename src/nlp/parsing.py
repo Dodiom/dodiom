@@ -123,7 +123,6 @@ class Parser:
 
                 return parsed
 
-    @lru_cache(maxsize=None)
     def _get_tr_stem(self, word: str) -> List[str]:
         stem = self.turkish_stemmer.lemmatize(word)
         if len(stem) > 0:

@@ -1,6 +1,7 @@
 import logging
 from telegram.ext import Updater, Dispatcher
 
+from bot.handlers.announcements import announcements_handler
 from bot.handlers.message import message_handler, sticker_handler
 from bot.handlers.start import start_handler
 from bot.handlers.stats import stats_handler
@@ -14,6 +15,7 @@ class MWExpress:
         self.bot = self.dispatcher.bot
 
         self.dispatcher.add_handler(start_handler)
+        self.dispatcher.add_handler(announcements_handler)
         self.dispatcher.add_handler(stats_handler)
         self.dispatcher.add_handler(message_handler)
         self.dispatcher.add_handler(sticker_handler)
