@@ -9,12 +9,20 @@ import zeyrek
 
 analyzer = zeyrek.MorphAnalyzer()
 
+mwe = Mwe(name="yol ",
+          meaning="kötü bir duruma düşmek",
+          language=Language.TURKISH,
+          date=datetime.now().date(),
+          lemmas=["yol", "açmak"],
+          category=MweCategory.VID)
+
 while True:
     sentence = input("Enter sentence > ")
     parsed = parser.parse(Language.TURKISH, sentence)
     print(parsed.tokens)
     print(parsed.token_positions)
     print(parsed.lemmas)
+    print(parsed.contains_mwe(mwe))
 
 mwe = Mwe(name="ayvayı yemek",
           meaning="kötü bir duruma düşmek",

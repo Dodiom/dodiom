@@ -1,4 +1,5 @@
 import itertools
+import logging
 import threading
 from typing import List, Tuple, Dict
 
@@ -8,6 +9,7 @@ import tokenizations
 import zeyrek
 
 from i18n import Language
+from log import mwelog
 from models import Mwe
 
 
@@ -25,8 +27,14 @@ class Parsed:
         self.token_positions = token_positions
         self.lemmas = lemmas
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
+        mwelog.info(self.tokens)
+        mwelog.info(self.token_positions)
+        mwelog.info(self.lemmas)
+        mwelog.info(self.lemmas_flattened)
 
     def contains_mwe(self, mwe: Mwe) -> bool:
+        mwelog.info(mwe.lemmas)
+        mwelog.info([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
         return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
 
     def get_mwe_indices(self, mwe: Mwe) -> Tuple:
