@@ -6,12 +6,18 @@ from sqlalchemy import func
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from bot.helpers.user_helper import get_user_from_update
+from api.user import get_all_users
+from bot.helpers.user_helper import get_user_from_update, send_message_to_user
 from database import session
+from i18n import Token
 from models import User, Submission, Review
 
 
 def stats(update: Update, context: CallbackContext):
+    for user in get_all_users():
+        send_message_to_user(context.bot, user,
+                             "Merhabalar, sistemsel kaynaklı sıkıntılar nedeniyle oyuna kısa bir süre ara veriyoruz. 😥 Sorun çözüldüğünde kaldığımız yerden devam edeceğiz.")
+
     user = get_user_from_update(update)
     logging.info(f"Stats requested by {user.username}")
 

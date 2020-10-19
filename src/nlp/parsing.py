@@ -1,6 +1,7 @@
 import itertools
 import logging
 import threading
+from functools import lru_cache
 from typing import List, Tuple, Dict
 
 import nltk
@@ -27,15 +28,18 @@ class Parsed:
         self.token_positions = token_positions
         self.lemmas = lemmas
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
-        mwelog.info(self.tokens)
-        mwelog.info(self.token_positions)
+        print(self.lemmas)
+        # mwelog.info(self.tokens)
+        # mwelog.info(self.token_positions)
         mwelog.info(self.lemmas)
         mwelog.info(self.lemmas_flattened)
+        # mwelog.info(self.lemmas_flattened)
 
     def contains_mwe(self, mwe: Mwe) -> bool:
-        mwelog.info(mwe.lemmas)
-        mwelog.info([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
         return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
+
+    def contains_mwe_with_lemmas(self, lemmas: List[str]) -> bool:
+        return all([lemma in self.lemmas_flattened for lemma in lemmas])
 
     def get_mwe_indices(self, mwe: Mwe) -> Tuple:
         if not self.contains_mwe(mwe):
@@ -92,8 +96,11 @@ class Parser:
         elif language == Language.TURKISH:
             return len(nltk.sent_tokenize(text, "turkish"))
 
-    def parse(self, language: Language, text: str) -> Parsed:
+    @lru_cache(maxsize=None)
+    def parse(self, language: Language, text: str,
+              mwe_lemmas: str = None) -> Parsed:
         with self.parser_lock:
+            mwelog.info("Parsing cache miss")
             if language == Language.ENGLISH:
                 tokens = nltk.word_tokenize(text)
                 token_positions = tokenizations.get_original_spans(tokens, text)
@@ -103,8 +110,20 @@ class Parser:
                 tokens = nltk.word_tokenize(text, "turkish")
                 token_positions = tokenizations.get_original_spans(tokens, text)
                 lemmas = [self._get_tr_stem(token) for token in tokens]
-                return Parsed(language, text, tokens, token_positions, lemmas)
+                parsed = Parsed(language, text, tokens, token_positions, lemmas)
 
+                if mwe_lemmas is not None:
+                    if not parsed.contains_mwe_with_lemmas(mwe_lemmas.split("|")):
+                        logging.info("Refreshing stemmer")
+                        self.turkish_stemmer = zeyrek.MorphAnalyzer()
+                        self.turkish_stemmer = zeyrek.MorphAnalyzer()
+                        token_positions = tokenizations.get_original_spans(tokens, text)
+                        lemmas = [self._get_tr_stem(token) for token in tokens]
+                        parsed = Parsed(language, text, tokens, token_positions, lemmas)
+
+                return parsed
+
+    @lru_cache(maxsize=None)
     def _get_tr_stem(self, word: str) -> List[str]:
         stem = self.turkish_stemmer.lemmatize(word)
         if len(stem) > 0:

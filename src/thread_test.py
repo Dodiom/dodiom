@@ -1,13 +1,12 @@
 from datetime import datetime
+import logging
+import threading
+import time
 
 from i18n import Language
 from models import Mwe, MweCategory
 from nlp.parsing import parser
 
-import nltk
-import zeyrek
-
-analyzer = zeyrek.MorphAnalyzer()
 
 mwe = Mwe(name="yol ",
           meaning="kötü bir duruma düşmek",

@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+from operator import and_
 from typing import List
 
 from telegram import Update
@@ -161,7 +162,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
 def _process_review_achievements(user: User, update: Update):
     todays_mwe = get_todays_mwe(user.language)
     user_review_count_today = session.query(Review)\
-        .filter(Review.mwe == todays_mwe).count()
+        .filter(and_(Review.mwe == todays_mwe, Review.user == user)).count()
     if not user_has_achievement(user, AchievementType.REVIEW_LVL_1) and user_review_count_today == 10:
         award_achievement(user, AchievementType.REVIEW_LVL_1)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)

@@ -1,7 +1,7 @@
 import logging
 import random
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from operator import and_
 
 from telegram import Update
@@ -92,7 +92,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     todays_mwe = get_todays_mwe(user.language)
     try:
-        parsed = parser.parse(user.language, submission_value)
+        parsed = parser.parse(user.language, submission_value, "|".join(todays_mwe.lemmas))
     except Exception as ex:
         logging.error(ex)
         reply_to(user, update,
@@ -131,7 +131,7 @@ def submission_contains_todays_mwe(user: User, submission: str) -> bool:
     if parser.get_sentence_count(user.language, submission) != 1:
         return False
     try:
-        parsed = parser.parse(user.language, submission)
+        parsed = parser.parse(user.language, submission, "|".join(todays_mwe.lemmas))
         return parsed.contains_mwe(todays_mwe)
     except Exception as ex:
         logging.error(str(ex))
