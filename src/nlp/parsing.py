@@ -100,6 +100,7 @@ class Parser:
                 lemmas = [[self.english_stemmer.stem(token)] for token in tokens]
                 return Parsed(language, text, tokens, token_positions, lemmas)
             elif language == Language.TURKISH:
+                self.turkish_stemmer = zeyrek.MorphAnalyzer()
                 tokens = nltk.word_tokenize(text, "turkish")
                 token_positions = tokenizations.get_original_spans(tokens, text)
                 lemmas = [self._get_tr_stem(token) for token in tokens]
