@@ -5,15 +5,17 @@ from typing import List
 from telegram import Update
 from telegram.ext import CallbackContext
 
+from api.achievements import user_has_achievement, award_achievement
 from api.mwe import get_todays_mwe
 from api.user import unmute_user, mute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
+from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
 from database import session
 from i18n import Token, get_random_congrats_message
-from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe
+from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe, Review, AchievementType
 from api.review import add_review
 from nlp.parsing import parser
 
@@ -131,6 +133,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
         add_review(user, submission, ReviewCategory.LIKE)
         reply_to(user, update,
                  user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
+        _process_review_achievements(user, update)
         if not submission.user.muted:
             send_message_to_user(context.bot, submission.user,
                                  user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (
@@ -139,8 +142,10 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
         add_review(user, submission, ReviewCategory.DISLIKE)
         reply_to(user, update,
                  user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
+        _process_review_achievements(user, update)
     elif update.message.text == user.language.get(Token.SKIP_THIS_ONE):
         add_review(user, submission, ReviewCategory.SKIP)
+        _process_review_achievements(user, update)
     else:
         unmute_user(user.id)
         reply_to(user, update,
@@ -151,6 +156,32 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
         return
 
     _send_submission_to_review(user, update, context)
+
+
+def _process_review_achievements(user: User, update: Update):
+    todays_mwe = get_todays_mwe(user.language)
+    user_review_count_today = session.query(Review)\
+        .filter(Review.mwe == todays_mwe).count()
+    if not user_has_achievement(user, AchievementType.REVIEW_LVL_1) and user_review_count_today == 10:
+        award_achievement(user, AchievementType.REVIEW_LVL_1)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.REVIEW_LVL_1_ACH_CONGRATS_MSG))
+    if not user_has_achievement(user, AchievementType.REVIEW_LVL_2) and user_review_count_today == 20:
+        award_achievement(user, AchievementType.REVIEW_LVL_2)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.REVIEW_LVL_2_ACH_CONGRATS_MSG))
+    if not user_has_achievement(user, AchievementType.REVIEW_LVL_3) and user_review_count_today == 40:
+        award_achievement(user, AchievementType.REVIEW_LVL_3)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.REVIEW_LVL_3_ACH_CONGRATS_MSG))
+    if not user_has_achievement(user, AchievementType.REVIEW_LVL_4) and user_review_count_today == 80:
+        award_achievement(user, AchievementType.REVIEW_LVL_4)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.REVIEW_LVL_4_ACH_CONGRATS_MSG))
+    if not user_has_achievement(user, AchievementType.REVIEW_LVL_5) and user_review_count_today == 160:
+        award_achievement(user, AchievementType.REVIEW_LVL_5)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.REVIEW_LVL_5_ACH_CONGRATS_MSG))
 
 
 def _safe_delete_context_data(context: CallbackContext, name: str) -> None:

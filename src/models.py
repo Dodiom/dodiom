@@ -166,3 +166,40 @@ class FeedbackData(Base):
 
     def __repr__(self):
         return "<Feedback(id='%s')>" % self.id
+
+
+class AchievementType(enum.Enum):
+    FIRST_SUBMISSION = auto()  # submit first submission
+    EARLY_BIRD = auto()  # submit in the first half hour
+    SUB_LVL_1 = auto()  # submit 5 examples
+    SUB_LVL_2 = auto()  # review 10 examples
+    SUB_LVL_3 = auto()  # review 20 examples
+    SUB_LVL_4 = auto()  # review 40 examples
+    SUB_LVL_5 = auto()  # review 70 examples
+    REVIEW_LVL_1 = auto()  # submit 10 examples
+    REVIEW_LVL_2 = auto()  # review 20 examples
+    REVIEW_LVL_3 = auto()  # review 40 examples
+    REVIEW_LVL_4 = auto()  # review 80 examples
+    REVIEW_LVL_5 = auto()  # review 160 examples
+
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+
+class Achievement(Base):
+    __tablename__ = 'achievements'
+
+    id = Column(Integer, primary_key=True)
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship("User")
+
+    type = Column(Enum(AchievementType), nullable=False)
+    created = Column(DateTime, default=datetime.datetime.now, nullable=False)
+
+    def __repr__(self):
+        return "<Attachment(user='%s', type='%s')>" % (self.user.username, self.type)

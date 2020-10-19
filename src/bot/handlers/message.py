@@ -3,6 +3,7 @@ import logging
 from telegram import ParseMode, Update
 from telegram.ext import MessageHandler, Filters, CallbackContext
 
+from bot.handlers.achievements import achievements_handler
 from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
@@ -49,6 +50,8 @@ def message(update: Update, context: CallbackContext):
                 feedback_handler(user, update, context)
             elif update.message.text == user.language.get(Token.SHOW_SCOREBOARD):
                 scoreboard_handler(user, update, context)
+            elif update.message.text == user.language.get(Token.ACHIEVEMENTS):
+                achievements_handler(user, update, context)
             elif submission_contains_todays_mwe(user, update.message.text):
                 context.user_data["sub_state"] = "typing_example"
                 main_submit_handler(user, update, context)

@@ -73,6 +73,46 @@ class Token(Enum):
     SCOREBOARD_EMPTY = auto()
     SUBMISSION_CANCELLED = auto()
     SUBMISSION_CONTAINS_ERROR = auto()
+    ACHIEVEMENTS = auto()
+    LEVEL_MESSAGE = auto()
+    FIRST_SUB_ACH_NAME = auto()
+    FIRST_SUB_ACH_DESC = auto()
+    FIRST_SUB_ACH_CONGRATS_MSG = auto()
+    EARLY_BIRD_ACH_NAME = auto()
+    EARLY_BIRD_ACH_DESC = auto()
+    EARLY_BIRD_ACH_CONGRATS_MSG = auto()
+    UNLOCKED_ACHIEVEMENTS = auto()
+    SUB_LVL_1_ACH_NAME = auto()
+    SUB_LVL_1_ACH_DESC = auto()
+    SUB_LVL_1_ACH_CONGRATS_MSG = auto()
+    LOCKED_ACHIEVEMENTS = auto()
+    SUB_LVL_2_ACH_NAME = auto()
+    SUB_LVL_2_ACH_DESC = auto()
+    SUB_LVL_2_ACH_CONGRATS_MSG = auto()
+    SUB_LVL_3_ACH_NAME = auto()
+    SUB_LVL_3_ACH_DESC = auto()
+    SUB_LVL_3_ACH_CONGRATS_MSG = auto()
+    SUB_LVL_4_ACH_NAME = auto()
+    SUB_LVL_4_ACH_DESC = auto()
+    SUB_LVL_4_ACH_CONGRATS_MSG = auto()
+    SUB_LVL_5_ACH_NAME = auto()
+    SUB_LVL_5_ACH_DESC = auto()
+    SUB_LVL_5_ACH_CONGRATS_MSG = auto()
+    REVIEW_LVL_1_ACH_NAME = auto()
+    REVIEW_LVL_1_ACH_DESC = auto()
+    REVIEW_LVL_1_ACH_CONGRATS_MSG = auto()
+    REVIEW_LVL_2_ACH_NAME = auto()
+    REVIEW_LVL_2_ACH_DESC = auto()
+    REVIEW_LVL_2_ACH_CONGRATS_MSG = auto()
+    REVIEW_LVL_3_ACH_NAME = auto()
+    REVIEW_LVL_3_ACH_DESC = auto()
+    REVIEW_LVL_3_ACH_CONGRATS_MSG = auto()
+    REVIEW_LVL_4_ACH_NAME = auto()
+    REVIEW_LVL_4_ACH_DESC = auto()
+    REVIEW_LVL_4_ACH_CONGRATS_MSG = auto()
+    REVIEW_LVL_5_ACH_NAME = auto()
+    REVIEW_LVL_5_ACH_DESC = auto()
+    REVIEW_LVL_5_ACH_CONGRATS_MSG = auto()
 
 
 class Language(Enum):
@@ -446,7 +486,191 @@ sıralamalarda öne geçebilirsin."
 please enter a different one.",
         "tr": "Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, \
 lütfen başka bir örnek gir."
-    }
+    },
+    Token.ACHIEVEMENTS: {
+        "en": "Achievements",
+        "tr": "Başarımlar"
+    },
+    Token.LEVEL_MESSAGE: {
+        "en": "<b>Your score:</b> %.2f\n<b>Your level:</b>%d (next: %d points)",
+        "tr": "<b>Toplam Skorun:</b> %.2f\n<b>Seviyen:</b> %d (Bir sonraki: %d puanda)"
+    },
+    Token.FIRST_SUB_ACH_NAME: {
+        "en": "First Submission!",
+        "tr": "İlk Gönderi!"
+    },
+    Token.FIRST_SUB_ACH_DESC: {
+        "en": "Send the first submission of the day.",
+        "tr": "Günün ilk gönderisini gönder."
+    },
+    Token.FIRST_SUB_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent the first submission of the day and \
+awarded with the 🌅 <b><u>First Submission!</u></b> achievement.",
+        "tr": "Tebrikler! Günün ilk gönderisini gönderdin ve 🌅 <b><u>İlk Gönderi</u></b> \
+başarımını açtın."
+    },
+    Token.EARLY_BIRD_ACH_NAME: {
+        "en": "Early Bird",
+        "tr": "Erkenci Kuş"
+    },
+    Token.EARLY_BIRD_ACH_DESC: {
+        "en": "Send a submission in the first half hour after the game started.",
+        "tr": "Oyun başladıktan sonraki ilk yarım saat içerinde bir örnek gönder."
+    },
+    Token.EARLY_BIRD_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent a submission in the first half hour and \
+awarded with the 🐦 <b><u>Early Bird</u></b> achievement.",
+        "tr": "Tebrikler! Oyunun ilk yarım saatinde örnek gönderdin ve 🐦 <b><u>Erkenci Kuş</u></b> \
+başarımını açtın."
+    },
+    Token.UNLOCKED_ACHIEVEMENTS: {
+        "en": "<b>Unlocked achivements</b>",
+        "tr": "<b>Açılan başarımlar</b>"
+    },
+    Token.SUB_LVL_1_ACH_NAME: {
+        "en": "Just starting out",
+        "tr": "Daha yeni başlıyorum"
+    },
+    Token.SUB_LVL_1_ACH_DESC: {
+        "en": "Send 5 submissions in a day.",
+        "tr": "Bir günde 5 gönderi gönder."
+    },
+    Token.SUB_LVL_1_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent your fifth submission and \
+awarded with the <b><u>Just starting out</u></b> achievement.",
+        "tr": "Tebrikler! Beşinci gönderini gönderdin ve <b><u>Daha yeni başlıyorum</u></b> \
+başarımını açtın."
+    },
+    Token.LOCKED_ACHIEVEMENTS: {
+        "en": "<b>Locked achivements</b>",
+        "tr": "<b>Kilitli başarımlar</b>"
+    },
+    Token.SUB_LVL_2_ACH_NAME: {
+        "en": "Author",
+        "tr": "Yazar"
+    },
+    Token.SUB_LVL_2_ACH_DESC: {
+        "en": "Send 10 submissions in a day.",
+        "tr": "Bir günde 10 gönderi gönder."
+    },
+    Token.SUB_LVL_2_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent your tenth submission and \
+awarded with the ✍️<b><u>Author</u></b> achievement.",
+        "tr": "Tebrikler! Onuncu gönderini gönderdin ve ✍️<b><u>Yazar</u></b> \
+başarımını açtın."
+    },
+    Token.SUB_LVL_3_ACH_NAME: {
+        "en": "Master of Submissions",
+        "tr": "Gönderi Üstadı"
+    },
+    Token.SUB_LVL_3_ACH_DESC: {
+        "en": "Send 20 submissions in a day.",
+        "tr": "Bir günde 20 gönderi gönder."
+    },
+    Token.SUB_LVL_3_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent your twentieth submission and \
+awarded with the <b><u>Master of Submissions</u></b> achievement.",
+        "tr": "Tebrikler! Yirminci gönderini gönderdin ve <b><u>Gönderi Üstadı</u></b> \
+başarımını açtın."
+    },
+    Token.SUB_LVL_4_ACH_NAME: {
+        "en": "Idioms Dictionary",
+        "tr": "Deyimler Sözlüğü"
+    },
+    Token.SUB_LVL_4_ACH_DESC: {
+        "en": "Send 40 submissions in a day.",
+        "tr": "Bir günde 40 gönderi gönder."
+    },
+    Token.SUB_LVL_4_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent your fortieth submission and \
+awarded with the 📚 <b><u>Idioms Dictionary</u></b> achievement.",
+        "tr": "Tebrikler! Kırkıncı gönderini gönderdin ve 📚 <b><u>Deyimler Sözlüğü</u></b> \
+başarımını açtın."
+    },
+    Token.SUB_LVL_5_ACH_NAME: {
+        "en": "Human Corpus",
+        "tr": "İki Ayaklı Derlem"
+    },
+    Token.SUB_LVL_5_ACH_DESC: {
+        "en": "Send 70 submissions in a day.",
+        "tr": "Bir günde 70 gönderi gönder."
+    },
+    Token.SUB_LVL_5_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've sent your fortieth submission and \
+awarded with the <b><u>Human Corpus</u></b> achievement.",
+        "tr": "Tebrikler! Yetmişinci gönderini gönderdin ve <b><u>İki Ayaklı Derlem</u></b> \
+başarımını açtın."
+    },
+    Token.REVIEW_LVL_1_ACH_NAME: {
+        "en": "Helpful",
+        "tr": "Yardımsever"
+    },
+    Token.REVIEW_LVL_1_ACH_DESC: {
+        "en": "Review 10 submissions in a day.",
+        "tr": "Bir günde 10 gönderiyi oyla."
+    },
+    Token.REVIEW_LVL_1_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've rated ten submissions and \
+awarded with the 🤝 <b><u>Helpful</u></b> achievement.",
+        "tr": "Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> \
+başarımını açtın."
+    },
+    Token.REVIEW_LVL_2_ACH_NAME: {
+        "en": "Voter",
+        "tr": "Seçmen"
+    },
+    Token.REVIEW_LVL_2_ACH_DESC: {
+        "en": "Review 20 submissions in a day.",
+        "tr": "Bir günde 20 gönderiyi oyla."
+    },
+    Token.REVIEW_LVL_2_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've rated twenty submissions and \
+awarded with the <b><u>Voter</u></b> achievement.",
+        "tr": "Tebrikler! Yirmi gönderiyi oyladın ve <b><u>Seçmen</u></b> \
+başarımını açtın."
+    },
+    Token.REVIEW_LVL_3_ACH_NAME: {
+        "en": "Critique",
+        "tr": "Kritik"
+    },
+    Token.REVIEW_LVL_3_ACH_DESC: {
+        "en": "Review 40 submissions in a day.",
+        "tr": "Bir günde 40 gönderiyi oyla."
+    },
+    Token.REVIEW_LVL_3_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've rated forty submissions and \
+awarded with the <b><u>Critique</u></b> achievement.",
+        "tr": "Tebrikler! Kırk gönderiyi oyladın ve <b><u>Kritik</u></b> \
+başarımını açtın."
+    },
+    Token.REVIEW_LVL_4_ACH_NAME: {
+        "en": "Gourmet",
+        "tr": "Gurme"
+    },
+    Token.REVIEW_LVL_4_ACH_DESC: {
+        "en": "Review 80 submissions in a day.",
+        "tr": "Bir günde 80 gönderiyi oyla."
+    },
+    Token.REVIEW_LVL_4_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've rated eighty submissions and \
+awarded with the <b><u>Critique</u></b> achievement.",
+        "tr": "Tebrikler! Seksen gönderiyi oyladın ve <b><u>Kritik</u></b> \
+başarımını açtın."
+    },
+    Token.REVIEW_LVL_5_ACH_NAME: {
+        "en": "Reviewer",
+        "tr": "Eleştirmen"
+    },
+    Token.REVIEW_LVL_5_ACH_DESC: {
+        "en": "Review 160 submissions in a day.",
+        "tr": "Bir günde 160 gönderiyi oyla."
+    },
+    Token.REVIEW_LVL_5_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've rated one hundred and sixty submissions and \
+awarded with the <b><u>Reviewer</u></b> achievement.",
+        "tr": "Tebrikler! Yüz altmış gönderiyi oyladın ve <b><u>Eleştirmen</u></b> \
+başarımını açtın."
+    },
 }
 
 congrats_messages = {

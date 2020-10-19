@@ -1,23 +1,28 @@
-from models import User
+from sqlalchemy import and_
+
+from database import session
+from models import User, AchievementType, Achievement
 
 
-class Achievement:
-    def __init__(self, user: User):
-        self.user = user
-
-    def achieved(self) -> bool:
-        pass
-
-    def process(self):
-        pass
+def user_has_achievement(user: User, ach_type: AchievementType):
+    return session.query(Achievement)\
+        .filter(and_(Achievement.user == user, Achievement.type == ach_type))\
+        .count() > 0
 
 
-class EarlyBird(Achievement):
+def award_achievement(user: User, ach_type: AchievementType):
+    if not user_has_achievement(user, ach_type):
+        achievement = Achievement(user=user, type=ach_type)
+        session.add(achievement)
+        session.commit()
+
+
+class EarlyBird:
     ICON = "🌅"
 
     pass
 
 
-class Helpful(Achievement):
+class Helpful:
     ICON = "🤝"
     pass
