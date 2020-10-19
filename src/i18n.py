@@ -72,6 +72,7 @@ class Token(Enum):
     NO_SUB_LEFT_TO_REVIEW = auto()
     SCOREBOARD_EMPTY = auto()
     SUBMISSION_CANCELLED = auto()
+    SUBMISSION_CONTAINS_ERROR = auto()
 
 
 class Language(Enum):
@@ -439,6 +440,12 @@ sıralamalarda öne geçebilirsin."
     Token.SUBMISSION_CANCELLED: {
         "en": "Submission is cancelled.",
         "tr": "Gönderi iptal edildi."
+    },
+    Token.SUBMISSION_CONTAINS_ERROR: {
+        "en": "There was an error when I was trying to parse your submission, \
+please enter a different one.",
+        "tr": "Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, \
+lütfen başka bir örnek gir."
     }
 }
 

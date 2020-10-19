@@ -94,8 +94,15 @@ class Parser:
             elif language == Language.TURKISH:
                 tokens = nltk.word_tokenize(text, "turkish")
                 token_positions = tokenizations.get_original_spans(tokens, text)
-                lemmas = [self.turkish_stemmer.lemmatize(token)[0][1] for token in tokens]
+                lemmas = [self._get_tr_stem(token) for token in tokens]
                 return Parsed(language, text, tokens, token_positions, lemmas)
+
+    def _get_tr_stem(self, word: str) -> List[str]:
+        stem = self.turkish_stemmer.lemmatize(word)
+        if len(stem) > 0:
+            return stem[0][1]
+        else:
+            return [""]
 
 
 parser = Parser()

@@ -1,3 +1,4 @@
+import logging
 import random
 import time
 from datetime import datetime
@@ -86,7 +87,14 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
         return
 
     todays_mwe = get_todays_mwe(user.language)
-    parsed = parser.parse(user.language, submission_value)
+    try:
+        parsed = parser.parse(user.language, submission_value)
+    except Exception as ex:
+        logging.error(ex)
+        reply_to(user, update,
+                 user.language.get(Token.SUBMISSION_CONTAINS_ERROR),
+                 reply_markup=Keyboard.remove())
+        return
     context.user_data["parsed"] = parsed
 
     if not parsed.contains_mwe(todays_mwe):
@@ -118,8 +126,12 @@ def submission_contains_todays_mwe(user: User, submission: str) -> bool:
     todays_mwe = get_todays_mwe(user.language)
     if parser.get_sentence_count(user.language, submission) != 1:
         return False
-    parsed = parser.parse(user.language, submission)
-    return parsed.contains_mwe(todays_mwe)
+    try:
+        parsed = parser.parse(user.language, submission)
+        return parsed.contains_mwe(todays_mwe)
+    except Exception as ex:
+        logging.error(str(ex))
+        return False
 
 
 def submit_category_handler(user: User, update: Update, context: CallbackContext) -> None:
