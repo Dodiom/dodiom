@@ -73,7 +73,7 @@ def schedule_jobs():
     schedule.every().day.at(mwexpress_config.start_time.strftime("%H:%M"))\
         .do(send_game_starting_message_to_all)
     schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
-        .do(send_game_over_message_to_all)
+        .do(clear_scores_for_today)
 
 
 def run_scheduled_jobs():

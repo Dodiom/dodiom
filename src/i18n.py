@@ -113,6 +113,7 @@ class Token(Enum):
     REVIEW_LVL_5_ACH_NAME = auto()
     REVIEW_LVL_5_ACH_DESC = auto()
     REVIEW_LVL_5_ACH_CONGRATS_MSG = auto()
+    USER_DAILY_PLAY_DETAILS_MESSAGE = auto()
 
 
 class Language(Enum):
@@ -515,7 +516,7 @@ başarımını açtın."
     },
     Token.EARLY_BIRD_ACH_DESC: {
         "en": "Send a submission in the first half hour after the game started.",
-        "tr": "Oyun başladıktan sonraki ilk yarım saat içerinde bir örnek gönder."
+        "tr": "Oyun başladıktan sonraki ilk yarım saat içerisinde bir örnek gönder."
     },
     Token.EARLY_BIRD_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've sent a submission in the first half hour and \
@@ -538,7 +539,7 @@ başarımını açtın."
     Token.SUB_LVL_1_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've sent your fifth submission and \
 awarded with the <b><u>Just starting out</u></b> achievement.",
-        "tr": "Tebrikler! Beşinci gönderini gönderdin ve <b><u>Daha yeni başlıyorum</u></b> \
+        "tr": "Tebrikler! Beşinci gönderini gönderdin ve 🎇 <b><u>Daha yeni başlıyorum</u></b> \
 başarımını açtın."
     },
     Token.LOCKED_ACHIEVEMENTS: {
@@ -569,8 +570,8 @@ başarımını açtın."
     },
     Token.SUB_LVL_3_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've sent your twentieth submission and \
-awarded with the <b><u>Master of Submissions</u></b> achievement.",
-        "tr": "Tebrikler! Yirminci gönderini gönderdin ve <b><u>Gönderi Üstadı</u></b> \
+awarded with the 🗿 <b><u>Master of Submissions</u></b> achievement.",
+        "tr": "Tebrikler! Yirminci gönderini gönderdin ve 🗿 <b><u>Gönderi Üstadı</u></b> \
 başarımını açtın."
     },
     Token.SUB_LVL_4_ACH_NAME: {
@@ -597,8 +598,8 @@ başarımını açtın."
     },
     Token.SUB_LVL_5_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've sent your fortieth submission and \
-awarded with the <b><u>Human Corpus</u></b> achievement.",
-        "tr": "Tebrikler! Yetmişinci gönderini gönderdin ve <b><u>İki Ayaklı Derlem</u></b> \
+awarded with the 🦄 <b><u>Human Corpus</u></b> achievement.",
+        "tr": "Tebrikler! Yetmişinci gönderini gönderdin ve 🦄 <b><u>İki Ayaklı Derlem</u></b> \
 başarımını açtın."
     },
     Token.REVIEW_LVL_1_ACH_NAME: {
@@ -626,7 +627,7 @@ başarımını açtın."
     Token.REVIEW_LVL_2_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've rated twenty submissions and \
 awarded with the <b><u>Voter</u></b> achievement.",
-        "tr": "Tebrikler! Yirmi gönderiyi oyladın ve <b><u>Seçmen</u></b> \
+        "tr": "Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> \
 başarımını açtın."
     },
     Token.REVIEW_LVL_3_ACH_NAME: {
@@ -639,8 +640,8 @@ başarımını açtın."
     },
     Token.REVIEW_LVL_3_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've rated forty submissions and \
-awarded with the <b><u>Critique</u></b> achievement.",
-        "tr": "Tebrikler! Kırk gönderiyi oyladın ve <b><u>Kritik</u></b> \
+awarded with the ✨ <b><u>Critique</u></b> achievement.",
+        "tr": "Tebrikler! Kırk gönderiyi oyladın ve ✨ <b><u>Kritik</u></b> \
 başarımını açtın."
     },
     Token.REVIEW_LVL_4_ACH_NAME: {
@@ -653,8 +654,8 @@ başarımını açtın."
     },
     Token.REVIEW_LVL_4_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've rated eighty submissions and \
-awarded with the <b><u>Critique</u></b> achievement.",
-        "tr": "Tebrikler! Seksen gönderiyi oyladın ve <b><u>Kritik</u></b> \
+awarded with the 🧑‍🍳 <b><u>Gourmet</u></b> achievement.",
+        "tr": "Tebrikler! Seksen gönderiyi oyladın ve 🧑‍🍳 <b><u>Gurme</u></b> \
 başarımını açtın."
     },
     Token.REVIEW_LVL_5_ACH_NAME: {
@@ -667,10 +668,14 @@ başarımını açtın."
     },
     Token.REVIEW_LVL_5_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You've rated one hundred and sixty submissions and \
-awarded with the <b><u>Reviewer</u></b> achievement.",
-        "tr": "Tebrikler! Yüz altmış gönderiyi oyladın ve <b><u>Eleştirmen</u></b> \
+awarded with the 🕶️ <b><u>Reviewer</u></b> achievement.",
+        "tr": "Tebrikler! Yüz altmış gönderiyi oyladın ve 🕶️ <b><u>Eleştirmen</u></b> \
 başarımını açtın."
     },
+    Token.USER_DAILY_PLAY_DETAILS_MESSAGE: {
+        "en": "Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>",
+        "tr": "Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>"
+    }
 }
 
 congrats_messages = {
