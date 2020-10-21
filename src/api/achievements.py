@@ -15,14 +15,3 @@ def award_achievement(user: User, ach_type: AchievementType):
         achievement = Achievement(user=user, type=ach_type)
         session.add(achievement)
         session.commit()
-
-
-class EarlyBird:
-    ICON = "🌅"
-
-    pass
-
-
-class Helpful:
-    ICON = "🤝"
-    pass

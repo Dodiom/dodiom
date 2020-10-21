@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime
 import time
 
@@ -14,8 +13,6 @@ from config import mwexpress_config
 
 
 def todays_mwe_handler(user: User, update: Update):
-    logging.info("User {user_name} requested todays mwe.",
-                 user_name=user.username)
     now = datetime.now().time()
     if mwexpress_config.start_time <= now <= mwexpress_config.end_time:
         todays_mwe = get_todays_mwe(user.language)

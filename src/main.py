@@ -1,8 +1,6 @@
 from bot.main import mwexpress_bot
-from log import init_seqlog, mwelog
+from log import mwelog
 from cron import schedule_jobs, run_scheduled_jobs
-
-init_seqlog()
 
 mwelog.info("Starting MWExpress...")
 

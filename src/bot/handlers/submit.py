@@ -1,4 +1,3 @@
-import logging
 import random
 import time
 from datetime import datetime
@@ -19,6 +18,7 @@ from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
 from database import session
 from i18n import Token, get_random_congrats_message
+from log import mwelog
 from models import User, Mwe, Submission, AchievementType
 from nlp.parsing import parser
 
@@ -94,7 +94,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     try:
         parsed = parser.parse(user.language, submission_value, "|".join(todays_mwe.lemmas))
     except Exception as ex:
-        logging.error(ex)
+        mwelog.error(ex)
         reply_to(user, update,
                  user.language.get(Token.SUBMISSION_CONTAINS_ERROR),
                  reply_markup=Keyboard.remove())
@@ -134,7 +134,7 @@ def submission_contains_todays_mwe(user: User, submission: str) -> bool:
         parsed = parser.parse(user.language, submission, "|".join(todays_mwe.lemmas))
         return parsed.contains_mwe(todays_mwe)
     except Exception as ex:
-        logging.error(str(ex))
+        mwelog.exception(str(ex))
         return False
 
 

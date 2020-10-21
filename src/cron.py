@@ -1,5 +1,3 @@
-import logging
-
 import schedule
 import time
 
@@ -14,6 +12,7 @@ from config import mwexpress_config
 from bot.main import mwexpress_bot
 from i18n import Token
 from database import session
+from log import mwelog
 
 
 def send_game_starting_message_to_all() -> None:
@@ -31,13 +30,13 @@ def send_game_starting_message_to_all() -> None:
                                  reply_markup=Keyboard.main(user.language),
                                  parse_mode=ParseMode.HTML)
         except Exception as ex:
-            logging.error(str(ex))
+            mwelog.exception(str(ex))
 
-    logging.info("Sent game started message to all users")
+    mwelog.info("Sent game started message to all users")
 
 
 def send_game_over_message_to_all() -> None:
-    logging.info("Sending game ended message to all users")
+    mwelog.info("Sending game ended message to all users")
     unmute_everyone()
     all_users = get_all_users()
     clear_scores_for_today()
@@ -48,12 +47,12 @@ def send_game_over_message_to_all() -> None:
                 send_message_to_user(mwexpress_bot.bot, user,
                                      user.language.get(Token.GAME_ENDED))
             except Exception as ex:
-                logging.error(ex)
-    logging.info("Sent game started message to all users")
+                mwelog.exception(ex)
+    mwelog.info("Sent game started message to all users")
 
 
 def clear_scores_for_today():
-    logging.info("Clearing scores for today")
+    mwelog.info("Clearing scores for today")
     all_users = get_all_users()
     for user in all_users:
         user.score_today_en = 0
@@ -62,7 +61,7 @@ def clear_scores_for_today():
 
 
 def unmute_everyone():
-    logging.info("Unmuting everyone")
+    mwelog.info("Unmuting everyone")
     all_users = get_all_users()
     for user in all_users:
         user.muted = False

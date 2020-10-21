@@ -1,4 +1,3 @@
-import logging
 import statistics
 from datetime import datetime
 
@@ -8,12 +7,13 @@ from telegram.ext import CallbackContext, CommandHandler
 
 from bot.helpers.user_helper import get_user_from_update
 from database import session
+from log import mwelog
 from models import User, Submission, Review
 
 
 def stats(update: Update, context: CallbackContext):
     user = get_user_from_update(update)
-    logging.info(f"Stats requested by {user.username}")
+    mwelog.info(f"Stats requested by {user.username}")
 
     today = datetime.now().date()
 

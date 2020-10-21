@@ -1,4 +1,3 @@
-import logging
 from telegram.ext import Updater, Dispatcher
 
 from bot.handlers.announcements import announcements_handler
@@ -6,6 +5,7 @@ from bot.handlers.message import message_handler, sticker_handler
 from bot.handlers.start import start_handler
 from bot.handlers.stats import stats_handler
 from config import mwexpress_config
+from log import mwelog
 
 
 class MWExpress:
@@ -21,7 +21,7 @@ class MWExpress:
         self.dispatcher.add_handler(sticker_handler)
 
     def listen(self):
-        logging.info("Listening Telegram for connections...")
+        mwelog.info("Listening Telegram for connections...")
         self.updater.start_polling()
         # self.updater.idle()
 

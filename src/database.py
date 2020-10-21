@@ -1,9 +1,8 @@
-import logging
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session, scoped_session
 
 from config import mwexpress_config
+from log import mwelog
 
 
 class Database:
@@ -16,7 +15,7 @@ class Database:
         from models import User, Mwe, Submission, Review, FeedbackData, Base
         # Base.metadata.drop_all(engine)
         Base.metadata.create_all(self.engine)
-        logging.info("Database initialized.")
+        mwelog.info("Database initialized.")
 
     def get_session(self) -> Session:
         return self.session

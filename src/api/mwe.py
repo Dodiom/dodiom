@@ -1,4 +1,3 @@
-import logging
 from datetime import date, datetime
 from typing import List
 
@@ -14,7 +13,6 @@ def get_todays_mwe(language: Language) -> Mwe:
     mwe: Mwe = session.query(Mwe) \
         .filter(and_(Mwe.date == datetime.now().date(), Mwe.language == language)) \
         .first()
-    logging.info("{mwe} returned for todays MWE.", mwe=mwe.name)
     return mwe
 
 

@@ -1,5 +1,3 @@
-import logging
-
 from telegram import ParseMode, Update
 from telegram.ext import MessageHandler, Filters, CallbackContext
 
@@ -16,19 +14,20 @@ from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import State, get_state
 from bot.helpers.user_helper import get_user_from_update
 from i18n import Token
+from log import mwelog
 
 
 @send_typing_action
 def message(update: Update, context: CallbackContext):
     user = get_user_from_update(update)
     try:
-        logging.info("New message from {user_name}: {message}",
-                     user_name=user.username, message=update.message.text)
+        mwelog.info("New message from {user_name}: {message}",
+                    user_name=user.username, message=update.message.text)
 
         if get_state(context) != State.NONE:
             state = get_state(context)
-            logging.info("Current state for {user_name}: {state}",
-                         user_name=user.username, state=str(state))
+            mwelog.info("Current state for {user_name}: {state}",
+                        user_name=user.username, state=str(state))
             if state == State.SUBMISSION:
                 main_submit_handler(user, update, context)
             elif state == State.CHANGING_LANGUAGE:
@@ -68,8 +67,8 @@ def message(update: Update, context: CallbackContext):
                          reply_markup=Keyboard.main(user.language))
 
     except Exception as ex:
-        logging.error(f"erroneous message: {user.username}: {update.message.text}")
-        logging.exception(str(ex))
+        mwelog.error(f"erroneous message: {user.username}: {update.message.text}")
+        mwelog.exception(str(ex))
         update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
 
 
@@ -77,7 +76,7 @@ message_handler = MessageHandler(Filters.text, message, run_async=True)
 
 
 def sticker(update: Update, context: CallbackContext):
-    logging.info("Got sticker: {sticker_id}", sticker_id=update.message.sticker.file_id)
+    mwelog.info("Got sticker: {sticker_id}", sticker_id=update.message.sticker.file_id)
     context.bot.send_sticker(update.effective_chat.id, update.message.sticker.file_id)
 
 

@@ -1,4 +1,3 @@
-import logging
 import time
 
 from telegram import Update, ParseMode
@@ -9,12 +8,13 @@ from bot.helpers.user_helper import get_user_from_update, reply_to
 from bot.stickers import TIPS_FEDORA_STICKER
 from i18n import Token
 from bot.helpers.keyboard_helper import Keyboard
+from log import mwelog
 
 
 def start(update: Update, context: CallbackContext):
     user = get_user_from_update(update)
 
-    logging.info("User {user_name} started using Mwexpress",
+    mwelog.info("User {user_name} started using Mwexpress",
                  user_name=user.username, user_id=user.id)
 
     clear_state(context)

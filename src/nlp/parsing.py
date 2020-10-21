@@ -1,5 +1,4 @@
 import itertools
-import logging
 import threading
 from functools import lru_cache
 from typing import List, Tuple, Dict
@@ -29,11 +28,9 @@ class Parsed:
         self.lemmas = lemmas
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
         print(self.lemmas)
-        # mwelog.info(self.tokens)
-        # mwelog.info(self.token_positions)
+        mwelog.info(self.text)
+        mwelog.info(self.tokens)
         mwelog.info(self.lemmas)
-        mwelog.info(self.lemmas_flattened)
-        # mwelog.info(self.lemmas_flattened)
 
     def contains_mwe(self, mwe: Mwe) -> bool:
         return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
@@ -114,7 +111,7 @@ class Parser:
 
                 if mwe_lemmas is not None:
                     if not parsed.contains_mwe_with_lemmas(mwe_lemmas.split("|")):
-                        logging.info("Refreshing stemmer")
+                        mwelog.info("Refreshing stemmer")
                         self.turkish_stemmer = zeyrek.MorphAnalyzer()
                         self.turkish_stemmer = zeyrek.MorphAnalyzer()
                         token_positions = tokenizations.get_original_spans(tokens, text)
