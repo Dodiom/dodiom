@@ -8,7 +8,7 @@ from telegram.ext import CallbackContext, CommandHandler
 from bot.helpers.user_helper import get_user_from_update
 from database import database
 from log import mwelog
-from models import User, Submission, Review
+from models import User, Submission, Review, SubmissionCategory
 
 
 def stats(update: Update, context: CallbackContext):
@@ -55,6 +55,23 @@ def stats(update: Update, context: CallbackContext):
     update.message.reply_text(f'Users who only submitted: {len([x for x in all_submitted_users_today if x not in all_reviewed_users_today])}')
     update.message.reply_text(f'Users who only reviewed: {len([x for x in all_reviewed_users_today if x not in all_submitted_users_today])}')
     update.message.reply_text(f'Users who both submitted and reviewed: {len([x for x in all_submitted_users_today if x in all_reviewed_users_today])}')
+
+    positive_together_count = session.query(Submission)\
+        .filter(Submission.category == SubmissionCategory.POSITIVE_TOGETHER)\
+        .count()
+    positive_separated_count = session.query(Submission) \
+        .filter(Submission.category == SubmissionCategory.POSITIVE_SEPARATED) \
+        .count()
+    negative_together_count = session.query(Submission) \
+        .filter(Submission.category == SubmissionCategory.NEGATIVE_TOGETHER) \
+        .count()
+    negative_separated_count = session.query(Submission) \
+        .filter(Submission.category == SubmissionCategory.NEGATIVE_SEPARATED) \
+        .count()
+    update.message.reply_text(f"Submission categories:\nPositive together: {positive_together_count}\n"
+                              f"Positive separated: {positive_separated_count}\n"
+                              f"Negative together: {negative_together_count}\n"
+                              f"Negative separated: {negative_separated_count}")
 
 
 stats_handler = CommandHandler('stats', stats, run_async=True)

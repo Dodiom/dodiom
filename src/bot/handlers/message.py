@@ -75,7 +75,8 @@ def message(update: Update, context: CallbackContext):
         _safe_delete_context_data(context, "submission")
         mwelog.error(f"erroneous message: {user.username}: {update.message.text}")
         mwelog.exception(str(ex))
-        update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
+        update.message.reply_text(user.language.get(Token.ERROR_OCCURRED),
+                                  reply_markup=Keyboard.main(user.language))
 
 
 message_handler = MessageHandler(Filters.text, message, run_async=True)

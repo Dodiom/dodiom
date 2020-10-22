@@ -122,6 +122,9 @@ class Token(Enum):
     CHAMPION_ACH_CONGRATS_MSG = auto()
     LOST_FIRST_FIVE = auto()
     YOUVE_BECOME_LEADER = auto()
+    POS_SEP_WORTH_MORE = auto()
+    POS_TOG_WORTH_MORE = auto()
+    NEG_TOG_WORTH_MORE = auto()
 
 
 class Language(Enum):
@@ -721,6 +724,30 @@ geri dönüp örnek girip oylama yaparsan tekrar ilk beşte yerini alabilirsin."
     Token.YOUVE_BECOME_LEADER: {
         "en": "Congratulations! You've topped the scoreboard.",
         "tr": "Tebrikler! Sıralamalarda ilk sıraya yerleştin."
+    },
+    Token.POS_SEP_WORTH_MORE: {
+        "en": "Hey, for a limited time, idiomatic but word seperated examples \
+(such as I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.) worth 15 \
+points, instead of 10.",
+        "tr": "Selam, kısa bir süreliğine deyim olan ama kelimeleri ayrı olan \
+örnekler (Örneğin: Bugün de <b><u>ayvayı</u></b> <i>ben</i> <b><u>yedim</u></b>.) \
+10 puan yerine 15 puan kazandırıyor."
+    },
+    Token.POS_TOG_WORTH_MORE: {
+        "en": "Hey, for a limited time, idiomatic and word consecutive examples \
+(such as I <b><u>gave up</u></b> on him.) worth 15 \
+points, instead of 10.",
+        "tr": "Selam, kısa bir süreliğine deyim olan ve kelimeler yanyana geçen \
+örnekler (Örneğin: İşte şimdi <b><u>ayvayı yedim</u></b>.) \
+10 puan yerine 15 puan kazandırıyor."
+    },
+    Token.NEG_TOG_WORTH_MORE: {
+        "en": "Hey, for a limited time, non-idiomatic and word consecutive examples \
+(such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 \
+points, instead of 10.",
+        "tr": "Selam, kısa bir süreliğine deyim olmayan ama kelimelerin yanyana geçtiği \
+örnekler (Örneğin: Annemin bana soyduğu <b><u>ayvayı yedim</u></b>.) \
+10 puan yerine 15 puan kazandırıyor."
     }
 }
 

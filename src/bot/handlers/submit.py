@@ -12,6 +12,7 @@ from api.submission import add_submission
 from api.user import mute_user, unmute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
+from bot.helpers.submission_scores import submission_scores
 from bot.helpers.tip_helper import send_hint_message
 from bot.helpers.user_helper import reply_to, reply_html
 from bot.stickers import ACHIEVEMENT_STICKER
@@ -216,6 +217,8 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         award_achievement(user, AchievementType.SUB_LVL_5)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_5_ACH_CONGRATS_MSG))
+
+    submission_scores.iterate(context)
 
 
 def _clear_context(context: CallbackContext):

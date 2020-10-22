@@ -6,9 +6,10 @@ from telegram import Update, ParseMode
 from api.user import update_user
 from bot.helpers.keyboard_helper import Keyboard
 from api.mwe import get_todays_mwe
+from bot.helpers.submission_scores import submission_scores
 from bot.helpers.user_helper import reply_to
 from i18n import Token
-from models import User
+from models import User, SubmissionCategory
 from config import mwexpress_config
 
 
@@ -19,6 +20,14 @@ def todays_mwe_handler(user: User, update: Update):
         update.message.reply_text(text=user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
                                   parse_mode=ParseMode.HTML,
                                   reply_markup=Keyboard.main(user.language))
+        if submission_scores.buffed_category[user.language] is not None:
+            notification_messages = {
+                SubmissionCategory.POSITIVE_TOGETHER: Token.POS_TOG_WORTH_MORE,
+                SubmissionCategory.POSITIVE_SEPARATED: Token.POS_SEP_WORTH_MORE,
+                SubmissionCategory.NEGATIVE_TOGETHER: Token.NEG_TOG_WORTH_MORE
+            }
+            update.message.reply_html(
+                user.language.get(notification_messages[submission_scores.buffed_category[user.language]]))
         if not user.viewed_todays_mwe_help:
             time.sleep(3)
             update.message.reply_text(

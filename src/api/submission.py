@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from bot.helpers.submission_scores import submission_scores
 from i18n import Language
 from models import User, Submission, Mwe, SubmissionCategory
 from database import database
@@ -19,11 +20,13 @@ def add_submission(user: User, parsed: Parsed, mwe: Mwe, positive: bool) -> Subm
     else:
         submission_category = SubmissionCategory.NEGATIVE_SEPARATED
 
-    submission_points = get_category_score(
-        user.language,
-        submission_category,
-        mwe
-    )
+    # submission_points = get_category_score(
+    #     user.language,
+    #     submission_category,
+    #     mwe
+    # )
+    submission_points = submission_scores.get_category_score(submission_category,
+                                                             user.language)
 
     submission = Submission(
         value=parsed.text,
