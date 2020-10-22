@@ -1,8 +1,11 @@
+from datetime import datetime
 from typing import Optional, Dict
 
+from sqlalchemy import func
 from telegram import ParseMode
 from telegram.ext import CallbackContext
 
+from api.mwe import get_todays_mwe
 from bot.helpers.scoreboard import scoreboard
 from database import database
 from i18n import Token, Language
@@ -28,21 +31,22 @@ class SubmissionScores:
     def iterate(self, context: Optional[CallbackContext] = None):
         session = database.get_session()
         for language in Language.ENGLISH, Language.TURKISH:
+            todays_mwe = get_todays_mwe(language)
             positive_together_count = session.query(Submission)\
                 .filter(Submission.category == SubmissionCategory.POSITIVE_TOGETHER)\
-                .filter(Submission.language == language)\
+                .filter(Submission.mwe == todays_mwe)\
                 .count()
             positive_separated_count = session.query(Submission)\
                 .filter(Submission.category == SubmissionCategory.POSITIVE_SEPARATED)\
-                .filter(Submission.language == language)\
+                .filter(Submission.mwe == todays_mwe)\
                 .count()
             negative_together_count = session.query(Submission)\
                 .filter(Submission.category == SubmissionCategory.NEGATIVE_TOGETHER)\
-                .filter(Submission.language == language)\
+                .filter(Submission.mwe == todays_mwe)\
                 .count()
             negative_separated_count = session.query(Submission)\
                 .filter(Submission.category == SubmissionCategory.NEGATIVE_SEPARATED)\
-                .filter(Submission.language == language)\
+                .filter(Submission.mwe == todays_mwe)\
                 .count()
             counts = {
                 SubmissionCategory.POSITIVE_TOGETHER: positive_together_count,

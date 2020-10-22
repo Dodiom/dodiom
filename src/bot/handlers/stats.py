@@ -58,15 +58,19 @@ def stats(update: Update, context: CallbackContext):
 
     positive_together_count = session.query(Submission)\
         .filter(Submission.category == SubmissionCategory.POSITIVE_TOGETHER)\
+        .filter(func.Date(Submission.created) == today)\
         .count()
-    positive_separated_count = session.query(Submission) \
-        .filter(Submission.category == SubmissionCategory.POSITIVE_SEPARATED) \
+    positive_separated_count = session.query(Submission)\
+        .filter(Submission.category == SubmissionCategory.POSITIVE_SEPARATED)\
+        .filter(func.Date(Submission.created) == today)\
         .count()
-    negative_together_count = session.query(Submission) \
-        .filter(Submission.category == SubmissionCategory.NEGATIVE_TOGETHER) \
+    negative_together_count = session.query(Submission)\
+        .filter(Submission.category == SubmissionCategory.NEGATIVE_TOGETHER)\
+        .filter(func.Date(Submission.created) == today)\
         .count()
-    negative_separated_count = session.query(Submission) \
-        .filter(Submission.category == SubmissionCategory.NEGATIVE_SEPARATED) \
+    negative_separated_count = session.query(Submission)\
+        .filter(Submission.category == SubmissionCategory.NEGATIVE_SEPARATED)\
+        .filter(func.Date(Submission.created) == today)\
         .count()
     update.message.reply_text(f"Submission categories:\nPositive together: {positive_together_count}\n"
                               f"Positive separated: {positive_separated_count}\n"
