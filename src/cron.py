@@ -3,16 +3,19 @@ import time
 
 from telegram import ParseMode
 
+from api.achievements import user_has_achievement, award_achievement
 from api.mwe import get_todays_mwe
-from api.user import get_all_users
+from api.user import get_all_users, get_user
 from bot.helpers.keyboard_helper import Keyboard
+from bot.helpers.scoreboard import scoreboard
 from bot.helpers.user_helper import send_message_to_user
-from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER
+from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER, ACHIEVEMENT_STICKER
 from config import mwexpress_config
 from bot.main import mwexpress_bot
-from i18n import Token
+from i18n import Token, Language
 from database import database
 from log import mwelog
+from models import AchievementType
 
 
 def send_game_starting_message_to_all() -> None:
@@ -51,6 +54,28 @@ def send_game_over_message_to_all() -> None:
     mwelog.info("Sent game started message to all users")
 
 
+def end_of_day_job():
+    award_champion()
+    clear_scores_for_today()
+
+
+def award_champion():
+    mwelog.info("Awarding champion")
+    boards = scoreboard.scoreboards
+    for language in Language.ENGLISH, Language.TURKISH:
+        if len(boards[language]) > 0:
+            first_user = get_user(boards[language][0].user_id)
+            if not user_has_achievement(first_user, AchievementType.CHAMPION):
+                mwelog.info("{username} is the champion", username=first_user.username)
+                award_achievement(first_user, AchievementType.CHAMPION)
+                try:
+                    mwexpress_bot.bot.send_sticker(first_user.id, ACHIEVEMENT_STICKER)
+                    send_message_to_user(mwexpress_bot.bot, first_user,
+                                         first_user.language.get(Token.CHAMPION_ACH_CONGRATS_MSG),
+                                         parse_mode=ParseMode.HTML)
+                except Exception as ex:
+                    mwelog.exception(ex)
+
 def clear_scores_for_today():
     mwelog.info("Clearing scores for today")
     all_users = get_all_users()
@@ -74,7 +99,7 @@ def schedule_jobs():
     schedule.every().day.at(mwexpress_config.start_time.strftime("%H:%M"))\
         .do(send_game_starting_message_to_all)
     schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
-        .do(clear_scores_for_today)
+        .do(end_of_day_job)
 
 
 def run_scheduled_jobs():

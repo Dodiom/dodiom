@@ -76,6 +76,12 @@ def print_unlocked_achievements(user: User, achievements: List[AchievementType])
     if AchievementType.REVIEW_LVL_5 in achievements:
         unlocked_message += f'🏆 🕶️ <b><u>{user.language.get(Token.REVIEW_LVL_5_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_5_ACH_DESC)}</i>\n'
+    if AchievementType.BECOME_NUMBER_ONE in achievements:
+        unlocked_message += f'🏆 🥇 <b><u>{user.language.get(Token.BECOME_NUMBER_ONE_ACH_NAME)}' \
+                            f'</u></b>: <i>{user.language.get(Token.BECOME_NUMBER_ONE_ACH_DESC)}</i>\n'
+    if AchievementType.CHAMPION in achievements:
+        unlocked_message += f'🏆 🎖️ <b><u>{user.language.get(Token.CHAMPION_ACH_NAME)}' \
+                            f'</u></b>: <i>{user.language.get(Token.CHAMPION_ACH_DESC)}</i>\n'
     return unlocked_message
 
 
@@ -117,6 +123,12 @@ def print_locked_achievements(user: User, achievements: List[AchievementType]) -
     if AchievementType.REVIEW_LVL_5 not in achievements:
         locked_message += f'🕶️ <b><u>{user.language.get(Token.REVIEW_LVL_5_ACH_NAME)}' \
                           f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_5_ACH_DESC)}</i>\n'
+    if AchievementType.BECOME_NUMBER_ONE not in achievements:
+        locked_message += f'🥇 <b><u>{user.language.get(Token.BECOME_NUMBER_ONE_ACH_NAME)}' \
+                            f'</u></b>: <i>{user.language.get(Token.BECOME_NUMBER_ONE_ACH_DESC)}</i>\n'
+    if AchievementType.CHAMPION not in achievements:
+        locked_message += f'🎖️ <b><u>{user.language.get(Token.CHAMPION_ACH_NAME)}' \
+                            f'</u></b>: <i>{user.language.get(Token.CHAMPION_ACH_DESC)}</i>\n'
     return locked_message
 
 

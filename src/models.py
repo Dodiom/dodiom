@@ -181,7 +181,8 @@ class AchievementType(enum.Enum):
     REVIEW_LVL_3 = auto()  # review 40 examples
     REVIEW_LVL_4 = auto()  # review 80 examples
     REVIEW_LVL_5 = auto()  # review 160 examples
-
+    BECOME_NUMBER_ONE = auto()  # be the champion on the scoreboard
+    CHAMPION = auto()  # finish the day as leader
 
     def __str__(self):
         return self.name

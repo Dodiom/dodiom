@@ -19,13 +19,15 @@ def add_review(user: User, submission: Submission,
     if category == ReviewCategory.LIKE:
         if submission.language == Language.ENGLISH:
             submission.user.score_today_en += submission.points
-            user.score_today_en += 1
         elif submission.language == Language.TURKISH:
             submission.user.score_today_tr += submission.points
-            user.score_today_tr += 1
         submission.user.score += submission.points
         submission.score += submission.points
     user.score += 1
+    if submission.language == Language.ENGLISH:
+        user.score_today_en += 1
+    elif submission.language == Language.TURKISH:
+        user.score_today_tr += 1
     session = database.get_session()
     session.add(review)
     database.commit(session)

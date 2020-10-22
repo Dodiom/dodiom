@@ -114,6 +114,14 @@ class Token(Enum):
     REVIEW_LVL_5_ACH_DESC = auto()
     REVIEW_LVL_5_ACH_CONGRATS_MSG = auto()
     USER_DAILY_PLAY_DETAILS_MESSAGE = auto()
+    BECOME_NUMBER_ONE_ACH_NAME = auto()
+    BECOME_NUMBER_ONE_ACH_DESC = auto()
+    BECOME_NUMBER_ONE_ACH_CONGRATS_MSG = auto()
+    CHAMPION_ACH_NAME = auto()
+    CHAMPION_ACH_DESC = auto()
+    CHAMPION_ACH_CONGRATS_MSG = auto()
+    LOST_FIRST_FIVE = auto()
+    YOUVE_BECOME_LEADER = auto()
 
 
 class Language(Enum):
@@ -675,6 +683,44 @@ başarımını açtın."
     Token.USER_DAILY_PLAY_DETAILS_MESSAGE: {
         "en": "Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>",
         "tr": "Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>"
+    },
+    Token.BECOME_NUMBER_ONE_ACH_NAME: {
+        "en": "Leader",
+        "tr": "Lider"
+    },
+    Token.BECOME_NUMBER_ONE_ACH_DESC: {
+        "en": "Be at the top of the scoreboard.",
+        "tr": "Sıralamalarda birinci ol."
+    },
+    Token.BECOME_NUMBER_ONE_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've risen to the top of the rankings and \
+awarded with the 🥇 <b><u>Leader</u></b> achievement.",
+        "tr": "Tebrikler! Sıralamalarda birinci sıraya yerleştin ve 🥇 <b><u>Lider</u></b> \
+başarımını açtın."
+    },
+    Token.CHAMPION_ACH_NAME: {
+        "en": "Champion!",
+        "tr": "Şampiyon!"
+    },
+    Token.CHAMPION_ACH_DESC: {
+        "en": "Finish the day as the leader.",
+        "tr": "Günü birinci bitir."
+    },
+    Token.CHAMPION_ACH_CONGRATS_MSG: {
+        "en": "Congratulations! You've finished the day as the leader and \
+awarded with the 🎖️ <b><u>Champion!</u></b> achievement.",
+        "tr": "Tebrikler! Günü birinci bitirdin ve 🎖️ <b><u>Şampiyon!</u></b> \
+başarımını açtın."
+    },
+    Token.LOST_FIRST_FIVE: {
+        "en": "Ooh! You've dropped out of the leaderboard. No worries, \
+you can increase your ranking by submitting new examples and rating others.",
+        "tr": "Tüh, sıralamalarda ilk beşten düştün, ama endişelenme, hemen \
+geri dönüp örnek girip oylama yaparsan tekrar ilk beşte yerini alabilirsin."
+    },
+    Token.YOUVE_BECOME_LEADER: {
+        "en": "Congratulations! You've topped the scoreboard.",
+        "tr": "Tebrikler! Sıralamalarda ilk sıraya yerleştin."
     }
 }
 

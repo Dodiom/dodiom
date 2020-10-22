@@ -28,6 +28,7 @@ services:
       - mwe-db
     environment:
       ADMINER_DEFAULT_SERVER: "mwe-db"
+      ADMINER_PLUGINS: "enum-types"
 
   mwe-logs:
     image: datalust/seq:2020.2.4593
