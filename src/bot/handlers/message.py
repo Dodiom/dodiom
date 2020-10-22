@@ -1,6 +1,7 @@
 from telegram import ParseMode, Update
 from telegram.ext import MessageHandler, Filters, CallbackContext
 
+from api.user import unmute_user
 from bot.handlers.achievements import achievements_handler
 from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
@@ -11,7 +12,7 @@ from bot.handlers.submit import main_submit_handler, submission_contains_todays_
 from bot.handlers.todays_mwe import todays_mwe_handler
 from bot.helpers.general import send_typing_action
 from bot.helpers.keyboard_helper import Keyboard
-from bot.helpers.state_helper import State, get_state
+from bot.helpers.state_helper import State, get_state, clear_state
 from bot.helpers.user_helper import get_user_from_update
 from i18n import Token
 from log import mwelog
@@ -67,6 +68,11 @@ def message(update: Update, context: CallbackContext):
                          reply_markup=Keyboard.main(user.language))
 
     except Exception as ex:
+        clear_state(context)
+        unmute_user(user.id)
+        _safe_delete_context_data(context, "sub_state")
+        _safe_delete_context_data(context, "parsed")
+        _safe_delete_context_data(context, "submission")
         mwelog.error(f"erroneous message: {user.username}: {update.message.text}")
         mwelog.exception(str(ex))
         update.message.reply_text(user.language.get(Token.ERROR_OCCURRED))
@@ -81,3 +87,8 @@ def sticker(update: Update, context: CallbackContext):
 
 
 sticker_handler = MessageHandler(Filters.sticker, sticker, run_async=True)
+
+
+def _safe_delete_context_data(context: CallbackContext, name: str) -> None:
+    if name in context.user_data:
+        del context.user_data[name]

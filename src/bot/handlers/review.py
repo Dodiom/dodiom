@@ -6,7 +6,7 @@ from typing import List
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from api.achievements import user_has_achievement, award_achievement
+from api.achievements import award_achievement, get_user_achievements
 from api.mwe import get_todays_mwe
 from api.user import unmute_user, mute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
@@ -165,23 +165,24 @@ def _process_review_achievements(user: User, update: Update):
     todays_mwe = get_todays_mwe(user.language)
     user_review_count_today = session.query(Review)\
         .filter(and_(Review.mwe == todays_mwe, Review.user == user)).count()
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_1) and user_review_count_today == 10:
+    user_achievements = get_user_achievements(user)
+    if AchievementType.REVIEW_LVL_1 not in user_achievements and user_review_count_today == 10:
         award_achievement(user, AchievementType.REVIEW_LVL_1)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_1_ACH_CONGRATS_MSG))
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_2) and user_review_count_today == 20:
+    if AchievementType.REVIEW_LVL_2 not in user_achievements and user_review_count_today == 20:
         award_achievement(user, AchievementType.REVIEW_LVL_2)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_2_ACH_CONGRATS_MSG))
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_3) and user_review_count_today == 40:
+    if AchievementType.REVIEW_LVL_3 not in user_achievements and user_review_count_today == 40:
         award_achievement(user, AchievementType.REVIEW_LVL_3)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_3_ACH_CONGRATS_MSG))
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_4) and user_review_count_today == 80:
+    if AchievementType.REVIEW_LVL_4 not in user_achievements and user_review_count_today == 80:
         award_achievement(user, AchievementType.REVIEW_LVL_4)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_4_ACH_CONGRATS_MSG))
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_5) and user_review_count_today == 160:
+    if AchievementType.REVIEW_LVL_5 not in user_achievements and user_review_count_today == 160:
         award_achievement(user, AchievementType.REVIEW_LVL_5)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_5_ACH_CONGRATS_MSG))

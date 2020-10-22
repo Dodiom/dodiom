@@ -1,10 +1,11 @@
 from datetime import datetime
+from typing import List
 
 from sqlalchemy import func, and_
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from api.achievements import user_has_achievement
+from api.achievements import get_user_achievements
 from database import database
 from i18n import Token
 from models import User, AchievementType, Submission, Review
@@ -28,92 +29,94 @@ def achievements_handler(user: User, update: Update, context: CallbackContext):
         )
     )
 
+    user_achievements = get_user_achievements(user)
+
     update.message.reply_html(user.language.get(Token.UNLOCKED_ACHIEVEMENTS)
-                              + "\n" + print_unlocked_achievements(user))
+                              + "\n" + print_unlocked_achievements(user, user_achievements))
 
     update.message.reply_html(user.language.get(Token.LOCKED_ACHIEVEMENTS)
-                              + "\n" + print_locked_achievements(user))
+                              + "\n" + print_locked_achievements(user, user_achievements))
 
 
-def print_unlocked_achievements(user: User) -> str:
+def print_unlocked_achievements(user: User, achievements: List[AchievementType]) -> str:
     unlocked_message = ""
-    if user_has_achievement(user, AchievementType.FIRST_SUBMISSION):
+    if AchievementType.FIRST_SUBMISSION in achievements:
         unlocked_message += f'🏆 🌅 <b><u>{user.language.get(Token.FIRST_SUB_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.FIRST_SUB_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.EARLY_BIRD):
+    if AchievementType.EARLY_BIRD in achievements:
         unlocked_message += f'🏆 🐦 <b><u>{user.language.get(Token.EARLY_BIRD_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.EARLY_BIRD_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.SUB_LVL_1):
+    if AchievementType.SUB_LVL_1 in achievements:
         unlocked_message += f'🏆 🎇 <b><u>{user.language.get(Token.SUB_LVL_1_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.SUB_LVL_1_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.SUB_LVL_2):
+    if AchievementType.SUB_LVL_2 in achievements:
         unlocked_message += f'🏆 ✍️ <b><u>{user.language.get(Token.SUB_LVL_2_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.SUB_LVL_2_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.SUB_LVL_3):
+    if AchievementType.SUB_LVL_3 in achievements:
         unlocked_message += f'🏆 🗿 <b><u>{user.language.get(Token.SUB_LVL_3_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.SUB_LVL_3_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.SUB_LVL_4):
+    if AchievementType.SUB_LVL_4 in achievements:
         unlocked_message += f'🏆 📚 <b><u>{user.language.get(Token.SUB_LVL_4_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.SUB_LVL_4_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.SUB_LVL_5):
+    if AchievementType.SUB_LVL_5 in achievements:
         unlocked_message += f'🏆 🦄 <b><u>{user.language.get(Token.SUB_LVL_5_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.SUB_LVL_5_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.REVIEW_LVL_1):
+    if AchievementType.REVIEW_LVL_1 in achievements:
         unlocked_message += f'🏆 🤝 <b><u>{user.language.get(Token.REVIEW_LVL_1_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_1_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.REVIEW_LVL_2):
+    if AchievementType.REVIEW_LVL_2 in achievements:
         unlocked_message += f'🏆 🗳️ <b><u>{user.language.get(Token.REVIEW_LVL_2_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_2_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.REVIEW_LVL_3):
+    if AchievementType.REVIEW_LVL_3 in achievements:
         unlocked_message += f'🏆 ✨ <b><u>{user.language.get(Token.REVIEW_LVL_3_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_3_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.REVIEW_LVL_4):
+    if AchievementType.REVIEW_LVL_4 in achievements:
         unlocked_message += f'🏆 🧑‍🍳 <b><u>{user.language.get(Token.REVIEW_LVL_4_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_4_ACH_DESC)}</i>\n'
-    if user_has_achievement(user, AchievementType.REVIEW_LVL_5):
+    if AchievementType.REVIEW_LVL_5 in achievements:
         unlocked_message += f'🏆 🕶️ <b><u>{user.language.get(Token.REVIEW_LVL_5_ACH_NAME)}' \
                             f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_5_ACH_DESC)}</i>\n'
     return unlocked_message
 
 
-def print_locked_achievements(user: User) -> str:
+def print_locked_achievements(user: User, achievements: List[AchievementType]) -> str:
     locked_message = ""
-    if not user_has_achievement(user, AchievementType.FIRST_SUBMISSION):
+    if AchievementType.FIRST_SUBMISSION not in achievements:
         locked_message += f'🌅 <b><u>{user.language.get(Token.FIRST_SUB_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.FIRST_SUB_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.EARLY_BIRD):
+                          f'</u></b>: <i>{user.language.get(Token.FIRST_SUB_ACH_DESC)}</i>\n'
+    if AchievementType.EARLY_BIRD not in achievements:
         locked_message += f'🐦 <b><u>{user.language.get(Token.EARLY_BIRD_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.EARLY_BIRD_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.SUB_LVL_1):
+                          f'</u></b>: <i>{user.language.get(Token.EARLY_BIRD_ACH_DESC)}</i>\n'
+    if AchievementType.SUB_LVL_1 not in achievements:
         locked_message += f'🎇 <b><u>{user.language.get(Token.SUB_LVL_1_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.SUB_LVL_1_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.SUB_LVL_2):
+                          f'</u></b>: <i>{user.language.get(Token.SUB_LVL_1_ACH_DESC)}</i>\n'
+    if AchievementType.SUB_LVL_2 not in achievements:
         locked_message += f'✍️ <b><u>{user.language.get(Token.SUB_LVL_2_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.SUB_LVL_2_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.SUB_LVL_3):
+                          f'</u></b>: <i>{user.language.get(Token.SUB_LVL_2_ACH_DESC)}</i>\n'
+    if AchievementType.SUB_LVL_3 not in achievements:
         locked_message += f'🗿 <b><u>{user.language.get(Token.SUB_LVL_3_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.SUB_LVL_3_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.SUB_LVL_4):
+                          f'</u></b>: <i>{user.language.get(Token.SUB_LVL_3_ACH_DESC)}</i>\n'
+    if AchievementType.SUB_LVL_4 not in achievements:
         locked_message += f'📚 <b><u>{user.language.get(Token.SUB_LVL_4_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.SUB_LVL_4_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.SUB_LVL_5):
+                          f'</u></b>: <i>{user.language.get(Token.SUB_LVL_4_ACH_DESC)}</i>\n'
+    if AchievementType.SUB_LVL_5 not in achievements:
         locked_message += f'🦄 <b><u>{user.language.get(Token.SUB_LVL_5_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.SUB_LVL_5_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_1):
+                          f'</u></b>: <i>{user.language.get(Token.SUB_LVL_5_ACH_DESC)}</i>\n'
+    if AchievementType.REVIEW_LVL_1 not in achievements:
         locked_message += f'🤝 <b><u>{user.language.get(Token.REVIEW_LVL_1_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_1_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_2):
+                          f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_1_ACH_DESC)}</i>\n'
+    if AchievementType.REVIEW_LVL_2 not in achievements:
         locked_message += f'🗳️ <b><u>{user.language.get(Token.REVIEW_LVL_2_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_2_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_3):
+                          f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_2_ACH_DESC)}</i>\n'
+    if AchievementType.REVIEW_LVL_3 not in achievements:
         locked_message += f'✨ <b><u>{user.language.get(Token.REVIEW_LVL_3_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_3_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_4):
+                          f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_3_ACH_DESC)}</i>\n'
+    if AchievementType.REVIEW_LVL_4 not in achievements:
         locked_message += f'🧑‍🍳 <b><u>{user.language.get(Token.REVIEW_LVL_4_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_4_ACH_DESC)}</i>\n'
-    if not user_has_achievement(user, AchievementType.REVIEW_LVL_5):
+                          f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_4_ACH_DESC)}</i>\n'
+    if AchievementType.REVIEW_LVL_5 not in achievements:
         locked_message += f'🕶️ <b><u>{user.language.get(Token.REVIEW_LVL_5_ACH_NAME)}' \
-                            f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_5_ACH_DESC)}</i>\n'
+                          f'</u></b>: <i>{user.language.get(Token.REVIEW_LVL_5_ACH_DESC)}</i>\n'
     return locked_message
 
 
