@@ -23,7 +23,7 @@ def get_user_from_update(update: Update) -> User:
     else:
         if (user.username == str(user.id) or user.username is None) and update.effective_user.username is not None:
             user.username = update.effective_user.username
-            session.commit()
+            database.commit(session)
 
     return user
 

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from i18n import Language
 from models import User, Submission, Mwe, SubmissionCategory
-from database import session
+from database import database
 from nlp.parsing import Parsed
 
 
@@ -41,13 +41,15 @@ def add_submission(user: User, parsed: Parsed, mwe: Mwe, positive: bool) -> Subm
         hash="",
         created=datetime.now()
     )
+    session = database.get_session()
     session.add(submission)
-    session.commit()
+    database.commit(session)
     return submission
 
 
 def get_category_score(language: Language, category: SubmissionCategory,
                        mwe: Mwe) -> float:
+    session = database.get_session()
     all_submissions_count = session \
         .query(Submission) \
         .filter(Submission.language == language) \

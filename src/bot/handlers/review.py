@@ -14,7 +14,7 @@ from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
-from database import session
+from database import database
 from i18n import Token, get_random_congrats_message
 from models import Submission, User, SubmissionCategory, ReviewCategory, Mwe, Review, AchievementType
 from api.review import add_review
@@ -27,6 +27,7 @@ def _user_not_in_reviewers(submission: Submission, user: User) -> bool:
 
 
 def get_submissions_to_review(mwe: Mwe, user: User) -> List[Submission]:
+    session = database.get_session()
     submissions = session.query(Submission) \
         .filter(Submission.user != user) \
         .filter(Submission.mwe == mwe) \
@@ -160,6 +161,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
 
 
 def _process_review_achievements(user: User, update: Update):
+    session = database.get_session()
     todays_mwe = get_todays_mwe(user.language)
     user_review_count_today = session.query(Review)\
         .filter(and_(Review.mwe == todays_mwe, Review.user == user)).count()

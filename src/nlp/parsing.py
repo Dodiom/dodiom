@@ -27,10 +27,9 @@ class Parsed:
         self.token_positions = token_positions
         self.lemmas = lemmas
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
-        print(self.lemmas)
         mwelog.info(self.text)
-        mwelog.info(self.tokens)
-        mwelog.info(self.lemmas)
+        mwelog.info(str(self.tokens))
+        mwelog.info(str(self.lemmas))
 
     def contains_mwe(self, mwe: Mwe) -> bool:
         return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])

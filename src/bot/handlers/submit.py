@@ -16,7 +16,7 @@ from bot.helpers.tip_helper import send_hint_message
 from bot.helpers.user_helper import reply_to, reply_html
 from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
-from database import session
+from database import database
 from i18n import Token, get_random_congrats_message
 from log import mwelog
 from models import User, Mwe, Submission, AchievementType
@@ -175,6 +175,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         time.sleep(1)
         send_hint_message(user, update, context)
 
+    session = database.get_session()
     if session.query(Submission).filter(Submission.mwe == todays_mwe).count() == 1:
         # award first submission
         if not user_has_achievement(user, AchievementType.FIRST_SUBMISSION):

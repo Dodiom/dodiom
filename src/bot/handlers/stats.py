@@ -6,7 +6,7 @@ from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
 from bot.helpers.user_helper import get_user_from_update
-from database import session
+from database import database
 from log import mwelog
 from models import User, Submission, Review
 
@@ -25,6 +25,7 @@ def stats(update: Update, context: CallbackContext):
 
     update.message.reply_text(f'Stats for {today.strftime("%A, %B %d, %Y")}')
 
+    session = database.get_session()
     all_users_count = session.query(User).filter(func.Date(User.created) <= today).count()
     new_users = session.query(User).filter(func.Date(User.created) == today).all()
     update.message.reply_text(f'{all_users_count} users (+{len(new_users)} new)')

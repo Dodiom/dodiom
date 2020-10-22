@@ -3,7 +3,7 @@ from datetime import datetime
 
 from i18n import Language
 from models import User
-from database import session
+from database import database
 
 
 def add_user(name: str, language: Language) -> User:
@@ -20,8 +20,9 @@ def add_user(name: str, language: Language) -> User:
         muted=False,
         created=datetime.now()
     )
+    session = database.get_session()
     session.add(user)
-    session.commit()
+    database.commit(session)
     return user
 
 
@@ -40,30 +41,35 @@ def add_user_with_id(uid: int, name: str, language: Language) -> User:
         muted=False,
         created=datetime.now()
     )
+    session = database.get_session()
     session.add(user)
-    session.commit()
+    database.commit(session)
     return user
 
 
 def get_user(uid: int) -> User:
+    session = database.get_session()
     return session.query(User).filter(User.id == uid).first()
 
 
 def get_all_users() -> List[User]:
+    session = database.get_session()
     return session.query(User).all()
 
 
 def mute_user(uid: int) -> None:
+    session = database.get_session()
     user = get_user(uid)
     user.muted = True
-    session.commit()
+    database.commit(session)
 
 
 def unmute_user(uid: int) -> None:
+    session = database.get_session()
     user = get_user(uid)
     user.muted = False
-    session.commit()
+    database.commit(session)
 
 
 def update_user(user: User) -> None:
-    session.commit()
+    database.commit(database.get_session())

@@ -11,12 +11,12 @@ from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER
 from config import mwexpress_config
 from bot.main import mwexpress_bot
 from i18n import Token
-from database import session
+from database import database
 from log import mwelog
 
 
 def send_game_starting_message_to_all() -> None:
-    logging.info("Sending game started message to all users")
+    mwelog.info("Sending game started message to all users")
     unmute_everyone()
     all_users = get_all_users()
     for user in all_users:
@@ -57,7 +57,8 @@ def clear_scores_for_today():
     for user in all_users:
         user.score_today_en = 0
         user.score_today_tr = 0
-    session.commit()
+    session = database.get_session()
+    database.commit(session)
 
 
 def unmute_everyone():
@@ -65,7 +66,8 @@ def unmute_everyone():
     all_users = get_all_users()
     for user in all_users:
         user.muted = False
-    session.commit()
+    session = database.get_session()
+    database.commit(session)
 
 
 def schedule_jobs():

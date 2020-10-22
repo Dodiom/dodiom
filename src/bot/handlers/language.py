@@ -12,7 +12,7 @@ from models import User
 
 def language_change_handler(user: User, update: Update, context: CallbackContext) -> None:
     mwelog.info("User {user_name} is changing language, current language: {language}",
-                 user_name=user.username, user_id=user.id, language=str(user.language))
+                user_name=user.username, user_id=user.id, language=str(user.language))
     set_state(context, State.CHANGING_LANGUAGE)
     reply_to(user, update,
              user.language.get(Token.SELECT_LANGUAGE),
@@ -22,9 +22,9 @@ def language_change_handler(user: User, update: Update, context: CallbackContext
 def change_user_language(user: User, language: Language) -> None:
     session = database.get_session()
     user.language = language
-    session.commit()
+    database.commit(session)
     mwelog.info("User {user_name} changed language to: {language}",
-                 user_name=user.username, user_id=user.id, language=str(user.language))
+                user_name=user.username, user_id=user.id, language=str(user.language))
 
 
 def language_update_handler(user: User, update: Update, context: CallbackContext) -> None:

@@ -5,12 +5,13 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 from api.achievements import user_has_achievement
-from database import session
+from database import database
 from i18n import Token
 from models import User, AchievementType, Submission, Review
 
 
 def achievements_handler(user: User, update: Update, context: CallbackContext):
+    session = database.get_session()
     level, next_threshold = get_level(user.score)
     update.message.reply_html(user.language.get(Token.LEVEL_MESSAGE) % (user.score, level, next_threshold))
 

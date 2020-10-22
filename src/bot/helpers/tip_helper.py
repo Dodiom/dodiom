@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext
 from api.mwe import get_todays_mwe
 from api.submission import get_category_score
 from bot.handlers.scoreboard import scoreboard_handler
-from database import session
+from database import database
 from i18n import Token
 from models import SubmissionCategory, User, Mwe, Submission
 
@@ -49,6 +49,7 @@ def send_i_need_submission_category_message(user: User, update: Update, category
 
 
 def _get_submission_category_count(mwe: Mwe, category: SubmissionCategory) -> int:
+    session = database.get_session()
     return session.query(func.count(Submission.category))\
         .filter(Submission.mwe == mwe)\
         .filter(Submission.category == category)\

@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 from bot.helpers.keyboard_helper import Keyboard
-from database import session
+from database import database
 from i18n import Token, Language
 from models import User
 
@@ -23,6 +23,7 @@ def send_scoreboard_to_user(user: User, update: Update):
 
 
 def send_scoreboard_for_en(user: User, update: Update):
+    session = database.get_session()
     users_sorted_by_score: List[User] = session\
         .query(User)\
         .filter(User.score_today_en > 0)\
@@ -67,6 +68,7 @@ def send_scoreboard_for_en(user: User, update: Update):
 
 
 def send_scoreboard_for_tr(user: User, update: Update):
+    session = database.get_session()
     users_sorted_by_score: List[User] = session\
         .query(User)\
         .filter(User.score_today_tr > 0)\

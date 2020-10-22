@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from database import session
+from database import database
 from i18n import Language
 from models import User, Submission, ReviewCategory, Review
 
@@ -26,6 +26,7 @@ def add_review(user: User, submission: Submission,
         submission.user.score += submission.points
         submission.score += submission.points
     user.score += 1
+    session = database.get_session()
     session.add(review)
-    session.commit()
+    database.commit(session)
     return review

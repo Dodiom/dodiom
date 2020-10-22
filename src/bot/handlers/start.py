@@ -15,7 +15,7 @@ def start(update: Update, context: CallbackContext):
     user = get_user_from_update(update)
 
     mwelog.info("User {user_name} started using Mwexpress",
-                 user_name=user.username, user_id=user.id)
+                user_name=user.username, user_id=user.id)
 
     clear_state(context)
 

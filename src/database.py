@@ -20,6 +20,15 @@ class Database:
     def get_session(self) -> Session:
         return self.session
 
+    @staticmethod
+    def commit(session: Session):
+        try:
+            session.commit()
+            # session.close()
+        except:
+            session.rollback()
+            raise
+
     def reset_database(self) -> None:
         # noinspection PyUnresolvedReferences
         from models import User, Mwe, Submission, Review, FeedbackData, Base
@@ -28,4 +37,3 @@ class Database:
 
 
 database = Database()
-session = database.get_session()

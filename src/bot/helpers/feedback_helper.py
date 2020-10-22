@@ -2,7 +2,7 @@ from datetime import datetime
 
 from telegram import Update
 
-from database import session
+from database import database
 from i18n import Token
 from models import FeedbackData, User
 
@@ -13,9 +13,14 @@ def create_feedback_data_for_user(user: User) -> FeedbackData:
     data.review_count = len(user.reviews)
     data.submission_count = len(user.submissions)
     data.created = datetime.now()
-    session.add(data)
-    session.commit()
-    return data
+    session = database.get_session()
+    try:
+        session.add(data)
+        session.commit()
+        return data
+    except:
+        session.rollback()
+        raise
 
 
 def send_feedback_url_to_user(user: User, update: Update):
