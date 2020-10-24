@@ -119,7 +119,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
     available_inputs = [
         user.language.get(Token.AGREE_NICE_EXAMPLE),
         user.language.get(Token.DO_NOT_LIKE_EXAMPLE),
-        user.language.get(Token.SKIP_THIS_ONE),
+        user.language.get(Token.REPORT_SUBMISSION),
         user.language.get(Token.QUIT_REVIEWING)
     ]
 
@@ -148,8 +148,13 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
                  user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
         _process_review_achievements(user, update)
         scoreboard.iterate(update, context)
-    elif update.message.text == user.language.get(Token.SKIP_THIS_ONE):
+    elif update.message.text == user.language.get(Token.REPORT_SUBMISSION):
         add_review(user, submission, ReviewCategory.SKIP)
+        reply_to(user, update,
+                 user.language.get(Token.REPORT_SUBMISSION_REPLY))
+        context.bot.send_message(1065263859, f"Someone reported this submission: {submission.value}\n"
+                                             f"Flag submission: /flag{submission.id}, "
+                                             f"ban user: /ban{submission.user.id}")
         _process_review_achievements(user, update)
         scoreboard.iterate(update, context)
     else:

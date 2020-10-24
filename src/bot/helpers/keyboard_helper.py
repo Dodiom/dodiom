@@ -42,7 +42,7 @@ class Keyboard:
         review_keyboard = [
             [language.get(Token.AGREE_NICE_EXAMPLE)],
             [language.get(Token.DO_NOT_LIKE_EXAMPLE)],
-            [language.get(Token.SKIP_THIS_ONE)],
+            [language.get(Token.REPORT_SUBMISSION)],
             [language.get(Token.QUIT_REVIEWING)]
         ]
         return ReplyKeyboardMarkup(review_keyboard)

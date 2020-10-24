@@ -136,6 +136,7 @@ class User(Base):
     score_today_tr = Column(Float, default=0.0, nullable=False)
     muted = Column(Boolean, default=False, nullable=False)
     created = Column(DateTime, default=datetime.datetime.now, nullable=False)
+    banned = Column(Boolean, default=False, nullable=False)
 
     submissions: List[Submission] = relationship("Submission", back_populates="user")
     reviews: List[Review] = relationship("Review", back_populates="user")

@@ -125,6 +125,9 @@ class Token(Enum):
     POS_SEP_WORTH_MORE = auto()
     POS_TOG_WORTH_MORE = auto()
     NEG_TOG_WORTH_MORE = auto()
+    REPORT_SUBMISSION = auto()
+    REPORT_SUBMISSION_REPLY = auto()
+    USER_IS_BANNED_MESSAGE = auto()
 
 
 class Language(Enum):
@@ -748,6 +751,19 @@ points, instead of 10.",
         "tr": "Selam, kısa bir süreliğine deyim olmayan ama kelimelerin yanyana geçtiği \
 örnekler (Örneğin: Annemin bana soyduğu <b><u>ayvayı yedim</u></b>.) \
 10 puan yerine 15 puan kazandırıyor."
+    },
+    Token.REPORT_SUBMISSION: {
+        "en": "❗ Report submission",
+        "tr": "❗ Örneği şikayet et"
+    },
+    Token.REPORT_SUBMISSION_REPLY: {
+        "en": "Thanks for keeping Dodiom a better place by reporting bad submissions.",
+        "tr": "Kötü örnekleri şikayet ederek Dodiom'u daha iyi bir yer haline \
+getirdiğin için teşekkür ederiz."
+    },
+    Token.USER_IS_BANNED_MESSAGE: {
+        "en": "Unfortunately, your account is banned from participating.",
+        "tr": "Üzülerek belirtirim ki senin hesabın oynamaktan men edilmiş."
     }
 }
 

@@ -1,4 +1,5 @@
 import threading
+from typing import Optional
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session, scoped_session
@@ -23,8 +24,10 @@ class Database:
     def get_session(self) -> Session:
         return self.session
 
-    def commit(self, session: Session):
+    def commit(self, session: Optional[Session] = None):
         with self.commit_lock:
+            if session is None:
+                session = self.session
             try:
                 session.commit()
                 session.flush()

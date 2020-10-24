@@ -6,6 +6,7 @@ from bot.handlers.achievements import achievements_handler
 from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
+from bot.handlers.report import flag_submission, ban_user
 from bot.handlers.review import main_review_handler
 from bot.handlers.scoreboard import scoreboard_handler
 from bot.handlers.submit import main_submit_handler, submission_contains_todays_mwe
@@ -24,6 +25,19 @@ def message(update: Update, context: CallbackContext):
     try:
         mwelog.info("New message from {user_name}: {message}",
                     user_name=user.username, message=update.message.text)
+
+        if user.banned:
+            update.message.reply_text(user.language.get(Token.USER_IS_BANNED_MESSAGE))
+            return
+
+        if update.message.text.startswith("/flag"):
+            flag_submission(user,
+                            int(update.message.text.replace("/flag", "")),
+                            context)
+            return
+        if update.message.text.startswith("/ban"):
+            ban_user(user, int(update.message.text.replace("/ban", "")), context)
+            return
 
         if get_state(context) != State.NONE:
             state = get_state(context)
