@@ -128,6 +128,9 @@ class Token(Enum):
     REPORT_SUBMISSION = auto()
     REPORT_SUBMISSION_REPLY = auto()
     USER_IS_BANNED_MESSAGE = auto()
+    LOST_FIRST_THREE = auto()
+    REVIEW_WORTH_MORE = auto()
+    LOST_FIRST = auto()
 
 
 class Language(Enum):
@@ -226,7 +229,7 @@ translations = {
     },
     Token.SOMEONE_LOVED_YOUR_EXAMPLE: {
         "en": "%s! Someone else loved your great example, and you’ve earned %d points",
-        "tr": "%s! Birisi örneğini beğendi, sen de %d puan kazandın."
+        "tr": "%s! Süper! Örneklerin şu anda beğeni alıyor. Sıralamalardaki yeni yerini merak etmiyor musun?"
     },
     Token.PLEASE_ENTER_VALID_REVIEW: {
         "en": "Please enter a valid review",
@@ -719,14 +722,14 @@ awarded with the 🎖️ <b><u>Champion!</u></b> achievement.",
 başarımını açtın."
     },
     Token.LOST_FIRST_FIVE: {
-        "en": "Ooh! You've dropped out of the leaderboard. No worries, \
+        "en": "😰 Ooh! You've dropped out of the leaderboard. No worries, \
 you can increase your ranking by submitting new examples and rating others.",
-        "tr": "Tüh, sıralamalarda ilk beşten düştün, ama endişelenme, hemen \
-geri dönüp örnek girip oylama yaparsan tekrar ilk beşte yerini alabilirsin."
+        "tr": "😰 Tüh, sıralamalarda ilk beşten düştün. Endişelenme! Hemen geri \
+dönüp oynamaya devam et!"
     },
     Token.YOUVE_BECOME_LEADER: {
-        "en": "Congratulations! You've topped the scoreboard.",
-        "tr": "Tebrikler! Sıralamalarda ilk sıraya yerleştin."
+        "en": "🥳 Congratulations! You've topped the scoreboard.",
+        "tr": "🥳 Tebrikler! Sıralamalarda ilk sıraya yerleştin."
     },
     Token.POS_SEP_WORTH_MORE: {
         "en": "Hey, for a limited time, idiomatic but word seperated examples \
@@ -740,17 +743,13 @@ points, instead of 10.",
         "en": "Hey, for a limited time, idiomatic and word consecutive examples \
 (such as I <b><u>gave up</u></b> on him.) worth 15 \
 points, instead of 10.",
-        "tr": "Selam, kısa bir süreliğine deyim olan ve kelimeler yanyana geçen \
-örnekler (Örneğin: İşte şimdi <b><u>ayvayı yedim</u></b>.) \
-10 puan yerine 15 puan kazandırıyor."
+        "tr": "Acele et, kısa bir süreliğine deyim olan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.NEG_TOG_WORTH_MORE: {
         "en": "Hey, for a limited time, non-idiomatic and word consecutive examples \
 (such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 \
 points, instead of 10.",
-        "tr": "Selam, kısa bir süreliğine deyim olmayan ama kelimelerin yanyana geçtiği \
-örnekler (Örneğin: Annemin bana soyduğu <b><u>ayvayı yedim</u></b>.) \
-10 puan yerine 15 puan kazandırıyor."
+        "tr": "Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.REPORT_SUBMISSION: {
         "en": "❗ Report submission",
@@ -764,6 +763,18 @@ getirdiğin için teşekkür ederiz."
     Token.USER_IS_BANNED_MESSAGE: {
         "en": "Unfortunately, your account is banned from participating.",
         "tr": "Üzülerek belirtirim ki senin hesabın oynamaktan men edilmiş."
+    },
+    Token.LOST_FIRST_THREE: {
+        "en": "",
+        "tr": "😰 Çok üzücü. İlk üçteki yerini kaybettin. Oynamaya devam et! Yerini geri kazan!"
+    },
+    Token.REVIEW_WORTH_MORE: {
+        "en": "",
+        "tr": "Şanslı Dakikalar! Kısa süreliğine oylama yapmak 2 kat puan kazandırıyor."
+    },
+    Token.LOST_FIRST: {
+"en": "",
+        "tr": "Başka biri birinciliği elinden aldı. Acil müdahale etmelisin!"
     }
 }
 

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from bot.helpers.submission_scores import submission_scores
 from database import database
 from i18n import Language
 from models import User, Submission, ReviewCategory, Review
@@ -23,11 +24,11 @@ def add_review(user: User, submission: Submission,
             submission.user.score_today_tr += submission.points
         submission.user.score += submission.points
         submission.score += submission.points
-    user.score += 1
+    user.score += submission_scores.get_review_score()
     if submission.language == Language.ENGLISH:
-        user.score_today_en += 1
+        user.score_today_en += submission_scores.get_review_score()
     elif submission.language == Language.TURKISH:
-        user.score_today_tr += 1
+        user.score_today_tr += submission_scores.get_review_score()
     session = database.get_session()
     session.add(review)
     database.commit(session)

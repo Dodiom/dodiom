@@ -10,8 +10,10 @@ from api.achievements import award_achievement, get_user_achievements
 from api.mwe import get_todays_mwe
 from api.user import unmute_user, mute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
+from bot.helpers.notification_manager import notification_manager
 from bot.helpers.scoreboard import scoreboard
 from bot.helpers.state_helper import set_state, State, clear_state
+from bot.helpers.submission_scores import submission_scores
 from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
 from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
@@ -135,17 +137,14 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
     if update.message.text == user.language.get(Token.AGREE_NICE_EXAMPLE):
         add_review(user, submission, ReviewCategory.LIKE)
         reply_to(user, update,
-                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
+                     user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), submission_scores.get_review_score()))
         _process_review_achievements(user, update)
-        if not submission.user.muted:
-            send_message_to_user(context.bot, submission.user,
-                                 user.language.get(Token.SOMEONE_LOVED_YOUR_EXAMPLE) % (
-                                 get_random_congrats_message(submission.user.language), submission.points))
+        notification_manager.send_someone_liked_your_example(submission.user, context)
         scoreboard.iterate(update, context)
     elif update.message.text == user.language.get(Token.DO_NOT_LIKE_EXAMPLE):
         add_review(user, submission, ReviewCategory.DISLIKE)
         reply_to(user, update,
-                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), 1))
+                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), submission_scores.get_review_score()))
         _process_review_achievements(user, update)
         scoreboard.iterate(update, context)
     elif update.message.text == user.language.get(Token.REPORT_SUBMISSION):
