@@ -24,9 +24,10 @@ class SubmissionScores:
         if category == SubmissionCategory.POSITIVE_SEPARATED:
             if self.buffed_category[language] == SubmissionCategory.POSITIVE_TOGETHER:
                 return 17
-            else:
-                return 12
+            return 12
         elif category == SubmissionCategory.NEGATIVE_SEPARATED:
+            if self.buffed_category[language] == SubmissionCategory.NEGATIVE_TOGETHER:
+                return 15
             return 10
         if category == self.buffed_category[language]:
             return 15
@@ -37,7 +38,7 @@ class SubmissionScores:
         if self._review_happy_hour_start_time is not None:
             if datetime.now() > (self._review_happy_hour_start_time + timedelta(hours=1)):
                 self._review_happy_hour_start_time = None
-        if self._review_happy_hour_start_time is not None:
+                return 1
             return 2
         else:
             return 1

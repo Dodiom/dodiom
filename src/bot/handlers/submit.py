@@ -172,7 +172,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
                  get_random_congrats_message(user.language), submission.points),
              Keyboard.main(user.language))
 
-    if random.random() < 0.5:
+    if random.random() < 0.75:
         time.sleep(1)
         send_hint_message(user, update, context)
 

@@ -6,7 +6,7 @@ from telegram.ext import CallbackContext
 
 from api.mwe import get_todays_mwe
 from api.submission import get_category_score
-from bot.handlers.scoreboard import scoreboard_handler
+from bot.helpers.submission_scores import submission_scores
 from database import database
 from i18n import Token
 from models import SubmissionCategory, User, Mwe, Submission
@@ -57,8 +57,17 @@ def _get_submission_category_count(mwe: Mwe, category: SubmissionCategory) -> in
 
 
 def send_hint_message(user: User, update: Update, context: CallbackContext):
-    choice = random.choice([1, 2, 3])
+    choices = [2, 3]
+    if submission_scores.buffed_category[user.language] == SubmissionCategory.POSITIVE_TOGETHER:
+        choices.append(4)
+    elif submission_scores.buffed_category[user.language] == SubmissionCategory.NEGATIVE_TOGETHER:
+        choices.append(1)
+    choice = random.choice(choices)
     if choice == 1:
-        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_2))
+        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_1))
     elif choice == 2:
-        scoreboard_handler(user, update, context)
+        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_2))
+    elif choice == 3:
+        update.message.reply_html(user.language.get(Token.HINT_MESSAGE_3))
+    elif choice == 4:
+        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_4))

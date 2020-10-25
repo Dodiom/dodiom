@@ -131,6 +131,7 @@ class Token(Enum):
     LOST_FIRST_THREE = auto()
     REVIEW_WORTH_MORE = auto()
     LOST_FIRST = auto()
+    HINT_MESSAGE_4 = auto()
 
 
 class Language(Enum):
@@ -465,7 +466,7 @@ diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
     },
     Token.HINT_MESSAGE_1: {
         "en": "",
-        "tr": "Acele et. Deyim olmayan örnekler şu anda daha çok puan kazandırıyor."
+        "tr": "Acele et. Deyim olMAyan örnekler şu anda daha çok puan kazandırıyor."
     },
     Token.HINT_MESSAGE_2: {
         "en": "",
@@ -773,8 +774,12 @@ getirdiğin için teşekkür ederiz."
         "tr": "Şanslı Dakikalar! Kısa süreliğine oylama yapmak 2 kat puan kazandırıyor."
     },
     Token.LOST_FIRST: {
-"en": "",
+        "en": "",
         "tr": "Başka biri birinciliği elinden aldı. Acil müdahale etmelisin!"
+    },
+    Token.HINT_MESSAGE_4: {
+        "en": "",
+        "tr": "Deyim olan örnekler şu anda daha çok puan kazandırıyor. Örnek girmeye devam et!"
     }
 }
 
