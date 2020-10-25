@@ -75,7 +75,7 @@ class ScoreBoard:
                         second = get_user(new_boards[language][1].user_id)
                         notification_manager.send_lost_first(second, context)
 
-                if len(new_boards[language]) > 2 and len(self.scoreboards[language]) > 1:
+                if len(new_boards[language]) > 2 and len(self.scoreboards[language]) > 2:
                     if new_boards[language][3].user_id == self.scoreboards[language][2].user_id:
                         fourth_user = get_user(new_boards[language][3].user_id)
                         notification_manager.send_lost_three(fourth_user, context)

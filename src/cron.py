@@ -8,6 +8,7 @@ from api.mwe import get_todays_mwe
 from api.user import get_all_users, get_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.scoreboard import scoreboard
+from bot.helpers.submission_scores import submission_scores
 from bot.helpers.user_helper import send_message_to_user
 from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER, ACHIEVEMENT_STICKER
 from config import mwexpress_config
@@ -57,6 +58,7 @@ def send_game_over_message_to_all() -> None:
 def end_of_day_job():
     award_champion()
     clear_scores_for_today()
+    submission_scores.clear()
 
 
 def award_champion():
@@ -76,6 +78,7 @@ def award_champion():
                 except Exception as ex:
                     mwelog.exception(ex)
 
+
 def clear_scores_for_today():
     mwelog.info("Clearing scores for today")
     all_users = get_all_users()
@@ -84,6 +87,7 @@ def clear_scores_for_today():
         user.score_today_tr = 0
     session = database.get_session()
     database.commit(session)
+    scoreboard.iterate()
 
 
 def unmute_everyone():
