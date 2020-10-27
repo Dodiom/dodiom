@@ -177,43 +177,40 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         send_hint_message(user, update, context)
 
     session = database.get_session()
-    user_achievements = get_user_achievements(user)
     if session.query(Submission).filter(Submission.mwe == todays_mwe).count() == 1:
         # award first submission
-        if AchievementType.FIRST_SUBMISSION not in user_achievements:
-            award_achievement(user, AchievementType.FIRST_SUBMISSION)
-            update.message.reply_sticker(ACHIEVEMENT_STICKER)
-            update.message.reply_html(user.language.get(Token.FIRST_SUB_ACH_CONGRATS_MSG))
+        award_achievement(user, AchievementType.FIRST_SUBMISSION)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.FIRST_SUB_ACH_CONGRATS_MSG))
 
     now = datetime.now()
     start_datetime = datetime.combine(now, mwexpress_config.start_time)
     start_diff = now - start_datetime
     if start_diff.total_seconds() < 1800:
         # award early bird
-        if AchievementType.EARLY_BIRD not in user_achievements:
-            award_achievement(user, AchievementType.EARLY_BIRD)
-            update.message.reply_sticker(ACHIEVEMENT_STICKER)
-            update.message.reply_html(user.language.get(Token.EARLY_BIRD_ACH_CONGRATS_MSG))
+        award_achievement(user, AchievementType.EARLY_BIRD)
+        update.message.reply_sticker(ACHIEVEMENT_STICKER)
+        update.message.reply_html(user.language.get(Token.EARLY_BIRD_ACH_CONGRATS_MSG))
 
     today_sub_count_by_user = session.query(Submission)\
         .filter(and_(Submission.mwe == todays_mwe, Submission.user == user)).count()
-    if AchievementType.SUB_LVL_1 not in user_achievements and today_sub_count_by_user == 5:
+    if today_sub_count_by_user == 5:
         award_achievement(user, AchievementType.SUB_LVL_1)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_1_ACH_CONGRATS_MSG))
-    if AchievementType.SUB_LVL_2 not in user_achievements and today_sub_count_by_user == 10:
+    if today_sub_count_by_user == 10:
         award_achievement(user, AchievementType.SUB_LVL_2)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_2_ACH_CONGRATS_MSG))
-    if AchievementType.SUB_LVL_3 not in user_achievements and today_sub_count_by_user == 20:
+    if today_sub_count_by_user == 20:
         award_achievement(user, AchievementType.SUB_LVL_3)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_3_ACH_CONGRATS_MSG))
-    if AchievementType.SUB_LVL_4 not in user_achievements and today_sub_count_by_user == 40:
+    if today_sub_count_by_user == 40:
         award_achievement(user, AchievementType.SUB_LVL_4)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_4_ACH_CONGRATS_MSG))
-    if AchievementType.SUB_LVL_5 not in user_achievements and today_sub_count_by_user == 70:
+    if today_sub_count_by_user == 70:
         award_achievement(user, AchievementType.SUB_LVL_5)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.SUB_LVL_5_ACH_CONGRATS_MSG))

@@ -6,7 +6,7 @@ from typing import List
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from api.achievements import award_achievement, get_user_achievements
+from api.achievements import award_achievement
 from api.mwe import get_todays_mwe
 from api.user import unmute_user, mute_user, update_user
 from bot.helpers.keyboard_helper import Keyboard
@@ -14,7 +14,7 @@ from bot.helpers.notification_manager import notification_manager
 from bot.helpers.scoreboard import scoreboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.submission_scores import submission_scores
-from bot.helpers.user_helper import reply_to, send_message_to_user, reply_html
+from bot.helpers.user_helper import reply_to, reply_html
 from bot.stickers import ACHIEVEMENT_STICKER
 from config import mwexpress_config
 from database import database
@@ -173,24 +173,23 @@ def _process_review_achievements(user: User, update: Update):
     todays_mwe = get_todays_mwe(user.language)
     user_review_count_today = session.query(Review)\
         .filter(and_(Review.mwe == todays_mwe, Review.user == user)).count()
-    user_achievements = get_user_achievements(user)
-    if AchievementType.REVIEW_LVL_1 not in user_achievements and user_review_count_today == 10:
+    if user_review_count_today == 10:
         award_achievement(user, AchievementType.REVIEW_LVL_1)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_1_ACH_CONGRATS_MSG))
-    if AchievementType.REVIEW_LVL_2 not in user_achievements and user_review_count_today == 20:
+    if user_review_count_today == 20:
         award_achievement(user, AchievementType.REVIEW_LVL_2)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_2_ACH_CONGRATS_MSG))
-    if AchievementType.REVIEW_LVL_3 not in user_achievements and user_review_count_today == 40:
+    if user_review_count_today == 40:
         award_achievement(user, AchievementType.REVIEW_LVL_3)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_3_ACH_CONGRATS_MSG))
-    if AchievementType.REVIEW_LVL_4 not in user_achievements and user_review_count_today == 80:
+    if user_review_count_today == 80:
         award_achievement(user, AchievementType.REVIEW_LVL_4)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_4_ACH_CONGRATS_MSG))
-    if AchievementType.REVIEW_LVL_5 not in user_achievements and user_review_count_today == 160:
+    if user_review_count_today == 160:
         award_achievement(user, AchievementType.REVIEW_LVL_5)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.REVIEW_LVL_5_ACH_CONGRATS_MSG))
