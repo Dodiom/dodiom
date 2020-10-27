@@ -64,7 +64,7 @@ def send_hint_message(user: User, update: Update, context: CallbackContext):
         choices.append(1)
     choice = random.choice(choices)
     if choice == 1:
-        update.message.reply_text(user.language.get(Token.HINT_MESSAGE_1))
+        update.message.reply_html(user.language.get(Token.HINT_MESSAGE_1))
     elif choice == 2:
         update.message.reply_text(user.language.get(Token.HINT_MESSAGE_2))
     elif choice == 3:

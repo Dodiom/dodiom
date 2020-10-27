@@ -466,7 +466,8 @@ diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
     },
     Token.HINT_MESSAGE_1: {
         "en": "",
-        "tr": "Acele et. Deyim olMAyan örnekler şu anda daha çok puan kazandırıyor."
+        "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. \
+Örn: “Bugün üç <b><u>ayva yedim</u></b>."
     },
     Token.HINT_MESSAGE_2: {
         "en": "",
