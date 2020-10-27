@@ -6,7 +6,7 @@ from operator import and_
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from api.achievements import award_achievement, get_user_achievements
+from api.achievements import award_achievement, get_user_achievements, user_has_achievement
 from api.mwe import get_todays_mwe
 from api.submission import add_submission
 from api.user import mute_user, unmute_user, update_user
@@ -188,9 +188,10 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     start_diff = now - start_datetime
     if start_diff.total_seconds() < 1800:
         # award early bird
-        award_achievement(user, AchievementType.EARLY_BIRD)
-        update.message.reply_sticker(ACHIEVEMENT_STICKER)
-        update.message.reply_html(user.language.get(Token.EARLY_BIRD_ACH_CONGRATS_MSG))
+        if not user_has_achievement(user, AchievementType.EARLY_BIRD):
+            award_achievement(user, AchievementType.EARLY_BIRD)
+            update.message.reply_sticker(ACHIEVEMENT_STICKER)
+            update.message.reply_html(user.language.get(Token.EARLY_BIRD_ACH_CONGRATS_MSG))
 
     today_sub_count_by_user = session.query(Submission)\
         .filter(and_(Submission.mwe == todays_mwe, Submission.user == user)).count()
