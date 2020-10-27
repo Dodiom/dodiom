@@ -134,7 +134,7 @@ def print_locked_achievements(user: User, achievements: List[AchievementType]) -
 
 def get_level(score: float) -> (int, int):
     if score <= 0:
-        return 1
+        return 1, 1
     else:
         level = 0
         while True:
