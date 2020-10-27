@@ -86,7 +86,16 @@ class NotificationManager:
         self._clear_old_notifications()
         for user in get_all_users():
             self._send_notification(context, user.id, user.language.get(Token.POS_TOG_WORTH_MORE),
-                                    NotificationType.IDIOM_WORTH_MORE)
+                                    NotificationType.IDIOM_WORTH_MORE,
+                                    THUMBS_UP_STICKER)
+
+    def send_non_idioms_worth_more(self, context: CallbackContext):
+        self._clear_old_notifications()
+        for user in get_all_users():
+            self._send_notification(context, user.id,
+                                    user.language.get(Token.NEG_TOG_WORTH_MORE),
+                                    NotificationType.NON_IDIOM_WORTH_MORE,
+                                    THUMBS_UP_STICKER)
 
     def send_became_first(self, user: User, context: CallbackContext):
         self._clear_old_notifications()
@@ -114,13 +123,6 @@ class NotificationManager:
                                 user.language.get(Token.LOST_FIRST),
                                 NotificationType.LOST_FIRST,
                                 SAD_FACEPALM_STICKER)
-
-    def send_non_idioms_worth_more(self, context: CallbackContext):
-        self._clear_old_notifications()
-        for user in get_all_users():
-            self._send_notification(context, user.id,
-                                    user.language.get(Token.NEG_TOG_WORTH_MORE),
-                                    NotificationType.NON_IDIOM_WORTH_MORE)
 
     def send_review_worth_more(self, context: CallbackContext):
         self._clear_old_notifications()
