@@ -3,7 +3,6 @@ import random
 
 
 class Token(Enum):
-    MAIN_KEYBOARD = auto()
     TODAYS_MWE = auto()
     SUBMIT = auto()
     REVIEW = auto()
@@ -48,10 +47,6 @@ class Token(Enum):
     GAME_STARTED = auto()
     GAME_ENDED = auto()
     THANKS_FOR_REVIEW = auto()
-    I_NEED_PT_EXAMPLES = auto()
-    I_NEED_PS_EXAMPLES = auto()
-    I_NEED_NT_EXAMPLES = auto()
-    I_NEED_NS_EXAMPLES = auto()
     WELCOME_MESSAGE_1 = auto()
     WELCOME_MESSAGE_2 = auto()
     WELCOME_MESSAGE_3 = auto()
@@ -153,7 +148,7 @@ class Language(Enum):
 
 translations = {
     Token.TODAYS_MWE: {
-        "en": "Today's MWE",
+        "en": "Today's Idiom",
         "tr": "Günün Deyimi"
     },
     Token.SUBMIT: {
@@ -213,24 +208,24 @@ translations = {
         "tr": "%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
     },
     Token.AGREE_NICE_EXAMPLE: {
-        "en": '👍 I agree. Nice example for this category',
-        "tr": '👍 Katılıyorum. Doğru tespit.'
+        "en": "👍 I agree. Nice example for this category",
+        "tr": "👍 Katılıyorum. Doğru tespit."
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
-        "en": '👎 I do not like this example',
-        "tr": '👎 Bu örneği beğenmedim.'
+        "en": "👎 I do not like this example",
+        "tr": "👎 Bu örneği beğenmedim."
     },
     Token.SKIP_THIS_ONE: {
-        "en": '⏭ Skip this one',
-        "tr": '⏭ Bu örneği geç'
+        "en": "⏭ Skip this one",
+        "tr": "⏭ Bu örneği geç"
     },
     Token.QUIT_REVIEWING: {
-        "en": '😱 Quit reviewing',
-        "tr": '😱 İncelemeyi bitir'
+        "en": "😱 Quit reviewing",
+        "tr": "😱 İncelemeyi bitir"
     },
     Token.SOMEONE_LOVED_YOUR_EXAMPLE: {
         "en": "%s! Someone else loved your great example, and you’ve earned %d points",
-        "tr": "%s! Süper! Örneklerin şu anda beğeni alıyor. Sıralamalardaki yeni yerini merak etmiyor musun?"
+        "tr": "%s! Örneklerin şu anda beğeni alıyor. Sıralamalardaki yeni yerini merak etmiyor musun?"
     },
     Token.PLEASE_ENTER_VALID_REVIEW: {
         "en": "Please enter a valid review",
@@ -265,7 +260,7 @@ translations = {
         "tr": "Yardım"
     },
     Token.HELP_MESSAGE: {
-        "en": """\
+        "en": """
 Hello and welcome to Dodiom,
 
 The game has two modes. You either *submit* an MWE example or you *review* \
@@ -280,9 +275,9 @@ is simply whether the words of the MWE form an MWE sense (called positive)\
 (kind of like a figurative meaning) or a non-MWE sense (called negative)\
 (kind of like literal meaning.)
 For example: MWE give up can mean to admit defeat, so if you enter a sentence
-for that meaning, such as _"Ok, I give up!"_, than you'd choose the positive \
-category, however, if you enter a sentence like _"Can you give that book up to \
-me?"_ in which give up means to pass something to someone, it'd be literal \
+for that meaning, such as _\"Ok, I give up!\"_, than you'd choose the positive \
+category, however, if you enter a sentence like _\"Can you give that book up to \
+me?\"_ in which give up means to pass something to someone, it'd be literal \
 meaning.
 Keep in mind that the scores will be higher for examples of the second \
 category.
@@ -320,13 +315,11 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "ve"
     },
     Token.REVIEW_QUESTION_POSITIVE: {
-        "en": "In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a \
-special meaning together, would you agree?",
+        "en": "In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a special meaning together, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
-        "en": "%s\n\nIt's said that words %s does <b><u>NOT</u></b>❌ form a \
-special meaning together, would you agree?",
+        "en": "%s\n\nIt's said that words %s does <b><u>NOT</u></b>❌ form a special meaning together, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>KULLANILMIYOR</u></b>❌ denmiş, buna katılıyor musunuz?"
     },
     Token.PLEASE_ENTER_ONE_SENTENCE: {
@@ -338,10 +331,8 @@ special meaning together, would you agree?",
         "tr": "Geri bildirim gönder"
     },
     Token.FEEDBACK_MESSAGE: {
-        "en": "Thank you for your interest, you can send a feedback using \
-following link.",
-        "tr": "İlginiz için teşekkürler, geri bildirim yapmak için \
-aşağıdaki linki kullanabilirsiniz."
+        "en": "Thank you for your interest, you can send a feedback using following link.",
+        "tr": "İlginiz için teşekkürler, geri bildirim yapmak için aşağıdaki linki kullanabilirsiniz."
     },
     Token.FEEDBACK_URL: {
         "en": "https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s",
@@ -367,145 +358,89 @@ aşağıdaki linki kullanabilirsiniz."
         "en": "%s! You earned %d points.",
         "tr": "%s! %d puan kazandın."
     },
-    Token.I_NEED_PT_EXAMPLES: {
-        "en": "",
-        "tr": """
-Eyvah, işte şimdi <b><u>ayvayı</u></b> <b><u>yedim</u></b>.
-
-Şu an buna benzer, deyimdeki kelimelerin yanyana geçtiği ve deyim olan örnekler arıyorum.
-
-Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
-"""
-    },
-    Token.I_NEED_PS_EXAMPLES: {
-        "en": "",
-        "tr": """
-Eyvah, işte <b><u>ayvayı</u></b> şimdi <b><u>yedim</u></b>.
-
-Şu an buna benzer, deyimdeki kelimelerin birbirinden uzakta olduğu ama deyim olan örnekler arıyorum.
-
-Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
-"""
-    },
-    Token.I_NEED_NT_EXAMPLES: {
-        "en": "",
-        "tr": """
-Annemin bana soyduğu <b><u>ayvayı</u></b> <b><u>yedim</u></b>.
-
-Şu an buna benzer, deyimdeki kelimelerin yanyana geçtiği ama deyim <u>olmayan</u> örnekler arıyorum.
-
-Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
-"""
-    },
-    Token.I_NEED_NS_EXAMPLES: {
-        "en": "",
-        "tr": """
-Annemin bana soyduğu <b><u>ayvayı</u></b> bir güzel <b><u>yedim</u></b>.
-
-Şu an buna benzer, deyimdeki kelimelerin birbirinden uzakta olduğu ve deyim <u>olmayan</u> örnekler arıyorum.
-
-Buna benzer örnekler verebilir misin? Acele et, böyle örnekler %d puan değerinde.
-"""
-    },
     Token.WELCOME_MESSAGE_1: {
-        "en": "",
+        "en": "Hi, I'm Dodo.",
         "tr": "Merhaba ben Dodo."
     },
     Token.WELCOME_MESSAGE_2: {
-        "en": "",
+        "en": "I'm trying to learn English but having troubles understanding idioms.",
         "tr": "Türkçe öğrenmeye çalışıyorum ancak deyimleri anlamakta çok zorlanıyorum."
     },
     Token.WELCOME_MESSAGE_3: {
-        "en": "",
+        "en": "Can you help me?",
         "tr": "Bana yardım eder misin?"
     },
     Token.WELCOME_MESSAGE_4: {
-        "en": "",
+        "en": "How?",
         "tr": "Nasıl mı?"
     },
     Token.WELCOME_MESSAGE_5: {
-        "en": "",
+        "en": "I need examples for both idioms and non-idioms.",
         "tr": "Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım."
     },
     Token.WELCOME_MESSAGE_6: {
-        "en": "",
-        "tr": """
-Mesela “ayvayı yemek” deyimini öğrenmem için 
-“İşte şimdi ayvayı yedik.” deyim örneği
-“Az önce iki ayva yedim.” deyim olmayan örnek
-"""
+        "en": "For example, in order to learn the idiom \"Give up\"\n\"Ok, I give up now.\" idiom example\n\"Can you give that book up to me\" non-idiom example",
+        "tr": "Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek"
     },
     Token.WELCOME_MESSAGE_7: {
-        "en": "",
+        "en": "Now to see today's idiom, click on <b><u>Todays Idiom</u></b> from the keyboard",
         "tr": "Şimdi bugünün deyimini seçmek için klavyeden <b><u>Günün Deyimi</u></b>'ni seç"
     },
     Token.WELCOME_MESSAGE_8: {
-        "en": "",
+        "en": "If you can't see the keyboard, click on the rectangular shape you can see in the picture",
         "tr": "Eğer klavyeyi göremiyorsan resimde görülen içinde dört tane daire olan dikdörtgene tıkla."
     },
     Token.TODAYS_MWE_HELP_MESSAGE_1: {
-        "en": "",
+        "en": "Awesome, now that you know todays idiom, you can help me learn it by sending some examples",
         "tr": "Harika, günün deyimini öğrendiğine göre artık örnek göndererek öğrenmeme yardımcı olabilirsin.."
     },
     Token.TODAYS_MWE_HELP_MESSAGE_2: {
-        "en": "",
+        "en": "To send an example, click <b><u>Submit</u></b> from the keyboard",
         "tr": "Örnek göndermek için klavyeden <b><u>Örnek Gönder</u></b>'e tıkla.."
     },
     Token.SUBMISSION_HELP_MESSAGE_1: {
-        "en": "",
-        "tr": "Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra \
-diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
+        "en": "In this section, you can submit an example. You'll win points when other players like your example.",
+        "tr": "Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
     },
     Token.REVIEW_HELP_MESSAGE_1: {
-        "en": "",
+        "en": "In this section, you can review other players submissions.",
         "tr": "Bu kısımda diğer oyuncuların gönderdiği örnekleri oylayabilirsin."
     },
     Token.REVIEW_HELP_MESSAGE_2: {
-        "en": "",
+        "en": "You and the players you review will both win points",
         "tr": "Hem sen hem de örneklerini oyladığın kişiler puan kazanacak."
     },
     Token.HINT_MESSAGE_1: {
-        "en": "",
-        "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. \
-Örn: “Bugün üç <b><u>ayva yedim</u></b>."
+        "en": "Hurry up! Examples which contains the non-idiom where words of the idioms are adjacent to each other are worth more points. Example: Will you please <b><u>give up</u></b> that book to me?",
+        "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. Örn: “Bugün üç <b><u>ayva yedim</u></b>."
     },
     Token.HINT_MESSAGE_2: {
-        "en": "",
+        "en": "To win more points you can review others submissions.",
         "tr": "Daha fazla puan kazanmak için başkalarının örneklerini oylayabilirsin."
     },
     Token.HINT_MESSAGE_3: {
-        "en": "",
-        "tr": """
-Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.
-
-Örn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.
-
-Böyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.
-"""
+        "en": "Did you know, other words can go between the idioms words.\nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢 Hurry up, you can win more points with examples like these.",
+        "tr": "Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.\nÖrn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.\nBöyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin."
     },
     Token.ERROR_OCCURRED: {
         "en": "An error occurred, please try again later.",
         "tr": "Bir hata oldu, lütfen daha sonra tekrar dene."
     },
     Token.NO_SUB_LEFT_TO_REVIEW: {
-        "en": "",
-        "tr": "Şu anlık oylayabileceğin başka bir örnek kalmadı, daha sonra \
-tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
+        "en": "There are no more submissions left to review for now, you can try reviewing later. Thank you for your reviews.",
+        "tr": "Şu anlık oylayabileceğin başka bir örnek kalmadı, daha sonra tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
     },
     Token.SCOREBOARD_EMPTY: {
-        "en": "",
-        "tr": "Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak \
-sıralamalarda öne geçebilirsin."
+        "en": "Scoreboard is empty for now. You can get a head start by sending submissions.",
+        "tr": "Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak sıralamalarda öne geçebilirsin."
     },
     Token.SUBMISSION_CANCELLED: {
         "en": "Submission is cancelled.",
         "tr": "Gönderi iptal edildi."
     },
     Token.SUBMISSION_CONTAINS_ERROR: {
-        "en": "There was an error when I was trying to parse your submission, \
-please enter a different one.",
-        "tr": "Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, \
-lütfen başka bir örnek gir."
+        "en": "There was an error when I was trying to parse your submission, please enter a different one.",
+        "tr": "Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, lütfen başka bir örnek gir."
     },
     Token.ACHIEVEMENTS: {
         "en": "Achievements",
@@ -524,10 +459,8 @@ lütfen başka bir örnek gir."
         "tr": "Günün ilk gönderisini gönder."
     },
     Token.FIRST_SUB_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent the first submission of the day and \
-awarded with the 🌅 <b><u>First Submission!</u></b> achievement.",
-        "tr": "Tebrikler! Günün ilk gönderisini gönderdin ve 🌅 <b><u>İlk Gönderi</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent the first submission of the day and awarded with the 🌅 <b><u>First Submission!</u></b> achievement.",
+        "tr": "Tebrikler! Günün ilk gönderisini gönderdin ve 🌅 <b><u>İlk Gönderi</u></b> başarımını açtın."
     },
     Token.EARLY_BIRD_ACH_NAME: {
         "en": "Early Bird",
@@ -538,10 +471,8 @@ başarımını açtın."
         "tr": "Oyun başladıktan sonraki ilk yarım saat içerisinde bir örnek gönder."
     },
     Token.EARLY_BIRD_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent a submission in the first half hour and \
-awarded with the 🐦 <b><u>Early Bird</u></b> achievement.",
-        "tr": "Tebrikler! Oyunun ilk yarım saatinde örnek gönderdin ve 🐦 <b><u>Erkenci Kuş</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent a submission in the first half hour and awarded with the 🐦 <b><u>Early Bird</u></b> achievement.",
+        "tr": "Tebrikler! Oyunun ilk yarım saatinde örnek gönderdin ve 🐦 <b><u>Erkenci Kuş</u></b> başarımını açtın."
     },
     Token.UNLOCKED_ACHIEVEMENTS: {
         "en": "<b>Unlocked achivements</b>",
@@ -556,10 +487,8 @@ başarımını açtın."
         "tr": "Bir günde 5 gönderi gönder."
     },
     Token.SUB_LVL_1_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent your fifth submission and \
-awarded with the <b><u>Just starting out</u></b> achievement.",
-        "tr": "Tebrikler! Beşinci gönderini gönderdin ve 🎇 <b><u>Daha yeni başlıyorum</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent your fifth submission and awarded with the <b><u>Just starting out</u></b> achievement.",
+        "tr": "Tebrikler! Beşinci gönderini gönderdin ve 🎇 <b><u>Daha yeni başlıyorum</u></b> başarımını açtın."
     },
     Token.LOCKED_ACHIEVEMENTS: {
         "en": "<b>Locked achivements</b>",
@@ -574,10 +503,8 @@ başarımını açtın."
         "tr": "Bir günde 10 gönderi gönder."
     },
     Token.SUB_LVL_2_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent your tenth submission and \
-awarded with the ✍️<b><u>Author</u></b> achievement.",
-        "tr": "Tebrikler! Onuncu gönderini gönderdin ve ✍️<b><u>Yazar</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent your tenth submission and awarded with the ✍️<b><u>Author</u></b> achievement.",
+        "tr": "Tebrikler! Onuncu gönderini gönderdin ve ✍️<b><u>Yazar</u></b> başarımını açtın."
     },
     Token.SUB_LVL_3_ACH_NAME: {
         "en": "Master of Submissions",
@@ -588,10 +515,8 @@ başarımını açtın."
         "tr": "Bir günde 20 gönderi gönder."
     },
     Token.SUB_LVL_3_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent your twentieth submission and \
-awarded with the 🗿 <b><u>Master of Submissions</u></b> achievement.",
-        "tr": "Tebrikler! Yirminci gönderini gönderdin ve 🗿 <b><u>Gönderi Üstadı</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent your twentieth submission and awarded with the 🗿 <b><u>Master of Submissions</u></b> achievement.",
+        "tr": "Tebrikler! Yirminci gönderini gönderdin ve 🗿 <b><u>Gönderi Üstadı</u></b> başarımını açtın."
     },
     Token.SUB_LVL_4_ACH_NAME: {
         "en": "Idioms Dictionary",
@@ -602,10 +527,8 @@ başarımını açtın."
         "tr": "Bir günde 40 gönderi gönder."
     },
     Token.SUB_LVL_4_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent your fortieth submission and \
-awarded with the 📚 <b><u>Idioms Dictionary</u></b> achievement.",
-        "tr": "Tebrikler! Kırkıncı gönderini gönderdin ve 📚 <b><u>Deyimler Sözlüğü</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent your fortieth submission and awarded with the 📚 <b><u>Idioms Dictionary</u></b> achievement.",
+        "tr": "Tebrikler! Kırkıncı gönderini gönderdin ve 📚 <b><u>Deyimler Sözlüğü</u></b> başarımını açtın."
     },
     Token.SUB_LVL_5_ACH_NAME: {
         "en": "Human Corpus",
@@ -616,10 +539,8 @@ başarımını açtın."
         "tr": "Bir günde 70 gönderi gönder."
     },
     Token.SUB_LVL_5_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've sent your fortieth submission and \
-awarded with the 🦄 <b><u>Human Corpus</u></b> achievement.",
-        "tr": "Tebrikler! Yetmişinci gönderini gönderdin ve 🦄 <b><u>İki Ayaklı Derlem</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've sent your fortieth submission and awarded with the 🦄 <b><u>Human Corpus</u></b> achievement.",
+        "tr": "Tebrikler! Yetmişinci gönderini gönderdin ve 🦄 <b><u>İki Ayaklı Derlem</u></b> başarımını açtın."
     },
     Token.REVIEW_LVL_1_ACH_NAME: {
         "en": "Helpful",
@@ -630,10 +551,8 @@ başarımını açtın."
         "tr": "Bir günde 10 gönderiyi oyla."
     },
     Token.REVIEW_LVL_1_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've rated ten submissions and \
-awarded with the 🤝 <b><u>Helpful</u></b> achievement.",
-        "tr": "Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've rated ten submissions and awarded with the 🤝 <b><u>Helpful</u></b> achievement.",
+        "tr": "Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> başarımını açtın."
     },
     Token.REVIEW_LVL_2_ACH_NAME: {
         "en": "Voter",
@@ -644,10 +563,8 @@ başarımını açtın."
         "tr": "Bir günde 20 gönderiyi oyla."
     },
     Token.REVIEW_LVL_2_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've rated twenty submissions and \
-awarded with the <b><u>Voter</u></b> achievement.",
-        "tr": "Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've rated twenty submissions and awarded with the <b><u>Voter</u></b> achievement.",
+        "tr": "Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> başarımını açtın."
     },
     Token.REVIEW_LVL_3_ACH_NAME: {
         "en": "Critique",
@@ -658,10 +575,8 @@ başarımını açtın."
         "tr": "Bir günde 40 gönderiyi oyla."
     },
     Token.REVIEW_LVL_3_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've rated forty submissions and \
-awarded with the ✨ <b><u>Critique</u></b> achievement.",
-        "tr": "Tebrikler! Kırk gönderiyi oyladın ve ✨ <b><u>Kritik</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've rated forty submissions and awarded with the ✨ <b><u>Critique</u></b> achievement.",
+        "tr": "Tebrikler! Kırk gönderiyi oyladın ve ✨ <b><u>Kritik</u></b> başarımını açtın."
     },
     Token.REVIEW_LVL_4_ACH_NAME: {
         "en": "Gourmet",
@@ -672,10 +587,8 @@ başarımını açtın."
         "tr": "Bir günde 80 gönderiyi oyla."
     },
     Token.REVIEW_LVL_4_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've rated eighty submissions and \
-awarded with the 🧑‍🍳 <b><u>Gourmet</u></b> achievement.",
-        "tr": "Tebrikler! Seksen gönderiyi oyladın ve 🧑‍🍳 <b><u>Gurme</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've rated eighty submissions and awarded with the 🧑‍🍳 <b><u>Gourmet</u></b> achievement.",
+        "tr": "Tebrikler! Seksen gönderiyi oyladın ve 🧑‍🍳 <b><u>Gurme</u></b> başarımını açtın."
     },
     Token.REVIEW_LVL_5_ACH_NAME: {
         "en": "Reviewer",
@@ -686,10 +599,8 @@ başarımını açtın."
         "tr": "Bir günde 160 gönderiyi oyla."
     },
     Token.REVIEW_LVL_5_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've rated one hundred and sixty submissions and \
-awarded with the 🕶️ <b><u>Reviewer</u></b> achievement.",
-        "tr": "Tebrikler! Yüz altmış gönderiyi oyladın ve 🕶️ <b><u>Eleştirmen</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've rated one hundred and sixty submissions and awarded with the 🕶️ <b><u>Reviewer</u></b> achievement.",
+        "tr": "Tebrikler! Yüz altmış gönderiyi oyladın ve 🕶️ <b><u>Eleştirmen</u></b> başarımını açtın."
     },
     Token.USER_DAILY_PLAY_DETAILS_MESSAGE: {
         "en": "Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>",
@@ -704,10 +615,8 @@ başarımını açtın."
         "tr": "Sıralamalarda birinci ol."
     },
     Token.BECOME_NUMBER_ONE_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've risen to the top of the rankings and \
-awarded with the 🥇 <b><u>Leader</u></b> achievement.",
-        "tr": "Tebrikler! Sıralamalarda birinci sıraya yerleştin ve 🥇 <b><u>Lider</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've risen to the top of the rankings and awarded with the 🥇 <b><u>Leader</u></b> achievement.",
+        "tr": "Tebrikler! Sıralamalarda birinci sıraya yerleştin ve 🥇 <b><u>Lider</u></b> başarımını açtın."
     },
     Token.CHAMPION_ACH_NAME: {
         "en": "Champion!",
@@ -718,39 +627,27 @@ başarımını açtın."
         "tr": "Günü birinci bitir."
     },
     Token.CHAMPION_ACH_CONGRATS_MSG: {
-        "en": "Congratulations! You've finished the day as the leader and \
-awarded with the 🎖️ <b><u>Champion!</u></b> achievement.",
-        "tr": "Tebrikler! Günü birinci bitirdin ve 🎖️ <b><u>Şampiyon!</u></b> \
-başarımını açtın."
+        "en": "Congratulations! You've finished the day as the leader and awarded with the 🎖️ <b><u>Champion!</u></b> achievement.",
+        "tr": "Tebrikler! Günü birinci bitirdin ve 🎖️ <b><u>Şampiyon!</u></b> başarımını açtın."
     },
     Token.LOST_FIRST_FIVE: {
-        "en": "😰 Ooh! You've dropped out of the leaderboard. No worries, \
-you can increase your ranking by submitting new examples and rating others.",
-        "tr": "😰 Tüh, sıralamalarda ilk beşten düştün. Endişelenme! Hemen geri \
-dönüp oynamaya devam et!"
+        "en": "😰 Ooh! You've dropped out of the leaderboard. No worries, you can increase your ranking by submitting new examples and rating others.",
+        "tr": "😰 Tüh, sıralamalarda ilk beşten düştün. Endişelenme! Hemen geri dönüp oynamaya devam et!"
     },
     Token.YOUVE_BECOME_LEADER: {
         "en": "🥳 Congratulations! You've topped the scoreboard.",
         "tr": "🥳 Tebrikler! Sıralamalarda ilk sıraya yerleştin."
     },
     Token.POS_SEP_WORTH_MORE: {
-        "en": "Hey, for a limited time, idiomatic but word seperated examples \
-(such as I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.) worth 15 \
-points, instead of 10.",
-        "tr": "Selam, kısa bir süreliğine deyim olan ama kelimeleri ayrı olan \
-örnekler (Örneğin: Bugün de <b><u>ayvayı</u></b> <i>ben</i> <b><u>yedim</u></b>.) \
-10 puan yerine 15 puan kazandırıyor."
+        "en": "Hey, for a limited time, idiomatic but word seperated examples (such as I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.) worth 15 points, instead of 10.",
+        "tr": "Selam, kısa bir süreliğine deyim olan ama kelimeleri ayrı olan örnekler (Örneğin: Bugün de <b><u>ayvayı</u></b> <i>ben</i> <b><u>yedim</u></b>.) 10 puan yerine 15 puan kazandırıyor."
     },
     Token.POS_TOG_WORTH_MORE: {
-        "en": "Hey, for a limited time, idiomatic and word consecutive examples \
-(such as I <b><u>gave up</u></b> on him.) worth 15 \
-points, instead of 10.",
+        "en": "Hurry up, for a limited time idiomatic examples worth 15 points, instead of 10.",
         "tr": "Acele et, kısa bir süreliğine deyim olan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.NEG_TOG_WORTH_MORE: {
-        "en": "Hey, for a limited time, non-idiomatic and word consecutive examples \
-(such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 \
-points, instead of 10.",
+        "en": "Hurry up, for a limited time, non-idiomatic and word consecutive examples (such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 points, instead of 10.",
         "tr": "Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.REPORT_SUBMISSION: {
@@ -759,29 +656,28 @@ points, instead of 10.",
     },
     Token.REPORT_SUBMISSION_REPLY: {
         "en": "Thanks for keeping Dodiom a better place by reporting bad submissions.",
-        "tr": "Kötü örnekleri şikayet ederek Dodiom'u daha iyi bir yer haline \
-getirdiğin için teşekkür ederiz."
+        "tr": "Kötü örnekleri şikayet ederek Dodiom'u daha iyi bir yer haline getirdiğin için teşekkür ederiz."
     },
     Token.USER_IS_BANNED_MESSAGE: {
         "en": "Unfortunately, your account is banned from participating.",
         "tr": "Üzülerek belirtirim ki senin hesabın oynamaktan men edilmiş."
     },
     Token.LOST_FIRST_THREE: {
-        "en": "",
+        "en": "😰 Bad news. You've lost your place in the top 3. Keep playing.",
         "tr": "😰 Çok üzücü. İlk üçteki yerini kaybettin. Oynamaya devam et! Yerini geri kazan!"
     },
     Token.REVIEW_WORTH_MORE: {
-        "en": "",
+        "en": "Lucky minutes, for a limited time reviewing awards double the points.",
         "tr": "Şanslı Dakikalar! Kısa süreliğine oylama yapmak 2 kat puan kazandırıyor."
     },
     Token.LOST_FIRST: {
-        "en": "",
+        "en": "Someone took the first place from you, you need to hurry to get it back.",
         "tr": "Başka biri birinciliği elinden aldı. Acil müdahale etmelisin!"
     },
     Token.HINT_MESSAGE_4: {
-        "en": "",
+        "en": "Idiom examples worth more points now, continue submitting examples.",
         "tr": "Deyim olan örnekler şu anda daha çok puan kazandırıyor. Örnek girmeye devam et!"
-    }
+    },
 }
 
 congrats_messages = {

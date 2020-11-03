@@ -112,7 +112,6 @@ class Parser:
                     if not parsed.contains_mwe_with_lemmas(mwe_lemmas.split("|")):
                         mwelog.info("Refreshing stemmer")
                         self.turkish_stemmer = zeyrek.MorphAnalyzer()
-                        self.turkish_stemmer = zeyrek.MorphAnalyzer()
                         token_positions = tokenizations.get_original_spans(tokens, text)
                         lemmas = [self._get_tr_stem(token) for token in tokens]
                         parsed = Parsed(language, text, tokens, token_positions, lemmas)

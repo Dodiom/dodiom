@@ -3,8 +3,8 @@ from typing import Optional
 from telegram import Update, ParseMode, Bot, ReplyMarkup
 
 from api.user import get_user, add_user_with_id
+from config import mwexpress_config
 from database import database
-from i18n import Language
 from log import mwelog
 from models import User
 
@@ -19,7 +19,7 @@ def get_user_from_update(update: Update) -> User:
             username = update.effective_user.id
         return add_user_with_id(update.effective_user.id,
                                 username,
-                                Language.TURKISH)
+                                mwexpress_config.language)
     else:
         if (user.username == str(user.id) or user.username is None) and update.effective_user.username is not None:
             user.username = update.effective_user.username

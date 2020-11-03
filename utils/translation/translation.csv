@@ -1,0 +1,156 @@
+Token name,English,Turkish
+TODAYS_MWE,Today's Idiom,Günün Deyimi
+SUBMIT,Submit,Örnek gönder
+REVIEW,Review,Örnekleri oyla
+CHANGE_LANGUAGE,Change language,Dili değiştir
+SHOW_SCOREBOARD,Show Scoreboard,Sıralamaları göster
+LANGUAGE_ENGLISH,English (EN) 🇬🇧,English (EN) 🇬🇧
+LANGUAGE_TURKISH,Türkçe (TR) 🇹🇷,Türkçe (TR) 🇹🇷
+TODAYS_MWE_REPLY_TEXT,"Today's MWE is '<b><u>%s</u></b>', meaning: <i>%s</i>","Günün deyimi '<b><u>%s</u></b>', anlamı da: <i>%s</i>"
+SELECT_LANGUAGE,Please select a language,Lütfen bir dil seçin.
+LANGUAGE_CHANGE_SUCCESSFUL,Language set to *English*.,Dil *Türkçe* olarak ayarlandı.
+PLEASE_SELECT_VALID_LANGUAGE,Please select a valid language,Lütfen geçerli bir dil seçin.
+WELCOME_MESSAGE,"Welcome to Dodiom, *%s*","Dodiom'a hoşgeldiniz, *%s*"
+PLEASE_ENTER_EXAMPLE,Please enter your example for the MWE: '<b><u>%s</u></b>',Lütfen '%s' sözcüklerini  içeren örnek bir cümle girin.
+ENTER_VALID_MWE_CATEGORY,Please enter a valid category,Lütfen geçerli bir kategori seçin
+THANKS_FOR_SUBMISSION,"%s! Thank you for your submission, you'll win %d points every time someone likes your example.","%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
+AGREE_NICE_EXAMPLE,👍 I agree. Nice example for this category,👍 Katılıyorum. Doğru tespit.
+DO_NOT_LIKE_EXAMPLE,👎 I do not like this example,👎 Bu örneği beğenmedim.
+SKIP_THIS_ONE,⏭ Skip this one,⏭ Bu örneği geç
+QUIT_REVIEWING,😱 Quit reviewing,😱 İncelemeyi bitir
+SOMEONE_LOVED_YOUR_EXAMPLE,"%s! Someone else loved your great example, and you’ve earned %d points",%s! Örneklerin şu anda beğeni alıyor. Sıralamalardaki yeni yerini merak etmiyor musun?
+PLEASE_ENTER_VALID_REVIEW,Please enter a valid review,Lütfen geçerli bir inceleme seçin
+TOP_FIVE_USERS,Here are the top 5 users for today:\n,İşte bugünün ilk beşi:\n
+NO_SUBMISSIONS,There are no submissions and users at this time.,Şu anda oylayabileceğin başka örnek yok.
+ENTER_VALID_COMMAND,Please enter a valid command,Lütfen geçerli bir komut girin.
+SUBMISSION_DOES_NOT_CONTAIN_MWE,"It looks like your submission does not contain todays MWE (*%s*), please enter again.","Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir."
+CANCEL,Cancel,İptal
+REVIEW_CANCELLED,Thank you for your reviews.,İncelemeleriniz için teşekkürler.
+HELP,Help,Yardım
+HELP_MESSAGE,"Hello and welcome to Dodiom,
+
+The game has two modes. You either *submit* an MWE example or you *review* \
+examples submitted by others.
+
+*What is an MWE?*
+TODO: Describe MWE here
+
+*What are MWE categories*
+After submitting an example, you'll be asked to give a category, a category \
+is simply whether the words of the MWE form an MWE sense (called positive)\
+(kind of like a figurative meaning) or a non-MWE sense (called negative)\
+(kind of like literal meaning.)
+For example: MWE give up can mean to admit defeat, so if you enter a sentence
+for that meaning, such as _""Ok, I give up!""_, than you'd choose the positive \
+category, however, if you enter a sentence like _""Can you give that book up to \
+me?""_ in which give up means to pass something to someone, it'd be literal \
+meaning.
+Keep in mind that the scores will be higher for examples of the second \
+category.
+
+Have fun!","Merhaba 😊 
+
+Dodo Türkçe öğrenmeye çalışıyor ancak Türkçe deyimleri öğrenmekte çok zorlanıyor. 
+Ona yardım eder misin? Senden ricamız Dodo’ya deyimlerin nasıl kullanıldığını anlaması için ona bol bol örnek vermen. 
+
+Dodo’nun deyim olan ve olmayan pek çok örneğe ihtiyacı var.
+Mesela “ayvayı yemek” deyimini öğrenmesi için 
+“İşte şimdi ayvayı yedik.” deyim örneği ve
+“Az önce iki ayva yedim.” deyim olmayan örneği olabilir.
+
+Hadi hemen Dodo’ya yardıma başla."
+DOES_WORDS_FORM_SPECIAL_MEANING,Do the words <b><u>%s</u></b> form a special meaning?,<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?
+FORMS_SPECIAL_MEANING,"Yes, they do",Evet
+DOES_NOT_FORM_SPECIAL_MEANING,Nope,Hayır
+AND,and,ve
+REVIEW_QUESTION_POSITIVE,"In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a special meaning together, would you agree?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
+REVIEW_QUESTION_NEGATIVE,"%s\n\nIt's said that words %s does <b><u>NOT</u></b>❌ form a special meaning together, would you agree?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>KULLANILMIYOR</u></b>❌ denmiş, buna katılıyor musunuz?"
+PLEASE_ENTER_ONE_SENTENCE,"Your submission contains %d sentences, please enter just one sentence.","Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin."
+FEEDBACK,Send Feedback,Geri bildirim gönder
+FEEDBACK_MESSAGE,"Thank you for your interest, you can send a feedback using following link.","İlginiz için teşekkürler, geri bildirim yapmak için aşağıdaki linki kullanabilirsiniz."
+FEEDBACK_URL,https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s,https://docs.google.com/forms/d/e/1FAIpQLSdLLHB0DyGI_7piMq1WESPWk5wZGfe3knMFnMw3b0-GgBU3-Q/viewform?usp=pp_url&entry.1179483000=%s
+YOU,You,Sen
+GAME_HOURS_FINISHED,"Game is finished for today, you should wait for %d am. to play.","Oyun bugünlük bitti, yeni günün oyunu saat %d'da tekrar başlayacak."
+GAME_STARTED,A new game is started.,"Günaydın, yeni oyun başladı."
+GAME_ENDED,"The game is ended for today, thank you for playing.","Oyun bugünlük bitti, oynadığınız için teşekkürler. Yeni günün oyunu yarın saat 9:00'da başlayacak."
+THANKS_FOR_REVIEW,%s! You earned %d points.,%s! %d puan kazandın.
+WELCOME_MESSAGE_1,"Hi, I'm Dodo.",Merhaba ben Dodo.
+WELCOME_MESSAGE_2,I'm trying to learn English but having troubles understanding idioms.,Türkçe öğrenmeye çalışıyorum ancak deyimleri anlamakta çok zorlanıyorum.
+WELCOME_MESSAGE_3,Can you help me?,Bana yardım eder misin?
+WELCOME_MESSAGE_4,How?,Nasıl mı?
+WELCOME_MESSAGE_5,I need examples for both idioms and non-idioms.,Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım.
+WELCOME_MESSAGE_6,"For example, in order to learn the idiom ""Give up""\n""Ok, I give up now."" idiom example\n""Can you give that book up to me"" non-idiom example",Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek
+WELCOME_MESSAGE_7,"Now to see today's idiom, click on <b><u>Todays Idiom</u></b> from the keyboard",Şimdi bugünün deyimini seçmek için klavyeden <b><u>Günün Deyimi</u></b>'ni seç
+WELCOME_MESSAGE_8,"If you can't see the keyboard, click on the rectangular shape you can see in the picture",Eğer klavyeyi göremiyorsan resimde görülen içinde dört tane daire olan dikdörtgene tıkla.
+TODAYS_MWE_HELP_MESSAGE_1,"Awesome, now that you know todays idiom, you can help me learn it by sending some examples","Harika, günün deyimini öğrendiğine göre artık örnek göndererek öğrenmeme yardımcı olabilirsin.."
+TODAYS_MWE_HELP_MESSAGE_2,"To send an example, click <b><u>Submit</u></b> from the keyboard",Örnek göndermek için klavyeden <b><u>Örnek Gönder</u></b>'e tıkla..
+SUBMISSION_HELP_MESSAGE_1,"In this section, you can submit an example. You'll win points when other players like your example.",Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın.
+REVIEW_HELP_MESSAGE_1,"In this section, you can review other players submissions.",Bu kısımda diğer oyuncuların gönderdiği örnekleri oylayabilirsin.
+REVIEW_HELP_MESSAGE_2,You and the players you review will both win points,Hem sen hem de örneklerini oyladığın kişiler puan kazanacak.
+HINT_MESSAGE_1,Hurry up! Examples which contains the non-idiom where words of the idioms are adjacent to each other are worth more points. Example: Will you please <b><u>give up</u></b> that book to me?,Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. Örn: “Bugün üç <b><u>ayva yedim</u></b>.
+HINT_MESSAGE_2,To win more points you can review others submissions.,Daha fazla puan kazanmak için başkalarının örneklerini oylayabilirsin.
+HINT_MESSAGE_3,"Did you know, other words can go between the idioms words.\nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢 Hurry up, you can win more points with examples like these.",Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.\nÖrn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.\nBöyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.
+ERROR_OCCURRED,"An error occurred, please try again later.","Bir hata oldu, lütfen daha sonra tekrar dene."
+NO_SUB_LEFT_TO_REVIEW,"There are no more submissions left to review for now, you can try reviewing later. Thank you for your reviews.","Şu anlık oylayabileceğin başka bir örnek kalmadı, daha sonra tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
+SCOREBOARD_EMPTY,Scoreboard is empty for now. You can get a head start by sending submissions.,Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak sıralamalarda öne geçebilirsin.
+SUBMISSION_CANCELLED,Submission is cancelled.,Gönderi iptal edildi.
+SUBMISSION_CONTAINS_ERROR,"There was an error when I was trying to parse your submission, please enter a different one.","Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, lütfen başka bir örnek gir."
+ACHIEVEMENTS,Achievements,Başarımlar
+LEVEL_MESSAGE,<b>Your score:</b> %.2f\n<b>Your level:</b>%d (next: %d points),<b>Toplam Skorun:</b> %.2f\n<b>Seviyen:</b> %d (Bir sonraki: %d puanda)
+FIRST_SUB_ACH_NAME,First Submission!,İlk Gönderi!
+FIRST_SUB_ACH_DESC,Send the first submission of the day.,Günün ilk gönderisini gönder.
+FIRST_SUB_ACH_CONGRATS_MSG,Congratulations! You've sent the first submission of the day and awarded with the 🌅 <b><u>First Submission!</u></b> achievement.,Tebrikler! Günün ilk gönderisini gönderdin ve 🌅 <b><u>İlk Gönderi</u></b> başarımını açtın.
+EARLY_BIRD_ACH_NAME,Early Bird,Erkenci Kuş
+EARLY_BIRD_ACH_DESC,Send a submission in the first half hour after the game started.,Oyun başladıktan sonraki ilk yarım saat içerisinde bir örnek gönder.
+EARLY_BIRD_ACH_CONGRATS_MSG,Congratulations! You've sent a submission in the first half hour and awarded with the 🐦 <b><u>Early Bird</u></b> achievement.,Tebrikler! Oyunun ilk yarım saatinde örnek gönderdin ve 🐦 <b><u>Erkenci Kuş</u></b> başarımını açtın.
+UNLOCKED_ACHIEVEMENTS,<b>Unlocked achivements</b>,<b>Açılan başarımlar</b>
+SUB_LVL_1_ACH_NAME,Just starting out,Daha yeni başlıyorum
+SUB_LVL_1_ACH_DESC,Send 5 submissions in a day.,Bir günde 5 gönderi gönder.
+SUB_LVL_1_ACH_CONGRATS_MSG,Congratulations! You've sent your fifth submission and awarded with the <b><u>Just starting out</u></b> achievement.,Tebrikler! Beşinci gönderini gönderdin ve 🎇 <b><u>Daha yeni başlıyorum</u></b> başarımını açtın.
+LOCKED_ACHIEVEMENTS,<b>Locked achivements</b>,<b>Kilitli başarımlar</b>
+SUB_LVL_2_ACH_NAME,Author,Yazar
+SUB_LVL_2_ACH_DESC,Send 10 submissions in a day.,Bir günde 10 gönderi gönder.
+SUB_LVL_2_ACH_CONGRATS_MSG,Congratulations! You've sent your tenth submission and awarded with the ✍️<b><u>Author</u></b> achievement.,Tebrikler! Onuncu gönderini gönderdin ve ✍️<b><u>Yazar</u></b> başarımını açtın.
+SUB_LVL_3_ACH_NAME,Master of Submissions,Gönderi Üstadı
+SUB_LVL_3_ACH_DESC,Send 20 submissions in a day.,Bir günde 20 gönderi gönder.
+SUB_LVL_3_ACH_CONGRATS_MSG,Congratulations! You've sent your twentieth submission and awarded with the 🗿 <b><u>Master of Submissions</u></b> achievement.,Tebrikler! Yirminci gönderini gönderdin ve 🗿 <b><u>Gönderi Üstadı</u></b> başarımını açtın.
+SUB_LVL_4_ACH_NAME,Idioms Dictionary,Deyimler Sözlüğü
+SUB_LVL_4_ACH_DESC,Send 40 submissions in a day.,Bir günde 40 gönderi gönder.
+SUB_LVL_4_ACH_CONGRATS_MSG,Congratulations! You've sent your fortieth submission and awarded with the 📚 <b><u>Idioms Dictionary</u></b> achievement.,Tebrikler! Kırkıncı gönderini gönderdin ve 📚 <b><u>Deyimler Sözlüğü</u></b> başarımını açtın.
+SUB_LVL_5_ACH_NAME,Human Corpus,İki Ayaklı Derlem
+SUB_LVL_5_ACH_DESC,Send 70 submissions in a day.,Bir günde 70 gönderi gönder.
+SUB_LVL_5_ACH_CONGRATS_MSG,Congratulations! You've sent your fortieth submission and awarded with the 🦄 <b><u>Human Corpus</u></b> achievement.,Tebrikler! Yetmişinci gönderini gönderdin ve 🦄 <b><u>İki Ayaklı Derlem</u></b> başarımını açtın.
+REVIEW_LVL_1_ACH_NAME,Helpful,Yardımsever
+REVIEW_LVL_1_ACH_DESC,Review 10 submissions in a day.,Bir günde 10 gönderiyi oyla.
+REVIEW_LVL_1_ACH_CONGRATS_MSG,Congratulations! You've rated ten submissions and awarded with the 🤝 <b><u>Helpful</u></b> achievement.,Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> başarımını açtın.
+REVIEW_LVL_2_ACH_NAME,Voter,Seçmen
+REVIEW_LVL_2_ACH_DESC,Review 20 submissions in a day.,Bir günde 20 gönderiyi oyla.
+REVIEW_LVL_2_ACH_CONGRATS_MSG,Congratulations! You've rated twenty submissions and awarded with the <b><u>Voter</u></b> achievement.,Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> başarımını açtın.
+REVIEW_LVL_3_ACH_NAME,Critique,Kritik
+REVIEW_LVL_3_ACH_DESC,Review 40 submissions in a day.,Bir günde 40 gönderiyi oyla.
+REVIEW_LVL_3_ACH_CONGRATS_MSG,Congratulations! You've rated forty submissions and awarded with the ✨ <b><u>Critique</u></b> achievement.,Tebrikler! Kırk gönderiyi oyladın ve ✨ <b><u>Kritik</u></b> başarımını açtın.
+REVIEW_LVL_4_ACH_NAME,Gourmet,Gurme
+REVIEW_LVL_4_ACH_DESC,Review 80 submissions in a day.,Bir günde 80 gönderiyi oyla.
+REVIEW_LVL_4_ACH_CONGRATS_MSG,Congratulations! You've rated eighty submissions and awarded with the 🧑‍🍳 <b><u>Gourmet</u></b> achievement.,Tebrikler! Seksen gönderiyi oyladın ve 🧑‍🍳 <b><u>Gurme</u></b> başarımını açtın.
+REVIEW_LVL_5_ACH_NAME,Reviewer,Eleştirmen
+REVIEW_LVL_5_ACH_DESC,Review 160 submissions in a day.,Bir günde 160 gönderiyi oyla.
+REVIEW_LVL_5_ACH_CONGRATS_MSG,Congratulations! You've rated one hundred and sixty submissions and awarded with the 🕶️ <b><u>Reviewer</u></b> achievement.,Tebrikler! Yüz altmış gönderiyi oyladın ve 🕶️ <b><u>Eleştirmen</u></b> başarımını açtın.
+USER_DAILY_PLAY_DETAILS_MESSAGE,Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>,Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>
+BECOME_NUMBER_ONE_ACH_NAME,Leader,Lider
+BECOME_NUMBER_ONE_ACH_DESC,Be at the top of the scoreboard.,Sıralamalarda birinci ol.
+BECOME_NUMBER_ONE_ACH_CONGRATS_MSG,Congratulations! You've risen to the top of the rankings and awarded with the 🥇 <b><u>Leader</u></b> achievement.,Tebrikler! Sıralamalarda birinci sıraya yerleştin ve 🥇 <b><u>Lider</u></b> başarımını açtın.
+CHAMPION_ACH_NAME,Champion!,Şampiyon!
+CHAMPION_ACH_DESC,Finish the day as the leader.,Günü birinci bitir.
+CHAMPION_ACH_CONGRATS_MSG,Congratulations! You've finished the day as the leader and awarded with the 🎖️ <b><u>Champion!</u></b> achievement.,Tebrikler! Günü birinci bitirdin ve 🎖️ <b><u>Şampiyon!</u></b> başarımını açtın.
+LOST_FIRST_FIVE,"😰 Ooh! You've dropped out of the leaderboard. No worries, you can increase your ranking by submitting new examples and rating others.","😰 Tüh, sıralamalarda ilk beşten düştün. Endişelenme! Hemen geri dönüp oynamaya devam et!"
+YOUVE_BECOME_LEADER,🥳 Congratulations! You've topped the scoreboard.,🥳 Tebrikler! Sıralamalarda ilk sıraya yerleştin.
+POS_SEP_WORTH_MORE,"Hey, for a limited time, idiomatic but word seperated examples (such as I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.) worth 15 points, instead of 10.","Selam, kısa bir süreliğine deyim olan ama kelimeleri ayrı olan örnekler (Örneğin: Bugün de <b><u>ayvayı</u></b> <i>ben</i> <b><u>yedim</u></b>.) 10 puan yerine 15 puan kazandırıyor."
+POS_TOG_WORTH_MORE,"Hurry up, for a limited time idiomatic examples worth 15 points, instead of 10.","Acele et, kısa bir süreliğine deyim olan örnekler 10 puan yerine 15 puan kazandırıyor."
+NEG_TOG_WORTH_MORE,"Hurry up, for a limited time, non-idiomatic and word consecutive examples (such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 points, instead of 10.","Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor."
+REPORT_SUBMISSION,❗ Report submission,❗ Örneği şikayet et
+REPORT_SUBMISSION_REPLY,Thanks for keeping Dodiom a better place by reporting bad submissions.,Kötü örnekleri şikayet ederek Dodiom'u daha iyi bir yer haline getirdiğin için teşekkür ederiz.
+USER_IS_BANNED_MESSAGE,"Unfortunately, your account is banned from participating.",Üzülerek belirtirim ki senin hesabın oynamaktan men edilmiş.
+LOST_FIRST_THREE,😰 Bad news. You've lost your place in the top 3. Keep playing.,😰 Çok üzücü. İlk üçteki yerini kaybettin. Oynamaya devam et! Yerini geri kazan!
+REVIEW_WORTH_MORE,"Lucky minutes, for a limited time reviewing awards double the points.",Şanslı Dakikalar! Kısa süreliğine oylama yapmak 2 kat puan kazandırıyor.
+LOST_FIRST,"Someone took the first place from you, you need to hurry to get it back.",Başka biri birinciliği elinden aldı. Acil müdahale etmelisin!
+HINT_MESSAGE_4,"Idiom examples worth more points now, continue submitting examples.",Deyim olan örnekler şu anda daha çok puan kazandırıyor. Örnek girmeye devam et!
