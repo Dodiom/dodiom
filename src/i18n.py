@@ -176,7 +176,7 @@ translations = {
         "tr": "Türkçe (TR) 🇹🇷"
     },
     Token.TODAYS_MWE_REPLY_TEXT: {
-        "en": "Today's MWE is '<b><u>%s</u></b>', meaning: <i>%s</i>",
+        "en": "Today's idiom is '<b><u>%s</u></b>', meaning: <i>%s</i>",
         "tr": "Günün deyimi '<b><u>%s</u></b>', anlamı da: <i>%s</i>"
     },
     Token.SELECT_LANGUAGE: {
@@ -196,19 +196,19 @@ translations = {
         "tr": "Dodiom'a hoşgeldiniz, *%s*"
     },
     Token.PLEASE_ENTER_EXAMPLE: {
-        "en": "Please enter your example for the MWE: '<b><u>%s</u></b>'",
+        "en": "Please enter an example sentence containing the words '<b><u>%s</u></b>'.",
         "tr": "Lütfen '%s' sözcüklerini  içeren örnek bir cümle girin."
     },
     Token.ENTER_VALID_MWE_CATEGORY: {
-        "en": "Please enter a valid category",
+        "en": "Please select a valid category",
         "tr": "Lütfen geçerli bir kategori seçin"
     },
     Token.THANKS_FOR_SUBMISSION: {
-        "en": "%s! Thank you for your submission, you'll win %d points every time someone likes your example.",
+        "en": "%s! Thank you for your submission, you'll earn %d points every time someone likes your example.",
         "tr": "%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
     },
     Token.AGREE_NICE_EXAMPLE: {
-        "en": "👍 I agree. Nice example for this category",
+        "en": "👍 I agree. Nice example ",
         "tr": "👍 Katılıyorum. Doğru tespit."
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
@@ -224,7 +224,7 @@ translations = {
         "tr": "😱 İncelemeyi bitir"
     },
     Token.SOMEONE_LOVED_YOUR_EXAMPLE: {
-        "en": "%s! Someone else loved your great example, and you’ve earned %d points",
+        "en": "%s! Your samples are currently being liked. Check your new place on the scoreboard.",
         "tr": "%s! Örneklerin şu anda beğeni alıyor. Sıralamalardaki yeni yerini merak etmiyor musun?"
     },
     Token.PLEASE_ENTER_VALID_REVIEW: {
@@ -232,11 +232,11 @@ translations = {
         "tr": "Lütfen geçerli bir inceleme seçin"
     },
     Token.TOP_FIVE_USERS: {
-        "en": "Here are the top 5 users for today:\n",
+        "en": "Here are the top 5 players today:\n",
         "tr": "İşte bugünün ilk beşi:\n"
     },
     Token.NO_SUBMISSIONS: {
-        "en": "There are no submissions and users at this time.",
+        "en": "There are currently no other examples you may review.",
         "tr": "Şu anda oylayabileceğin başka örnek yok."
     },
     Token.ENTER_VALID_COMMAND: {
@@ -244,7 +244,7 @@ translations = {
         "tr": "Lütfen geçerli bir komut girin."
     },
     Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: {
-        "en": "It looks like your submission does not contain todays MWE (*%s*), please enter again.",
+        "en": "It looks like your submission does not contain the words (*%s*), please enter again.",
         "tr": "Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir."
     },
     Token.CANCEL: {
@@ -261,28 +261,12 @@ translations = {
     },
     Token.HELP_MESSAGE: {
         "en": """
-Hello and welcome to Dodiom,
+Hello 😊
 
-The game has two modes. You either *submit* an MWE example or you *review* \
-examples submitted by others.
+Dodo is trying to learn English but has a hard time learning English idioms. Could you help him? We ask you to give Dodo plenty of examples to understand how idioms are used.
 
-*What is an MWE?*
-TODO: Describe MWE here
-
-*What are MWE categories*
-After submitting an example, you'll be asked to give a category, a category \
-is simply whether the words of the MWE form an MWE sense (called positive)\
-(kind of like a figurative meaning) or a non-MWE sense (called negative)\
-(kind of like literal meaning.)
-For example: MWE give up can mean to admit defeat, so if you enter a sentence
-for that meaning, such as _\"Ok, I give up!\"_, than you'd choose the positive \
-category, however, if you enter a sentence like _\"Can you give that book up to \
-me?\"_ in which give up means to pass something to someone, it'd be literal \
-meaning.
-Keep in mind that the scores will be higher for examples of the second \
-category.
-
-Have fun!
+Dodo needs lots of  idiom  and non-idiom examples.
+For example, to learn the idiom give up\"\nit needs an idiom example such as \"Ok, I give up now.\" \n and a non-idiom example such as \"Can you give that book up to me?\"
 """,
         "tr": """
 Merhaba 😊 
@@ -299,11 +283,11 @@ Hadi hemen Dodo’ya yardıma başla.
 """
     },
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
-        "en": "Do the words <b><u>%s</u></b> form a special meaning?",
+        "en": "Are the words <b><u>%s</u></b> used together as an idiom in this example?        ",
         "tr": "<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?"
     },
     Token.FORMS_SPECIAL_MEANING: {
-        "en": "Yes, they do",
+        "en": "Come on, start helping Dodo now. \"",
         "tr": "Evet"
     },
     Token.DOES_NOT_FORM_SPECIAL_MEANING: {
@@ -315,11 +299,11 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "ve"
     },
     Token.REVIEW_QUESTION_POSITIVE: {
-        "en": "In the sentence: \n\n%s\n\nIt's said that words <b><u>%s</u></b> does ✔️ form a special meaning together, would you agree?",
+        "en": "In the sentence: \n\n%s\n\nIt's said that the words <b><u>%s</u></b> are used together as an idiom ✔️, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
-        "en": "%s\n\nIt's said that words %s does <b><u>NOT</u></b>❌ form a special meaning together, would you agree?",
+        "en": "In the sentence: %s\n\nIt's said that words %s are <b><u>NOT</u></b> used together as an idiom❌, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>KULLANILMIYOR</u></b>❌ denmiş, buna katılıyor musunuz?"
     },
     Token.PLEASE_ENTER_ONE_SENTENCE: {
@@ -331,7 +315,7 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Geri bildirim gönder"
     },
     Token.FEEDBACK_MESSAGE: {
-        "en": "Thank you for your interest, you can send a feedback using following link.",
+        "en": "Thank you for your interest, you can send a feedback using the following link.",
         "tr": "İlginiz için teşekkürler, geri bildirim yapmak için aşağıdaki linki kullanabilirsiniz."
     },
     Token.FEEDBACK_URL: {
@@ -343,15 +327,15 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Sen"
     },
     Token.GAME_HOURS_FINISHED: {
-        "en": "Game is finished for today, you should wait for %d am. to play.",
+        "en": "Today's game has ended,  the new game will start at %d am.",
         "tr": "Oyun bugünlük bitti, yeni günün oyunu saat %d'da tekrar başlayacak."
     },
     Token.GAME_STARTED: {
-        "en": "A new game is started.",
+        "en": "Good morning! A new game has been started.",
         "tr": "Günaydın, yeni oyun başladı."
     },
     Token.GAME_ENDED: {
-        "en": "The game is ended for today, thank you for playing.",
+        "en": "The game has ended for today, thank you for playing.",
         "tr": "Oyun bugünlük bitti, oynadığınız için teşekkürler. Yeni günün oyunu yarın saat 9:00'da başlayacak."
     },
     Token.THANKS_FOR_REVIEW: {
@@ -359,7 +343,7 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "%s! %d puan kazandın."
     },
     Token.WELCOME_MESSAGE_1: {
-        "en": "Hi, I'm Dodo.",
+        "en": "Hello, my name is Dodo.",
         "tr": "Merhaba ben Dodo."
     },
     Token.WELCOME_MESSAGE_2: {
@@ -371,55 +355,55 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Bana yardım eder misin?"
     },
     Token.WELCOME_MESSAGE_4: {
-        "en": "How?",
+        "en": "Wonder how?",
         "tr": "Nasıl mı?"
     },
     Token.WELCOME_MESSAGE_5: {
-        "en": "I need examples for both idioms and non-idioms.",
+        "en": "I need plenty of  idiom  and non-idiom examples.",
         "tr": "Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım."
     },
     Token.WELCOME_MESSAGE_6: {
-        "en": "For example, in order to learn the idiom \"Give up\"\n\"Ok, I give up now.\" idiom example\n\"Can you give that book up to me\" non-idiom example",
+        "en": "For example, in order to learn the idiom \"Give up\"\nI need an idiom example such as \"Ok, I give up now.\" \n and a non-idiom example such as \"Can you give that book up to me?\" ",
         "tr": "Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek"
     },
     Token.WELCOME_MESSAGE_7: {
-        "en": "Now to see today's idiom, click on <b><u>Todays Idiom</u></b> from the keyboard",
+        "en": "Now,  click on <b><u>Today's Idiom</u></b> from the keyboard.",
         "tr": "Şimdi bugünün deyimini seçmek için klavyeden <b><u>Günün Deyimi</u></b>'ni seç"
     },
     Token.WELCOME_MESSAGE_8: {
-        "en": "If you can't see the keyboard, click on the rectangular shape you can see in the picture",
+        "en": "If you can't see the keyboard, click on the rectangular shape as shown in the picture.",
         "tr": "Eğer klavyeyi göremiyorsan resimde görülen içinde dört tane daire olan dikdörtgene tıkla."
     },
     Token.TODAYS_MWE_HELP_MESSAGE_1: {
-        "en": "Awesome, now that you know todays idiom, you can help me learn it by sending some examples",
+        "en": "Awesome, now that you know today's idiom, you can help me learn it by sending some examples.",
         "tr": "Harika, günün deyimini öğrendiğine göre artık örnek göndererek öğrenmeme yardımcı olabilirsin.."
     },
     Token.TODAYS_MWE_HELP_MESSAGE_2: {
-        "en": "To send an example, click <b><u>Submit</u></b> from the keyboard",
+        "en": "To send an example, click <b><u>Submit</u></b> from the keyboard.",
         "tr": "Örnek göndermek için klavyeden <b><u>Örnek Gönder</u></b>'e tıkla.."
     },
     Token.SUBMISSION_HELP_MESSAGE_1: {
-        "en": "In this section, you can submit an example. You'll win points when other players like your example.",
+        "en": "In this section, you can submit an example for the idiom of the day. You'll start earning points when other players like your example.",
         "tr": "Bu kısımda günün deyimi için örnek gönderebilirsin. Daha sonra diğer oyuncular senin örneğini beğendiğinde puan kazanacaksın."
     },
     Token.REVIEW_HELP_MESSAGE_1: {
-        "en": "In this section, you can review other players submissions.",
+        "en": "In this section, you can review other players' submissions.",
         "tr": "Bu kısımda diğer oyuncuların gönderdiği örnekleri oylayabilirsin."
     },
     Token.REVIEW_HELP_MESSAGE_2: {
-        "en": "You and the players you review will both win points",
+        "en": "Both you and the players you review will earn points.",
         "tr": "Hem sen hem de örneklerini oyladığın kişiler puan kazanacak."
     },
     Token.HINT_MESSAGE_1: {
-        "en": "Hurry up! Examples which contains the non-idiom where words of the idioms are adjacent to each other are worth more points. Example: Will you please <b><u>give up</u></b> that book to me?",
+        "en": "Hurry up! Examples where the words that make up the phrase are next to each other within a sentence but do not form an idiom now earn more points. Ex: Will you please <b><u>give up</u></b> that book to me?",
         "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. Örn: “Bugün üç <b><u>ayva yedim</u></b>."
     },
     Token.HINT_MESSAGE_2: {
-        "en": "To win more points you can review others submissions.",
+        "en": "Review others' submissions to earn more points.",
         "tr": "Daha fazla puan kazanmak için başkalarının örneklerini oylayabilirsin."
     },
     Token.HINT_MESSAGE_3: {
-        "en": "Did you know, other words can go between the idioms words.\nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢 Hurry up, you can win more points with examples like these.",
+        "en": "Do you know, that some other words may appear between the idiom's words.\nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢 Hurry up, you can earn more points with such examples.",
         "tr": "Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.\nÖrn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.\nBöyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin."
     },
     Token.ERROR_OCCURRED: {
@@ -427,7 +411,7 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Bir hata oldu, lütfen daha sonra tekrar dene."
     },
     Token.NO_SUB_LEFT_TO_REVIEW: {
-        "en": "There are no more submissions left to review for now, you can try reviewing later. Thank you for your reviews.",
+        "en": "There are no more submissions left to review for now, please try later. Thank you for your reviews.",
         "tr": "Şu anlık oylayabileceğin başka bir örnek kalmadı, daha sonra tekrar oylamayı deneyebilirsin. Örnekleri oyladığın için teşekkürler."
     },
     Token.SCOREBOARD_EMPTY: {
@@ -435,11 +419,11 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Bugün sıralamalar henüz oluşmamış. Örnek gönderip oylayarak sıralamalarda öne geçebilirsin."
     },
     Token.SUBMISSION_CANCELLED: {
-        "en": "Submission is cancelled.",
+        "en": "Submission cancelled.",
         "tr": "Gönderi iptal edildi."
     },
     Token.SUBMISSION_CONTAINS_ERROR: {
-        "en": "There was an error when I was trying to parse your submission, please enter a different one.",
+        "en": "An error occured when I was trying to process your submission, please enter a different one.",
         "tr": "Girdiğin örneği işlemeye çalışırken bir hatayla karşılaştım, lütfen başka bir örnek gir."
     },
     Token.ACHIEVEMENTS: {
@@ -531,7 +515,7 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Tebrikler! Kırkıncı gönderini gönderdin ve 📚 <b><u>Deyimler Sözlüğü</u></b> başarımını açtın."
     },
     Token.SUB_LVL_5_ACH_NAME: {
-        "en": "Human Corpus",
+        "en": "Alive Corpus",
         "tr": "İki Ayaklı Derlem"
     },
     Token.SUB_LVL_5_ACH_DESC: {
@@ -631,15 +615,15 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Tebrikler! Günü birinci bitirdin ve 🎖️ <b><u>Şampiyon!</u></b> başarımını açtın."
     },
     Token.LOST_FIRST_FIVE: {
-        "en": "😰 Ooh! You've dropped out of the leaderboard. No worries, you can increase your ranking by submitting new examples and rating others.",
+        "en": "😰 Whoops! You've dropped out of the leaderboard. No worries, you can increase your ranking by submitting new examples and rating others.",
         "tr": "😰 Tüh, sıralamalarda ilk beşten düştün. Endişelenme! Hemen geri dönüp oynamaya devam et!"
     },
     Token.YOUVE_BECOME_LEADER: {
-        "en": "🥳 Congratulations! You've topped the scoreboard.",
+        "en": "🥳 Congratulations! You reached the first place on the leaderboard.",
         "tr": "🥳 Tebrikler! Sıralamalarda ilk sıraya yerleştin."
     },
     Token.POS_SEP_WORTH_MORE: {
-        "en": "Hey, for a limited time, idiomatic but word seperated examples (such as I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.) worth 15 points, instead of 10.",
+        "en": "Hey, for a limited time, the idiom examples where the idiom's words are not adjacent to each other earn 15 points instead of 10 points. (Ex: I <b><u>gave</u></b> <i>everything</i> <b><u>up</u></b> for you.).",
         "tr": "Selam, kısa bir süreliğine deyim olan ama kelimeleri ayrı olan örnekler (Örneğin: Bugün de <b><u>ayvayı</u></b> <i>ben</i> <b><u>yedim</u></b>.) 10 puan yerine 15 puan kazandırıyor."
     },
     Token.POS_TOG_WORTH_MORE: {
@@ -647,7 +631,7 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Acele et, kısa bir süreliğine deyim olan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.NEG_TOG_WORTH_MORE: {
-        "en": "Hurry up, for a limited time, non-idiomatic and word consecutive examples (such as: Can you give***TODO: find better example here that book <b><u>gave up</u></b> on him.) worth 15 points, instead of 10.",
+        "en": "Hurry up, for a limited time, non-idiom examples (such as: Will you please <b><u>give up</u></b> that book to me?) worth 15 points, instead of 10.",
         "tr": "Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor."
     },
     Token.REPORT_SUBMISSION: {
@@ -659,15 +643,15 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Kötü örnekleri şikayet ederek Dodiom'u daha iyi bir yer haline getirdiğin için teşekkür ederiz."
     },
     Token.USER_IS_BANNED_MESSAGE: {
-        "en": "Unfortunately, your account is banned from participating.",
+        "en": "Unfortunately, your account has been banned from participating.",
         "tr": "Üzülerek belirtirim ki senin hesabın oynamaktan men edilmiş."
     },
     Token.LOST_FIRST_THREE: {
-        "en": "😰 Bad news. You've lost your place in the top 3. Keep playing.",
+        "en": "😰 Bad news. You've lost your place in the top 3. Keep playing and take your place back.",
         "tr": "😰 Çok üzücü. İlk üçteki yerini kaybettin. Oynamaya devam et! Yerini geri kazan!"
     },
     Token.REVIEW_WORTH_MORE: {
-        "en": "Lucky minutes, for a limited time reviewing awards double the points.",
+        "en": "Lucky minutes, review scores has been doubled for a limited time.",
         "tr": "Şanslı Dakikalar! Kısa süreliğine oylama yapmak 2 kat puan kazandırıyor."
     },
     Token.LOST_FIRST: {
@@ -675,10 +659,11 @@ Hadi hemen Dodo’ya yardıma başla.
         "tr": "Başka biri birinciliği elinden aldı. Acil müdahale etmelisin!"
     },
     Token.HINT_MESSAGE_4: {
-        "en": "Idiom examples worth more points now, continue submitting examples.",
+        "en": "Idiom examples worth more points now. Continue submitting examples.",
         "tr": "Deyim olan örnekler şu anda daha çok puan kazandırıyor. Örnek girmeye devam et!"
     },
 }
+
 
 congrats_messages = {
     Language.ENGLISH: [
