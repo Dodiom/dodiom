@@ -14,7 +14,7 @@ WELCOME_MESSAGE,"Welcome to Dodiom, *%s*","Dodiom'a hoşgeldiniz, *%s*"
 PLEASE_ENTER_EXAMPLE,Please enter an example sentence containing the words '<b><u>%s</u></b>'.,Lütfen '%s' sözcüklerini  içeren örnek bir cümle girin.
 ENTER_VALID_MWE_CATEGORY,Please select a valid category,Lütfen geçerli bir kategori seçin
 THANKS_FOR_SUBMISSION,"%s! Thank you for your submission, you'll earn %d points every time someone likes your example.","%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
-AGREE_NICE_EXAMPLE,👍 I agree. Nice example ,👍 Katılıyorum. Doğru tespit.
+AGREE_NICE_EXAMPLE,👍 I agree. Nice example,👍 Katılıyorum. Doğru tespit.
 DO_NOT_LIKE_EXAMPLE,👎 I do not like this example,👎 Bu örneği beğenmedim.
 SKIP_THIS_ONE,⏭ Skip this one,⏭ Bu örneği geç
 QUIT_REVIEWING,😱 Quit reviewing,😱 İncelemeyi bitir
@@ -43,8 +43,8 @@ Mesela “ayvayı yemek” deyimini öğrenmesi için
 “Az önce iki ayva yedim.” deyim olmayan örneği olabilir.
 
 Hadi hemen Dodo’ya yardıma başla."
-DOES_WORDS_FORM_SPECIAL_MEANING,Are the words <b><u>%s</u></b> used together as an idiom in this example?        ,<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?
-FORMS_SPECIAL_MEANING,"Come on, start helping Dodo now. """,Evet
+DOES_WORDS_FORM_SPECIAL_MEANING,Are the words <b><u>%s</u></b> used together as an idiom in this example?,<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?
+FORMS_SPECIAL_MEANING,"Yes, they do",Evet
 DOES_NOT_FORM_SPECIAL_MEANING,Nope,Hayır
 AND,and,ve
 REVIEW_QUESTION_POSITIVE,"In the sentence: \n\n%s\n\nIt's said that the words <b><u>%s</u></b> are used together as an idiom ✔️, would you agree?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"

@@ -208,7 +208,7 @@ translations = {
         "tr": "%s! Gönderiniz için teşekkürler, başka bir oyuncu gönderinizi her beğendiğinde %d puan kazanacaksınız."
     },
     Token.AGREE_NICE_EXAMPLE: {
-        "en": "👍 I agree. Nice example ",
+        "en": "👍 I agree. Nice example",
         "tr": "👍 Katılıyorum. Doğru tespit."
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
@@ -283,11 +283,11 @@ Hadi hemen Dodo’ya yardıma başla.
 """
     },
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
-        "en": "Are the words <b><u>%s</u></b> used together as an idiom in this example?        ",
+        "en": "Are the words <b><u>%s</u></b> used together as an idiom in this example?",
         "tr": "<b><u>%s</u></b> sözcükleri bu örnekte birlikte deyim olarak kullanılıyor mu?"
     },
     Token.FORMS_SPECIAL_MEANING: {
-        "en": "Come on, start helping Dodo now. \"",
+        "en": "Yes, they do",
         "tr": "Evet"
     },
     Token.DOES_NOT_FORM_SPECIAL_MEANING: {
