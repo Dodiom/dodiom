@@ -2,7 +2,7 @@ from i18n import Language
 
 
 def lowercase(word: str, language: Language) -> str:
-    if language == Language.ENGLISH:
+    if language == Language.ENGLISH or language == Language.ITALIAN:
         return word.lower()
     elif language == Language.TURKISH:
         return turkish_lowercase(word)

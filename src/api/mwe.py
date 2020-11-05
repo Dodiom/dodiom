@@ -23,8 +23,7 @@ def get_todays_mwe(language: Language) -> Mwe:
 
 
 def add_mwe(name: str, meaning: str,  language: Language, date: date,
-            lemmas: List[str], category: MweCategory,
-            verb_indices: List[bool]) -> None:
+            lemmas: List[str], category: MweCategory) -> None:
     session = database.get_session()
     mwe = Mwe(name=name,
               meaning=meaning,

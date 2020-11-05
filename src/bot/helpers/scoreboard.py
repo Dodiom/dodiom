@@ -33,16 +33,19 @@ class ScoreBoard:
     def __init__(self):
         self.scoreboards = {
             Language.TURKISH: self.get_scoreboard(Language.TURKISH),
-            Language.ENGLISH: self.get_scoreboard(Language.ENGLISH)
+            Language.ENGLISH: self.get_scoreboard(Language.ENGLISH),
+            Language.ITALIAN: self.get_scoreboard(Language.ITALIAN)
         }
         self.old_scoreboards = self.scoreboards
         self._old_first_five_ids = {
             Language.TURKISH: [x.user_id for x in self.scoreboards[Language.TURKISH][:5]],
-            Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]]
+            Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]],
+            Language.ITALIAN: [x.user_id for x in self.scoreboards[Language.ITALIAN][:5]]
         }
         self._new_first_five_ids = {
             Language.TURKISH: [x.user_id for x in self.scoreboards[Language.TURKISH][:5]],
-            Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]]
+            Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]],
+            Language.ITALIAN: [x.user_id for x in self.scoreboards[Language.ITALIAN][:5]]
         }
         self._iterate_lock = threading.Lock()
 
@@ -50,10 +53,11 @@ class ScoreBoard:
         with self._iterate_lock:
             new_boards = {
                 Language.TURKISH: self.get_scoreboard(Language.TURKISH),
-                Language.ENGLISH: self.get_scoreboard(Language.ENGLISH)
+                Language.ENGLISH: self.get_scoreboard(Language.ENGLISH),
+                Language.ITALIAN: self.get_scoreboard(Language.ITALIAN)
             }
 
-            for language in Language.ENGLISH, Language.TURKISH:
+            for language in Language.ENGLISH, Language.TURKISH, Language.ITALIAN:
                 if len(new_boards[language]) > 0:
                     first_user = get_user(new_boards[language][0].user_id)
                     if not user_has_achievement(first_user, AchievementType.BECOME_NUMBER_ONE):
@@ -89,9 +93,10 @@ class ScoreBoard:
             self.scoreboards = new_boards
             first_five_now = {
                 Language.TURKISH: [x.user_id for x in self.scoreboards[Language.TURKISH][:5]],
-                Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]]
+                Language.ENGLISH: [x.user_id for x in self.scoreboards[Language.ENGLISH][:5]],
+                Language.ITALIAN: [x.user_id for x in self.scoreboards[Language.ITALIAN][:5]]
             }
-            for language in Language.TURKISH, Language.ENGLISH:
+            for language in Language.TURKISH, Language.ENGLISH, Language.ITALIAN:
                 if self._new_first_five_ids[language] != first_five_now[language]:
                     self._old_first_five_ids[language] = self._new_first_five_ids[language]
                     self._new_first_five_ids[language] = first_five_now[language]
@@ -166,6 +171,14 @@ class ScoreBoard:
                 .all()
             for user in users_sorted_by_score:
                 board.append(UserScore(user.id, user.username, user.score_today_en))
+        elif language == Language.ITALIAN:
+            users_sorted_by_score: List[User] = session \
+                .query(User) \
+                .filter(User.score_today_it > 0) \
+                .order_by(User.score_today_it.desc()) \
+                .all()
+            for user in users_sorted_by_score:
+                board.append(UserScore(user.id, user.username, user.score_today_it))
         return board
 
 

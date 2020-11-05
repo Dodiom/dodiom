@@ -14,7 +14,8 @@ class SubmissionScores:
     def __init__(self):
         self.buffed_category: Dict[Language, Optional[SubmissionCategory]] = {
             Language.ENGLISH: None,
-            Language.TURKISH: None
+            Language.TURKISH: None,
+            Language.ITALIAN: None
         }
         self._review_happy_hour_start_time: Optional[datetime] = None
         self.iterate()
@@ -48,7 +49,7 @@ class SubmissionScores:
 
     def iterate(self, context: Optional[CallbackContext] = None):
         session = database.get_session()
-        for language in Language.ENGLISH, Language.TURKISH:
+        for language in Language.ENGLISH, Language.TURKISH, Language.ITALIAN:
             todays_mwe = get_todays_mwe(language)
             positive_together_count = session.query(Submission)\
                 .filter(Submission.category == SubmissionCategory.POSITIVE_TOGETHER)\
@@ -72,7 +73,7 @@ class SubmissionScores:
                     self.buffed_category[language] = None
 
     def clear(self):
-        for language in Language.ENGLISH, Language.TURKISH:
+        for language in Language.ENGLISH, Language.TURKISH, Language.ITALIAN:
             self.buffed_category[language] = None
 
 

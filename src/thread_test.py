@@ -1,37 +1,26 @@
 from datetime import datetime
-import logging
-import threading
-import time
 
 from i18n import Language
 from models import Mwe, MweCategory
+from nlp.italian.lemma import it_lemmatizer
 from nlp.parsing import parser
 
-
-mwe = Mwe(name="yol ",
-          meaning="kötü bir duruma düşmek",
-          language=Language.TURKISH,
+mwe = Mwe(name="abbaiare alla luna",
+          meaning="Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
+          language=Language.ITALIAN,
           date=datetime.now().date(),
-          lemmas=["yol", "açmak"],
+          lemmas=['abbaiare', 'alla', 'luna'],
           category=MweCategory.VID)
 
-while True:
-    sentence = input("Enter sentence > ")
-    parsed = parser.parse(Language.TURKISH, sentence)
-    print(parsed.tokens)
-    print(parsed.token_positions)
-    print(parsed.lemmas)
-    print(parsed.contains_mwe(mwe))
 
-mwe = Mwe(name="ayvayı yemek",
-          meaning="kötü bir duruma düşmek",
-          language=Language.TURKISH,
-          date=datetime.now().date(),
-          lemmas=["ayva", "yemek"],
-          category=MweCategory.VID)
+it_lemmatizer.lemmatize("Abbaiare alla luna o roteare gatti non può curare una milza malata.")
 
-parsed = parser.parse(Language.TURKISH, "İşte şimdi elmayı yedim ve yediğim bu şey bir ayvadır.")
+parsed = parser.parse(Language.ITALIAN,
+      "Abbaiare alla luna o roteare gatti non può curare una milza malata.")
+
+
+print(mwe.lemmas)
 print(parsed.lemmas)
-print(parsed.tokens)
-print(parsed.get_mwe_indices(mwe))
+print(parsed.lemmas_flattened)
 
+print(parsed.contains_mwe(mwe))

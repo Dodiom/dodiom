@@ -64,7 +64,7 @@ def end_of_day_job():
 def award_champion():
     mwelog.info("Awarding champion")
     boards = scoreboard.scoreboards
-    for language in Language.ENGLISH, Language.TURKISH:
+    for language in Language.ENGLISH, Language.TURKISH, Language.ITALIAN:
         if len(boards[language]) > 0:
             first_user = get_user(boards[language][0].user_id)
             mwelog.info("{username} is the champion", username=first_user.username)

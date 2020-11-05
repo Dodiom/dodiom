@@ -7,12 +7,13 @@ from i18n import Language
 
 class Config:
     def __init__(self):
-        self.db_connection_string = env.str("DB_CONNECTION_STRING")
-        self.telegram_api_key = env.str("TELEGRAM_API_KEY")
-        self.seq_host = env.str("SEQ_LOG_HOST")
-        self.start_time = self._read_time(env.str("START_TIME"))
-        self.end_time = self._read_time(env.str("END_TIME"))
-        self.language = self._read_language(env.str("LANGUAGE"))
+        self.db_connection_string = env.str("DB_CONNECTION_STRING", default="")
+        self.telegram_api_key = env.str("TELEGRAM_API_KEY", default="")
+        self.seq_host = env.str("SEQ_LOG_HOST", default="")
+        self.start_time = self._read_time(env.str("START_TIME", default="09:00"))
+        self.end_time = self._read_time(env.str("END_TIME", default="23:59"))
+        self.language = self._read_language(env.str("LANGUAGE", default="tr"))
+        self.it_lang_server = env.str("ITALIAN_LANGUAGE_SERVER", default="")
 
     @staticmethod
     def _read_time(time_str: str) -> time:
@@ -26,6 +27,8 @@ class Config:
             return Language.TURKISH
         elif language_str == "en":
             return Language.ENGLISH
+        elif language_str == "it":
+            return Language.ITALIAN
 
 
 mwexpress_config = Config()

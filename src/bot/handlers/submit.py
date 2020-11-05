@@ -177,11 +177,15 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         send_hint_message(user, update, context)
 
     session = database.get_session()
-    if session.query(Submission).filter(Submission.mwe == todays_mwe).count() == 1:
+    submission_count_now = session.query(Submission).filter(Submission.mwe == todays_mwe).count()
+    if submission_count_now == 1:
         # award first submission
         award_achievement(user, AchievementType.FIRST_SUBMISSION)
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.FIRST_SUB_ACH_CONGRATS_MSG))
+
+    if submission_count_now < 100:
+        update.message.reply_text(user.language.get(Token.TODAYS_TARGET) % (100 - submission_count_now))
 
     now = datetime.now()
     start_datetime = datetime.combine(now, mwexpress_config.start_time)

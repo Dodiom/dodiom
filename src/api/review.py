@@ -22,6 +22,8 @@ def add_review(user: User, submission: Submission,
             submission.user.score_today_en += submission.points
         elif submission.language == Language.TURKISH:
             submission.user.score_today_tr += submission.points
+        elif submission.language == Language.ITALIAN:
+            submission.user.score_today_it += submission.points
         submission.user.score += submission.points
         submission.score += submission.points
     user.score += submission_scores.get_review_score()
@@ -29,6 +31,8 @@ def add_review(user: User, submission: Submission,
         user.score_today_en += submission_scores.get_review_score()
     elif submission.language == Language.TURKISH:
         user.score_today_tr += submission_scores.get_review_score()
+    elif submission.language == Language.ITALIAN:
+        user.score_today_it += submission_scores.get_review_score()
     session = database.get_session()
     session.add(review)
     database.commit(session)

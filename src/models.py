@@ -134,6 +134,7 @@ class User(Base):
     score = Column(Float, default=0.0, nullable=False)
     score_today_en = Column(Float, default=0.0, nullable=False)
     score_today_tr = Column(Float, default=0.0, nullable=False)
+    score_today_it = Column(Float, default=0.0, nullable=False)
     muted = Column(Boolean, default=False, nullable=False)
     created = Column(DateTime, default=datetime.datetime.now, nullable=False)
     banned = Column(Boolean, default=False, nullable=False)
@@ -149,6 +150,8 @@ class User(Base):
             return self.score_today_en
         elif self.language == Language.TURKISH:
             return self.score_today_tr
+        elif self.language == Language.ITALIAN:
+            return self.score_today_it
         else:
             return -1
 

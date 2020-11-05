@@ -11,6 +11,7 @@ import zeyrek
 from i18n import Language
 from log import mwelog
 from models import Mwe
+from nlp.italian.lemma import it_lemmatizer
 
 
 def _flatten_str_list(list_to_flatten: List) -> List[str]:
@@ -27,9 +28,6 @@ class Parsed:
         self.token_positions = token_positions
         self.lemmas = lemmas
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
-        mwelog.info(self.text)
-        mwelog.info(str(self.tokens))
-        mwelog.info(str(self.lemmas))
 
     def contains_mwe(self, mwe: Mwe) -> bool:
         return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
@@ -91,6 +89,8 @@ class Parser:
             return len(nltk.sent_tokenize(text))
         elif language == Language.TURKISH:
             return len(nltk.sent_tokenize(text, "turkish"))
+        elif language == Language.ITALIAN:
+            return len(nltk.sent_tokenize(text, "italian"))
 
     @lru_cache(maxsize=None)
     def parse(self, language: Language, text: str,
@@ -117,6 +117,10 @@ class Parser:
                         parsed = Parsed(language, text, tokens, token_positions, lemmas)
 
                 return parsed
+            elif language == Language.ITALIAN:
+                tokens, lemmas = it_lemmatizer.lemmatize(text)
+                token_positions = tokenizations.get_original_spans(tokens, text)
+                return Parsed(language, text, tokens, token_positions, lemmas)
 
     def _get_tr_stem(self, word: str) -> List[str]:
         stem = self.turkish_stemmer.lemmatize(word)
