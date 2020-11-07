@@ -1,3 +1,4 @@
+import time
 from collections import defaultdict
 from datetime import datetime, timedelta
 from enum import Enum, auto
@@ -6,7 +7,7 @@ from typing import List, Dict, Optional
 from telegram.ext import CallbackContext
 
 from api.user import get_all_users
-from bot.stickers import EXCITED_STICKER, WORRIED_STICKER, THUMBS_UP_STICKER, SAD_FACEPALM_STICKER
+from bot.stickers import EXCITED_STICKER, THUMBS_UP_STICKER, SAD_FACEPALM_STICKER
 from i18n import get_random_congrats_message, Token
 from log import mwelog
 from models import User
@@ -88,6 +89,7 @@ class NotificationManager:
             self._send_notification(context, user.id, user.language.get(Token.POS_TOG_WORTH_MORE),
                                     NotificationType.IDIOM_WORTH_MORE,
                                     THUMBS_UP_STICKER)
+            time.sleep(0.3)
 
     def send_non_idioms_worth_more(self, context: CallbackContext):
         self._clear_old_notifications()
@@ -96,12 +98,13 @@ class NotificationManager:
                                     user.language.get(Token.NEG_TOG_WORTH_MORE),
                                     NotificationType.NON_IDIOM_WORTH_MORE,
                                     THUMBS_UP_STICKER)
+            time.sleep(0.3)
 
     def send_became_first(self, user: User, context: CallbackContext):
         self._clear_old_notifications()
         self._send_notification(context, user.id,
                                 user.language.get(Token.YOUVE_BECOME_LEADER),
-                                    NotificationType.BECAME_FIRST, EXCITED_STICKER)
+                                NotificationType.BECAME_FIRST, EXCITED_STICKER)
 
     def send_lost_three(self, user: User, context: CallbackContext):
         self._clear_old_notifications()
@@ -131,6 +134,7 @@ class NotificationManager:
                                     user.language.get(Token.REVIEW_WORTH_MORE),
                                     NotificationType.REVIEW_WORTH_MORE,
                                     THUMBS_UP_STICKER)
+            time.sleep(0.3)
 
     def _send_notification(self, context: CallbackContext, user_id: int,
                            message: str, not_type: NotificationType,

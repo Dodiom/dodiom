@@ -10,7 +10,7 @@ from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.scoreboard import scoreboard
 from bot.helpers.submission_scores import submission_scores
 from bot.helpers.user_helper import send_message_to_user
-from bot.stickers import GOOD_MORNING_STICKER, GOOD_NIGHT_STICKER, ACHIEVEMENT_STICKER
+from bot.stickers import GOOD_MORNING_STICKER, ACHIEVEMENT_STICKER
 from config import mwexpress_config
 from bot.main import mwexpress_bot
 from i18n import Token, Language
@@ -33,25 +33,10 @@ def send_game_starting_message_to_all() -> None:
                                  user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
                                  reply_markup=Keyboard.main(user.language),
                                  parse_mode=ParseMode.HTML)
+            time.sleep(0.3)
         except Exception as ex:
             mwelog.exception(str(ex))
 
-    mwelog.info("Sent game started message to all users")
-
-
-def send_game_over_message_to_all() -> None:
-    mwelog.info("Sending game ended message to all users")
-    unmute_everyone()
-    all_users = get_all_users()
-    clear_scores_for_today()
-    for user in all_users:
-        if user.score_today() > 0:
-            try:
-                mwexpress_bot.bot.send_sticker(user.id, GOOD_NIGHT_STICKER)
-                send_message_to_user(mwexpress_bot.bot, user,
-                                     user.language.get(Token.GAME_ENDED))
-            except Exception as ex:
-                mwelog.exception(ex)
     mwelog.info("Sent game started message to all users")
 
 
