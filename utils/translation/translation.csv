@@ -24,7 +24,7 @@ PLEASE_ENTER_VALID_REVIEW,Please enter a valid review,Inserisci una valutazione 
 TOP_FIVE_USERS,Here are today's top 5 players:\n,Ecco i 5 giocatori top di oggi:\n,İşte bugünün ilk beşi:\n
 NO_SUBMISSIONS,That's all the examples we have for you to review right now.,Non ci sono altri esempi da valutare.,Şu anda oylayabileceğin başka örnek yok.
 ENTER_VALID_COMMAND,Please enter a valid command,Inserisci un comando valido,Lütfen geçerli bir komut girin.
-SUBMISSION_DOES_NOT_CONTAIN_MWE,"It looks like your submission does not contain the words (*%s*), please enter again.","Sembra che il tuo suggerimento non contenga la parola (*%s*), inserisci un nuovo esempio.","Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir."
+SUBMISSION_DOES_NOT_CONTAIN_MWE,"It looks like your submission does not contain the words (*%s*), please enter again.","Sembra che il tuo suggerimento non contenga le parole (*%s*), inserisci un nuovo esempio.","Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir."
 CANCEL,Cancel,Cancella,İptal
 REVIEW_CANCELLED,Thank you for your reviews.,Grazie per le tue valutazioni,İncelemeleriniz için teşekkürler.
 HELP,Help,Aiuto,Yardım
@@ -36,7 +36,7 @@ Dodo needs lots of  idiom and non-idiom examples.
 For example, to learn the idiom ""give up""\nhe needs an idiom example such as ""Ok, I give up now."" \nand a non-idiom example such as ""Can you give that book up to me?""","Ciao 😊
 Dodo sta imparando l'italiano, ma è difficile imparare i modi di dire. Lo puoi aiutare? Ti chiediamo di fornire a Dodo molti esempi per capire come vengono usati i modi di dire. 
 
-A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l'espressione  prendere all'amo""\nit ha bisogno di un esempio idiomatico come ""Sa come prendere all'amo il suo capo"" \n e un esempio non idiomatico come ""Ha preso all'amo una bella trota.""","Merhaba 😊 
+A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l'espressione  ""prendere\n all'amo"" ha bisogno di un esempio idiomatico come ""Sa \n come prendere all'amo il suo capo"" e un esempio non idiomatico come ""Ha preso\n all'amo una bella trota.""","Merhaba 😊 
 
 Dodo Türkçe öğrenmeye çalışıyor ancak Türkçe deyimleri öğrenmekte çok zorlanıyor. 
 Ona yardım eder misin? Senden ricamız Dodo’ya deyimlerin nasıl kullanıldığını anlaması için ona bol bol örnek vermen. 
@@ -51,7 +51,7 @@ DOES_WORDS_FORM_SPECIAL_MEANING,Are the words <b><u>%s</u></b> used together as 
 FORMS_SPECIAL_MEANING,"Yes, they are.","Sì, certo!",Evet
 DOES_NOT_FORM_SPECIAL_MEANING,Nope,"No, per niente!",Hayır
 AND,and,e ,ve
-REVIEW_QUESTION_POSITIVE,"In the sentence: \n\n%s\n\nDodo was told that the words <b><u>%s</u></b> are used together as an idiom ✔️, would you agree?","In questa frase: \n\n%s\n\nIt's ha detto che le parole <b><u>%s</u></b> vengono usate insieme con un significato idiomatico ✔️, sei d'accordo?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
+REVIEW_QUESTION_POSITIVE,"In the sentence: \n\n%s\n\nDodo was told that the words <b><u>%s</u></b> are used together as an idiom ✔️, would you agree?","In questa frase: \n\n%s\n\n hanno detto  a Dodo che le parole <b><u>%s</u></b> vengono usate insieme con un significato idiomatico ✔️, sei d'accordo?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?"
 REVIEW_QUESTION_NEGATIVE,"In the sentence: %s\n\nIt's said that words %s are <b><u>NOT</u></b> used together as an idiom❌, would you agree?","In questa frase: %s\n\nsi dice che le  parole %s  <b><u>NON </u></b> sono usate insieme con un significato idiomatico❌, sei d'accordo?","%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak <b><u>KULLANILMIYOR</u></b>❌ denmiş, buna katılıyor musunuz?"
 PLEASE_ENTER_ONE_SENTENCE,Your submission contains %d sentences. Please enter just one sentence.,"La tua proposta contiene %d frasi, inserisci solo una frase.","Gönderiniz %d cümle içeriyor, lütfen sadece bir cümle girin."
 FEEDBACK,Send Feedback,Manda un feedback,Geri bildirim gönder
@@ -65,9 +65,9 @@ THANKS_FOR_REVIEW,%s! You earned %d points.,%s! Hai guadagnato %d punti.,%s! %d 
 WELCOME_MESSAGE_1,"Hello, my name is Dodo.","Ciao, sono Dodo.",Merhaba ben Dodo.
 WELCOME_MESSAGE_2,"I'm trying to learn English, but I have trouble understanding idioms.",Sto cercando di imparare l'italiano ma ho difficoltà a capire i modi di dire.,Türkçe öğrenmeye çalışıyorum ancak deyimleri anlamakta çok zorlanıyorum.
 WELCOME_MESSAGE_3,Can you help me?,Mi aiuti?,Bana yardım eder misin?
-WELCOME_MESSAGE_4,Wonder how?,Ti chiedi come?,Nasıl mı?
-WELCOME_MESSAGE_5,I need plenty of idiom  and non-idiom examples.,Ho bisogno di molti esempi di modi di dire e di esempi di usi non idiomatici.,Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım.
-WELCOME_MESSAGE_6,"For example, in order to learn the idiom ""Give up""\nI need an idiom example such as ""Ok, I give up now."" \n and a non-idiom example such as ""Can you give that book up to me?"" ","Per esempio, per imparare il modo di dire ""prendere all'amo""\n ho bisogno di un esempio ""Sa come prendere all'amo il suo capo"" \n e un esempio di uso non idiomatico come ""Ha preso all'amo una bella trota""",Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek
+WELCOME_MESSAGE_4,Wonder how?,Ti chiedi come puoi aiutarmi?,Nasıl mı?
+WELCOME_MESSAGE_5,I need plenty of idiom  and non-idiom examples.,Semplice! Dammi diversi esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali.,Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım.
+WELCOME_MESSAGE_6,"For example, in order to learn the idiom ""Give up""\nI need an idiom example such as ""Ok, I give up now."" \n and a non-idiom example such as ""Can you give that book up to me?"" ","Per esempio, per imparare il modo di dire ""prendere all'amo""\n ho bisogno di una frase come ""Sa come prendere all'amo il suo capo"" \n  e un di un’altra in cui la stessa espressione non viene usata in modo  idiomatico. Ad esempio: ""Ha preso all'amo una bella trota"".",Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek
 WELCOME_MESSAGE_7,"Now, click on <b><u>Today's Idiom</u></b> from the keyboard.","Ora, clicca su <b><u>Modo di dire del giorno</u></b> sulla tastiera.",Şimdi bugünün deyimini seçmek için klavyeden <b><u>Günün Deyimi</u></b>'ni seç
 WELCOME_MESSAGE_8,"If you can't see the keyboard, click on the rectangular shape as shown in the picture.",Se non vedi la tastiera clicca sulla forma rettangolare come nella figura.,Eğer klavyeyi göremiyorsan resimde görülen içinde dört tane daire olan dikdörtgene tıkla.
 TODAYS_MWE_HELP_MESSAGE_1,"Awesome, now that you know today's idiom, you can help me learn it by sending me some examples.","Benissimo, ora che conosci il modo di dire di oggi, mi puoi aiutare a impararlo suggerendo qualche esempio. ","Harika, günün deyimini öğrendiğine göre artık örnek göndererek öğrenmeme yardımcı olabilirsin.."
@@ -123,7 +123,7 @@ REVIEW_LVL_4_ACH_CONGRATS_MSG,Congratulations! You've rated eighty submissions a
 REVIEW_LVL_5_ACH_NAME,Reviewer,Revisore,Eleştirmen
 REVIEW_LVL_5_ACH_DESC,Review 160 submissions in a day.,Valuta 160 suggerimenti in un giorno.,Bir günde 160 gönderiyi oyla.
 REVIEW_LVL_5_ACH_CONGRATS_MSG,Congratulations! You've rated one hundred and sixty submissions and earned the 🕶️ <b><u>Reviewer</u></b> achievement.,Congratulazioni! Hai valutato 160 suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Revisore</u></b> .,Tebrikler! Yüz altmış gönderiyi oyladın ve 🕶️ <b><u>Eleştirmen</u></b> başarımını açtın.
-USER_DAILY_PLAY_DETAILS_MESSAGE,Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>,Numero dei tuoi suggerimenti di oggi: <b><u>%d</u></b>\nNumero delle tue revisioni di oggi: <b><u>%d</u></b>,Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>
+USER_DAILY_PLAY_DETAILS_MESSAGE,Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>,Numero di tuoi suggerimenti di oggi: <b><u>%d</u></b>\nNumero di tue revisioni di oggi: <b><u>%d</u></b>,Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>
 BECOME_NUMBER_ONE_ACH_NAME,Leader,Leader,Lider
 BECOME_NUMBER_ONE_ACH_DESC,Be at the top of the scoreboard.,Sali in cima alla classifica,Sıralamalarda birinci ol.
 BECOME_NUMBER_ONE_ACH_CONGRATS_MSG,Congratulations! You've risen to the top of the rankings and been awarded with the 🥇 <b><u>Leader</u></b> achievement.,Congratulazioni! Sei salito in cima alla classifica e ti è stato attribuito l'obiettivo  <b><u>Leader</u></b> .,Tebrikler! Sıralamalarda birinci sıraya yerleştin ve 🥇 <b><u>Lider</u></b> başarımını açtın.

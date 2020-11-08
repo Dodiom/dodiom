@@ -25,3 +25,12 @@ def review_happy_hour(update: Update, context: CallbackContext):
 
 
 review_happy_hour_handler = CommandHandler('reviewhappyhour', review_happy_hour, run_async=True)
+
+
+def send_i_need_x_examples(update: Update, context: CallbackContext):
+    user = get_user_from_update(update)
+    if user.id == 1065263859 or user.id == 1036601606:
+        notification_manager.send_i_need_x_examples(context)
+
+
+i_need_x_examples_handler = CommandHandler('sendhelp', send_i_need_x_examples, run_async=True)

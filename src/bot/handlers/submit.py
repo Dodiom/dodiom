@@ -6,7 +6,7 @@ from operator import and_
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from api.achievements import award_achievement, get_user_achievements, user_has_achievement
+from api.achievements import award_achievement, user_has_achievement
 from api.mwe import get_todays_mwe
 from api.submission import add_submission
 from api.user import mute_user, unmute_user, update_user
@@ -184,8 +184,8 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         update.message.reply_sticker(ACHIEVEMENT_STICKER)
         update.message.reply_html(user.language.get(Token.FIRST_SUB_ACH_CONGRATS_MSG))
 
-    if submission_count_now < 100:
-        update.message.reply_text(user.language.get(Token.TODAYS_TARGET) % (100 - submission_count_now))
+    # if submission_count_now < 100:
+    #     update.message.reply_text(user.language.get(Token.TODAYS_TARGET) % (100 - submission_count_now))
 
     now = datetime.now()
     start_datetime = datetime.combine(now, mwexpress_config.start_time)

@@ -282,7 +282,7 @@ translations = {
     Token.SUBMISSION_DOES_NOT_CONTAIN_MWE: {
         "en": "It looks like your submission does not contain the words (*%s*), please enter again.",
         "tr": "Öyle görünüyor ki girdiğin örnekte (*%s*) sözcükleri bulunmamakta, lütfen tekrar gir.",
-        "it": "Sembra che il tuo suggerimento non contenga la parola (*%s*), inserisci un nuovo esempio."
+        "it": "Sembra che il tuo suggerimento non contenga le parole (*%s*), inserisci un nuovo esempio."
     },
     Token.CANCEL: {
         "en": "Cancel",
@@ -325,7 +325,7 @@ Hadi hemen Dodo’ya yardıma başla.
 Ciao 😊
 Dodo sta imparando l\'italiano, ma è difficile imparare i modi di dire. Lo puoi aiutare? Ti chiediamo di fornire a Dodo molti esempi per capire come vengono usati i modi di dire. 
 
-A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l\'espressione  prendere all\'amo\"\nit ha bisogno di un esempio idiomatico come \"Sa come prendere all\'amo il suo capo\" \n e un esempio non idiomatico come \"Ha preso all\'amo una bella trota.\"
+A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l\'espressione  \"prendere\n all\'amo\" ha bisogno di un esempio idiomatico come \"Sa \n come prendere all\'amo il suo capo\" e un esempio non idiomatico come \"Ha preso\n all\'amo una bella trota.\"
 """
     },
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
@@ -351,7 +351,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.REVIEW_QUESTION_POSITIVE: {
         "en": "In the sentence: \n\n%s\n\nDodo was told that the words <b><u>%s</u></b> are used together as an idiom ✔️, would you agree?",
         "tr": "%s\n\nCümlesinde %s sözcükleri birlikte deyim olarak kullanılıyor ✔️ denmiş, buna katılıyor musunuz?",
-        "it": "In questa frase: \n\n%s\n\nIt\'s ha detto che le parole <b><u>%s</u></b> vengono usate insieme con un significato idiomatico ✔️, sei d\'accordo?"
+        "it": "In questa frase: \n\n%s\n\n hanno detto  a Dodo che le parole <b><u>%s</u></b> vengono usate insieme con un significato idiomatico ✔️, sei d\'accordo?"
     },
     Token.REVIEW_QUESTION_NEGATIVE: {
         "en": "In the sentence: %s\n\nIt\'s said that words %s are <b><u>NOT</u></b> used together as an idiom❌, would you agree?",
@@ -421,17 +421,17 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.WELCOME_MESSAGE_4: {
         "en": "Wonder how?",
         "tr": "Nasıl mı?",
-        "it": "Ti chiedi come?"
+        "it": "Ti chiedi come puoi aiutarmi?"
     },
     Token.WELCOME_MESSAGE_5: {
         "en": "I need plenty of idiom  and non-idiom examples.",
         "tr": "Bana hem deyim olan hem de deyim olmayan bol bol örnek lazım.",
-        "it": "Ho bisogno di molti esempi di modi di dire e di esempi di usi non idiomatici."
+        "it": "Semplice! Dammi diversi esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali."
     },
     Token.WELCOME_MESSAGE_6: {
         "en": "For example, in order to learn the idiom \"Give up\"\nI need an idiom example such as \"Ok, I give up now.\" \n and a non-idiom example such as \"Can you give that book up to me?\"",
         "tr": "Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek",
-        "it": "Per esempio, per imparare il modo di dire \"prendere all\'amo\"\n ho bisogno di un esempio \"Sa come prendere all\'amo il suo capo\" \n e un esempio di uso non idiomatico come \"Ha preso all\'amo una bella trota\""
+        "it": "Per esempio, per imparare il modo di dire \"prendere all\'amo\"\n ho bisogno di una frase come \"Sa come prendere all\'amo il suo capo\" \n  e un di un’altra in cui la stessa espressione non viene usata in modo  idiomatico. Ad esempio: \"Ha preso all\'amo una bella trota\"."
     },
     Token.WELCOME_MESSAGE_7: {
         "en": "Now, click on <b><u>Today\'s Idiom</u></b> from the keyboard.",
@@ -711,7 +711,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.USER_DAILY_PLAY_DETAILS_MESSAGE: {
         "en": "Your submission count today: <b><u>%d</u></b>\nYour review count today: <b><u>%d</u></b>",
         "tr": "Bugünkü gönderi sayınız: <b><u>%d</u></b>\nBugünkü inceleme sayınız: <b><u>%d</u></b>",
-        "it": "Numero dei tuoi suggerimenti di oggi: <b><u>%d</u></b>\nNumero delle tue revisioni di oggi: <b><u>%d</u></b>"
+        "it": "Numero di tuoi suggerimenti di oggi: <b><u>%d</u></b>\nNumero di tue revisioni di oggi: <b><u>%d</u></b>"
     },
     Token.BECOME_NUMBER_ONE_ACH_NAME: {
         "en": "Leader",

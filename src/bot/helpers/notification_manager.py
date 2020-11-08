@@ -4,13 +4,17 @@ from datetime import datetime, timedelta
 from enum import Enum, auto
 from typing import List, Dict, Optional
 
+from telegram import ParseMode
 from telegram.ext import CallbackContext
 
+from api.mwe import get_todays_mwe
 from api.user import get_all_users
-from bot.stickers import EXCITED_STICKER, THUMBS_UP_STICKER, SAD_FACEPALM_STICKER
+from bot.stickers import EXCITED_STICKER, THUMBS_UP_STICKER, SAD_FACEPALM_STICKER, SAD_RAIN_STICKER
+from config import mwexpress_config
+from database import database
 from i18n import get_random_congrats_message, Token
 from log import mwelog
-from models import User
+from models import User, Submission
 
 
 class NotificationType(Enum):
@@ -22,6 +26,7 @@ class NotificationType(Enum):
     LOST_FIRST_FIVE = auto()
     REVIEW_WORTH_MORE = auto()
     LOST_FIRST = auto()
+    I_NEED_X_EXAMPLES = auto()
 
     def get_ttl(self) -> timedelta:
         if self == self.SOMEONE_LIKED_YOUR_EXAMPLE:
@@ -88,7 +93,8 @@ class NotificationManager:
         for user in get_all_users():
             self._send_notification(context, user.id, user.language.get(Token.POS_TOG_WORTH_MORE),
                                     NotificationType.IDIOM_WORTH_MORE,
-                                    THUMBS_UP_STICKER)
+                                    THUMBS_UP_STICKER,
+                                    ParseMode.HTML)
             time.sleep(0.3)
 
     def send_non_idioms_worth_more(self, context: CallbackContext):
@@ -97,7 +103,8 @@ class NotificationManager:
             self._send_notification(context, user.id,
                                     user.language.get(Token.NEG_TOG_WORTH_MORE),
                                     NotificationType.NON_IDIOM_WORTH_MORE,
-                                    THUMBS_UP_STICKER)
+                                    THUMBS_UP_STICKER,
+                                    ParseMode.HTML)
             time.sleep(0.3)
 
     def send_became_first(self, user: User, context: CallbackContext):
@@ -133,12 +140,28 @@ class NotificationManager:
             self._send_notification(context, user.id,
                                     user.language.get(Token.REVIEW_WORTH_MORE),
                                     NotificationType.REVIEW_WORTH_MORE,
-                                    THUMBS_UP_STICKER)
+                                    THUMBS_UP_STICKER,
+                                    ParseMode.HTML)
             time.sleep(0.3)
+
+    def send_i_need_x_examples(self, context: CallbackContext):
+        self._clear_old_notifications()
+        language = mwexpress_config.language
+        todays_mwe = get_todays_mwe(language)
+        session = database.get_session()
+        submission_count_now = session.query(Submission).filter(Submission.mwe == todays_mwe).count()
+        if submission_count_now < 100:
+            for user in get_all_users():
+                self._send_notification(context, user.id,
+                                        user.language.get(Token.TODAYS_TARGET) % (100 - submission_count_now),
+                                        NotificationType.I_NEED_X_EXAMPLES,
+                                        SAD_RAIN_STICKER)
+                time.sleep(0.3)
 
     def _send_notification(self, context: CallbackContext, user_id: int,
                            message: str, not_type: NotificationType,
-                           sticker: Optional[str] = None):
+                           sticker: Optional[str] = None,
+                           reply_markup: Optional[str] = None):
         if not self._history_contains_notification(user_id, not_type):
             try:
                 mwelog.info("Sending {not_type} to {user_id}",
@@ -149,7 +172,7 @@ class NotificationManager:
                 self._notification_history[user_id].append(notification)
                 if sticker is not None:
                     context.bot.send_sticker(user_id, sticker)
-                context.bot.send_message(user_id, message)
+                context.bot.send_message(user_id, message, reply_markup=reply_markup)
             except Exception as ex:
                 mwelog.exception(str(ex))
 
