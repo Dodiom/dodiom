@@ -336,12 +336,12 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.FORMS_SPECIAL_MEANING: {
         "en": "Yes, they are.",
         "tr": "Evet",
-        "it": "Sì, certo"
+        "it": "Sì, certo!"
     },
     Token.DOES_NOT_FORM_SPECIAL_MEANING: {
         "en": "Nope",
         "tr": "Hayır",
-        "it": "No per niente"
+        "it": "No, per niente!"
     },
     Token.AND: {
         "en": "and",
@@ -451,7 +451,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.TODAYS_MWE_HELP_MESSAGE_2: {
         "en": "To send an example, click <b><u>Submit</u></b> from the keyboard.",
         "tr": "Örnek göndermek için klavyeden <b><u>Örnek Gönder</u></b>\'e tıkla..",
-        "it": "Per suggerire un esempio, clicca <b><u>Suggerisci/u></b> sulla tastiera."
+        "it": "Per suggerire un esempio, clicca <b><u>Suggerisci</u></b> sulla tastiera."
     },
     Token.SUBMISSION_HELP_MESSAGE_1: {
         "en": "In this section, you can submit an example for the idiom of the day. You\'ll start earning points when other players like your example.",
@@ -561,7 +561,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.SUB_LVL_1_ACH_DESC: {
         "en": "Send 5 submissions in a day.",
         "tr": "Bir günde 5 gönderi gönder.",
-        "it": "Invia 5 suggerimenti in una giornata."
+        "it": "Invia 5 suggerimenti al giorno."
     },
     Token.SUB_LVL_1_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You\'ve sent your fifth submission and won the <b><u>Just starting out</u></b> achievement.",
