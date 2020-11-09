@@ -161,7 +161,7 @@ class NotificationManager:
     def _send_notification(self, context: CallbackContext, user_id: int,
                            message: str, not_type: NotificationType,
                            sticker: Optional[str] = None,
-                           reply_markup: Optional[str] = None):
+                           parse_mode: Optional[str] = None):
         if not self._history_contains_notification(user_id, not_type):
             try:
                 mwelog.info("Sending {not_type} to {user_id}",
@@ -172,7 +172,7 @@ class NotificationManager:
                 self._notification_history[user_id].append(notification)
                 if sticker is not None:
                     context.bot.send_sticker(user_id, sticker)
-                context.bot.send_message(user_id, message, reply_markup=reply_markup)
+                context.bot.send_message(user_id, message, parse_mode=parse_mode)
             except Exception as ex:
                 mwelog.exception(str(ex))
 
