@@ -131,6 +131,7 @@ class Token(Enum):
     ASKFORHELP = auto()
     TODAYS_TARGET = auto()
     TWITTER_TIP = auto()
+    GAME_TEMPORARILY_STOPPED = auto()
 
 
 class Language(Enum):
@@ -207,7 +208,7 @@ translations = {
     Token.LANGUAGE_CHANGE_SUCCESSFUL: {
         "en": "Language set to *English*.",
         "tr": "Dil *Türkçe* olarak ayarlandı.",
-        "it": "La lingua è *inglese*."
+        "it": "La lingua è *italiano*."
     },
     Token.PLEASE_SELECT_VALID_LANGUAGE: {
         "en": "Please select a valid language",
@@ -325,7 +326,7 @@ Hadi hemen Dodo’ya yardıma başla.
 Ciao 😊
 Dodo sta imparando l\'italiano, ma è difficile imparare i modi di dire. Lo puoi aiutare? Ti chiediamo di fornire a Dodo molti esempi per capire come vengono usati i modi di dire. 
 
-A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l\'espressione  \"prendere\n all\'amo\" ha bisogno di un esempio idiomatico come \"Sa \n come prendere all\'amo il suo capo\" e un esempio non idiomatico come \"Ha preso\n all\'amo una bella trota.\"
+A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali. Per esempio per imparare l\'espressione  \"prendere\n all\'amo\" ha bisogno di un esempio idiomatico come \"Sa \n come prendere all\'amo il suo capo\" e un esempio non idiomatico come \"Ha preso\n all\'amo una bella trota.\"
 """
     },
     Token.DOES_WORDS_FORM_SPECIAL_MEANING: {
@@ -636,7 +637,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.REVIEW_LVL_1_ACH_NAME: {
         "en": "Helpful",
         "tr": "Yardımsever",
-        "it": "Utile"
+        "it": "Collaborativo"
     },
     Token.REVIEW_LVL_1_ACH_DESC: {
         "en": "Review 10 submissions in a day.",
@@ -646,12 +647,12 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.REVIEW_LVL_1_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You\'ve rated ten submissions and earned the 🤝 <b><u>Helpful</u></b> achievement.",
         "tr": "Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> başarımını açtın.",
-        "it": "Congratulazioni! Hai valutato 10  suggerimenti e ti è stato attribuito l\'obiettivo  <b><u>Utile</u></b> ."
+        "it": "Congratulazioni! Hai valutato 10  suggerimenti e ti è stato attribuito l\'obiettivo  <b><u>Collaborativo</u></b> ."
     },
     Token.REVIEW_LVL_2_ACH_NAME: {
         "en": "Voter",
         "tr": "Seçmen",
-        "it": "Votante"
+        "it": "Cavallo di razza"
     },
     Token.REVIEW_LVL_2_ACH_DESC: {
         "en": "Review 20 submissions in a day.",
@@ -661,7 +662,7 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
     Token.REVIEW_LVL_2_ACH_CONGRATS_MSG: {
         "en": "Congratulations! You\'ve rated twenty submissions and earned the <b><u>Voter</u></b> achievement.",
         "tr": "Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> başarımını açtın.",
-        "it": "Congratulazioni! Hai valutato 20  suggerimenti e ti è stato attribuito l\'obiettivo  <b><u>Votante</u></b> ."
+        "it": "Congratulazioni! Hai valutato 20  suggerimenti e ti è stato attribuito l\'obiettivo  <b><u>Cavallo di razza</u></b> ."
     },
     Token.REVIEW_LVL_3_ACH_NAME: {
         "en": "Critique",
@@ -817,6 +818,11 @@ A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico
         "en": "Pro tip! Search Twitter with today\'s idiom to find examples from the real world. Make sure to edit away bad spelling, #hashtags, and the like.",
         "tr": "",
         "it": "Suggerimento: Cerca su Twitter il modo di dire di oggi per trovare degli esempi d\'uso reali. Assicurati di usare l\'ortografia corretta e di evitare #hashtag o simili."
+    },
+    Token.GAME_TEMPORARILY_STOPPED: {
+        "en": "Thank you for your interest, Dodo took a break from learning for now and will come back with surprises, stay tuned.",
+        "tr": "Oyuna ilgin için teşekkürler. Dodo şimdilik öğrenmeye biraz ara verdi ama sürprizlerle geri dönecek, beklemede kal.",
+        "it": ""
     },
 }
 

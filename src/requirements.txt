@@ -9,3 +9,9 @@ zeyrek
 nltk
 pytokenizations
 requests
+jupyter
+pandas
+matplotlib
+numpy
+scikit-learn
+openpyxl

@@ -9,7 +9,7 @@ LANGUAGE_TURKISH,Türkçe (TR) 🇹🇷,Turco (TR) 🇹🇷,Türkçe (TR) 🇹�
 LANGUAGE_ITALIAN,Italian (IT) 🇮🇹,Italiano (IT) 🇮🇹,İtalyanca (IT) 🇮🇹
 TODAYS_MWE_REPLY_TEXT,"Today's idiom is '<b><u>%s</u></b>', meaning: <i>%s</i>","Il modo di dire di oggi è  '<b><u>%s</u></b>', che significa: <i>%s</i>","Günün deyimi '<b><u>%s</u></b>', anlamı da: <i>%s</i>"
 SELECT_LANGUAGE,Please select a language,Seleziona la lingua,Lütfen bir dil seçin.
-LANGUAGE_CHANGE_SUCCESSFUL,Language set to *English*.,La lingua è *inglese*.,Dil *Türkçe* olarak ayarlandı.
+LANGUAGE_CHANGE_SUCCESSFUL,Language set to *English*.,La lingua è *italiano*.,Dil *Türkçe* olarak ayarlandı.
 PLEASE_SELECT_VALID_LANGUAGE,Please select a valid language,Seleziona una lingua valida,Lütfen geçerli bir dil seçin.
 WELCOME_MESSAGE,"Welcome to Dodiom, *%s*","Benvenuti in Dodiom, *%s*","Dodiom'a hoşgeldiniz, *%s*"
 PLEASE_ENTER_EXAMPLE,Please enter an example sentence containing the words '<b><u>%s</u></b>'.,Inserisci una frase di esempio che contiene le parole <b><u>%s</u></b>'.,Lütfen '%s' sözcüklerini  içeren örnek bir cümle girin.
@@ -36,7 +36,7 @@ Dodo needs lots of  idiom and non-idiom examples.
 For example, to learn the idiom ""give up""\nhe needs an idiom example such as ""Ok, I give up now."" \nand a non-idiom example such as ""Can you give that book up to me?""","Ciao 😊
 Dodo sta imparando l'italiano, ma è difficile imparare i modi di dire. Lo puoi aiutare? Ti chiediamo di fornire a Dodo molti esempi per capire come vengono usati i modi di dire. 
 
-A Dodo servono molti esempi di modi di dire e molti esempi di uso non idiomatico. Per esempio per imparare l'espressione  ""prendere\n all'amo"" ha bisogno di un esempio idiomatico come ""Sa \n come prendere all'amo il suo capo"" e un esempio non idiomatico come ""Ha preso\n all'amo una bella trota.""","Merhaba 😊 
+A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali. Per esempio per imparare l'espressione  ""prendere\n all'amo"" ha bisogno di un esempio idiomatico come ""Sa \n come prendere all'amo il suo capo"" e un esempio non idiomatico come ""Ha preso\n all'amo una bella trota.""","Merhaba 😊 
 
 Dodo Türkçe öğrenmeye çalışıyor ancak Türkçe deyimleri öğrenmekte çok zorlanıyor. 
 Ona yardım eder misin? Senden ricamız Dodo’ya deyimlerin nasıl kullanıldığını anlaması için ona bol bol örnek vermen. 
@@ -108,12 +108,12 @@ SUB_LVL_4_ACH_CONGRATS_MSG,Congratulations! You've sent your fortieth submission
 SUB_LVL_5_ACH_NAME,Human Corpus,Libro vivente,İki Ayaklı Derlem
 SUB_LVL_5_ACH_DESC,Send 70 submissions in a day.,Invia 70 suggerimenti al giorno,Bir günde 70 gönderi gönder.
 SUB_LVL_5_ACH_CONGRATS_MSG,Congratulations! You've sent your seventieth submission and won the 🦄 <b><u>Human Corpus</u></b> achievement.,Congratulazioni! Hai inviato il tuo settantesimo suggerimento e ti è stato attribuito l'obiettivo  <b><u>Libro vivente</u></b> .,Tebrikler! Yetmişinci gönderini gönderdin ve 🦄 <b><u>İki Ayaklı Derlem</u></b> başarımını açtın.
-REVIEW_LVL_1_ACH_NAME,Helpful,Utile,Yardımsever
+REVIEW_LVL_1_ACH_NAME,Helpful,Collaborativo,Yardımsever
 REVIEW_LVL_1_ACH_DESC,Review 10 submissions in a day.,Valuta 10 suggerimenti in un giorno.,Bir günde 10 gönderiyi oyla.
-REVIEW_LVL_1_ACH_CONGRATS_MSG,Congratulations! You've rated ten submissions and earned the 🤝 <b><u>Helpful</u></b> achievement.,Congratulazioni! Hai valutato 10  suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Utile</u></b> .,Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> başarımını açtın.
-REVIEW_LVL_2_ACH_NAME,Voter,Votante,Seçmen
+REVIEW_LVL_1_ACH_CONGRATS_MSG,Congratulations! You've rated ten submissions and earned the 🤝 <b><u>Helpful</u></b> achievement.,Congratulazioni! Hai valutato 10  suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Collaborativo</u></b> .,Tebrikler! On gönderiyi oyladın ve 🤝 <b><u>Yardımsever</u></b> başarımını açtın.
+REVIEW_LVL_2_ACH_NAME,Voter,Cavallo di razza,Seçmen
 REVIEW_LVL_2_ACH_DESC,Review 20 submissions in a day.,Valuta 20 suggerimenti in un giorno.,Bir günde 20 gönderiyi oyla.
-REVIEW_LVL_2_ACH_CONGRATS_MSG,Congratulations! You've rated twenty submissions and earned the <b><u>Voter</u></b> achievement.,Congratulazioni! Hai valutato 20  suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Votante</u></b> .,Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> başarımını açtın.
+REVIEW_LVL_2_ACH_CONGRATS_MSG,Congratulations! You've rated twenty submissions and earned the <b><u>Voter</u></b> achievement.,Congratulazioni! Hai valutato 20  suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Cavallo di razza</u></b> .,Tebrikler! Yirmi gönderiyi oyladın ve 🗳️ <b><u>Seçmen</u></b> başarımını açtın.
 REVIEW_LVL_3_ACH_NAME,Critique,Critico,Kritik
 REVIEW_LVL_3_ACH_DESC,Review 40 submissions in a day.,Valuta 40 suggerimenti in un giorno.,Bir günde 40 gönderiyi oyla.
 REVIEW_LVL_3_ACH_CONGRATS_MSG,Congratulations! You've rated forty submissions and earned the ✨ <b><u>Critique</u></b> achievement.,Congratulazioni! Hai valutato 40 suggerimenti e ti è stato attribuito l'obiettivo  <b><u>Critico</u></b> .,Tebrikler! Kırk gönderiyi oyladın ve ✨ <b><u>Kritik</u></b> başarımını açtın.
@@ -145,3 +145,4 @@ HINT_MESSAGE_4,Idiom examples are worth more points now. Keep on submitting exam
 ASKFORHELP,Dodo needs %d more examples to learn today's idiom. Could you please help?,Dodo ha bisogno di altri %d esempi per imparare il modo di dire di oggi. Puoi aiutarlo?,Dodonun bugünkü deyimi öğrenebilmesi için halen %d tane örneğe ihtiyacı var. Lütfen yardım eder misin?
 TODAYS_TARGET,Dodo needs %d more examples to learn today's idiom.,Dodo ha bisogno di altri %d esempi per imparare il modo di dire di oggi.,Dodonun bugünkü deyimi öğrenebilmesi için halen %d tane örneğe ihtiyacı var. 
 TWITTER_TIP,"Pro tip! Search Twitter with today's idiom to find examples from the real world. Make sure to edit away bad spelling, #hashtags, and the like.",Suggerimento: Cerca su Twitter il modo di dire di oggi per trovare degli esempi d'uso reali. Assicurati di usare l'ortografia corretta e di evitare #hashtag o simili.,
+GAME_TEMPORARILY_STOPPED,"Thank you for your interest, Dodo took a break from learning for now and will come back with surprises, stay tuned.",,"Oyuna ilgin için teşekkürler. Şimdilik biraz ara verdik, kısa süre içinde geri d"

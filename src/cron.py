@@ -84,10 +84,11 @@ def unmute_everyone():
 
 
 def schedule_jobs():
-    schedule.every().day.at(mwexpress_config.start_time.strftime("%H:%M"))\
-        .do(send_game_starting_message_to_all)
-    schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
-        .do(end_of_day_job)
+    pass
+    # schedule.every().day.at(mwexpress_config.start_time.strftime("%H:%M"))\
+    #     .do(send_game_starting_message_to_all)
+    # schedule.every().day.at(mwexpress_config.end_time.strftime("%H:%M"))\
+    #     .do(end_of_day_job)
 
 
 def run_scheduled_jobs():
