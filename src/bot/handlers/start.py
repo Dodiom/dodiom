@@ -54,6 +54,10 @@ def start(update: Update, context: CallbackContext):
     reply_to(user, update,
              user.language.get(Token.WELCOME_MESSAGE_8),
              Keyboard.main(user.language))
+    time.sleep(5)
+    reply_to(user, update,
+             user.language.get(Token.DISCLAIMER),
+             Keyboard.main(user.language))
 
 
 start_handler = CommandHandler('start', start, run_async=True)

@@ -14,6 +14,7 @@ class Config:
         self.end_time = self._read_time(env.str("END_TIME", default="23:59"))
         self.language = self._read_language(env.str("LANGUAGE", default="tr"))
         self.it_lang_server = env.str("ITALIAN_LANGUAGE_SERVER", default="")
+        self.game_stopped = env.bool("GAME_STOPPED", default=False)
 
     @staticmethod
     def _read_time(time_str: str) -> time:

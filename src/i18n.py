@@ -132,6 +132,7 @@ class Token(Enum):
     TODAYS_TARGET = auto()
     TWITTER_TIP = auto()
     GAME_TEMPORARILY_STOPPED = auto()
+    DISCLAIMER = auto()
 
 
 class Language(Enum):
@@ -821,8 +822,13 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.GAME_TEMPORARILY_STOPPED: {
         "en": "Thank you for your interest, Dodo took a break from learning for now and will come back with surprises, stay tuned.",
-        "tr": "Oyuna ilgin için teşekkürler. Dodo şimdilik öğrenmeye biraz ara verdi ama sürprizlerle geri dönecek, beklemede kal.",
-        "it": ""
+        "tr": "Oyuna ilgin için teşekkürler. Dodo şimdilik öğrenmeye ara verdi ama sürprizlerle geri dönecek, beklemede kal.",
+        "it": "Grazie per il tuo interesse, Dodo si è preso una pausa ma tornerà presto con delle sorprese. Rimanete sintonizzati!"
+    },
+    Token.DISCLAIMER: {
+        "en": "Dodiom is a developed for research purposes. In using this bot you accept that the data you add can be used to develop linguistic models. No personal data will be used or forwarded to third parties.",
+        "tr": "Dodiom akademik amaçla tasarlanmıştır. Bu botu kullanarak eklediğiniz verinin dil modelleri için kullanılmasını kabul etmiş sayılırsınız. Kişisel veriler kullanılmamakta ve üçüncü şahıslarla paylaşılmamaktadır.",
+        "it": "Dodiom è un sistema sviluppato a scopo di ricerca scientifica. Nell\'utilizzare questo bot accetti che i dati che inserisci potranno essere usati per sviluppare modelli linguistici. Nessun dato personale verrà utilizzato o inviato a terze parti."
     },
 }
 

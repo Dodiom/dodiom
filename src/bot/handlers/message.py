@@ -16,6 +16,7 @@ from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import State, get_state, clear_state
 from bot.helpers.user_helper import get_user_from_update
 from bot.stickers import COFFEE_STICKER
+from config import mwexpress_config
 from i18n import Token
 from log import mwelog
 
@@ -40,9 +41,10 @@ def message(update: Update, context: CallbackContext):
             ban_user(user, int(update.message.text.replace("/ban", "")), context)
             return
 
-        update.message.reply_sticker(COFFEE_STICKER)
-        update.message.reply_text(user.language.get(Token.GAME_TEMPORARILY_STOPPED))
-        return
+        if mwexpress_config.game_stopped:
+            update.message.reply_sticker(COFFEE_STICKER)
+            update.message.reply_text(user.language.get(Token.GAME_TEMPORARILY_STOPPED))
+            return
 
         if get_state(context) != State.NONE:
             state = get_state(context)

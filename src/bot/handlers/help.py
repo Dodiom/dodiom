@@ -18,3 +18,6 @@ def help_handler(user: User, update: Update, context: CallbackContext) -> None:
     reply_to(user, update,
              user.language.get(Token.HELP_MESSAGE),
              Keyboard.main(user.language))
+    reply_to(user, update,
+             user.language.get(Token.DISCLAIMER),
+             Keyboard.main(user.language))

@@ -74,24 +74,42 @@ english_mwes = [
 ]
 
 italian_mwes = [
-        mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
-            ['abbaiare', 'alla', 'luna'], MweCategory.VID),
-        mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
-            ['abbaiare', 'alla', 'luna'], MweCategory.VID),
-        mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
-            ['abbaiare', 'alla', 'luna'], MweCategory.VID),
-        mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
-            ['abbaiare', 'alla', 'luna'], MweCategory.VID),
-        mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
-            ['abbaiare', 'alla', 'luna'], MweCategory.VID)
+    mwe("abbaiare alla luna", "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
+        ['abbaiare', 'alla', 'luna'], MweCategory.VID),
+    mwe("Acchiappare farfalle", "Fare cose inutili.",
+        ['acchiappare', 'farfalla'], MweCategory.VID),
+    mwe("Ingoiare una pillola", "Assoggettarsi a qualcosa di sgradevole.",
+        ['ingoiare', 'una', 'pillola'], MweCategory.VID),
+    mwe("Rifarsi la bocca", "Trovare un compenso a qualcosa di spiacevole.",
+        ['rifare', 'la', 'bocca'], MweCategory.VID),
+    mwe("Rimanere in sella", "Conservare la propria autorità.",
+        ['rimanere', 'in', 'sella'], MweCategory.VID),
+    mwe("Far leva", "Agire su un determinato elemento per ottenere qualcosa che si desidera.",
+        ['fare', 'leva'], MweCategory.VID),
+    mwe("Essere a cavallo", "Essere sicuro di raggiungere uno scopo.",
+        ['essere', 'a', 'cavallo'], MweCategory.VID),
+    mwe("Essere in vena", "Sentirsi nel pieno delle forze, dell'estro, nella condizione migliore per fare qualcosa.",
+        ['essere', 'in', 'vena'], MweCategory.VID),
+    mwe("Essere su un binario morto", "Essere in una situazione difficile e senza sbocchi.",
+        ['essere', 'su', 'un', 'binario', 'morto'], MweCategory.VID),
+    mwe("Voltare la faccia", "Scappare, cambiare direzione.",
+        ['voltare', 'faccia'], MweCategory.VID),
+    mwe("Gettare la spugna", "Arrendersi, rinunciare alla lotta.",
+        ['gettare', 'la', 'spugna'], MweCategory.VID),
+    mwe("Coltivare il proprio orto", "Occuparsi solo dei propri problemi, disinteressandosi di quelli altrui",
+        ['il', 'proprio', 'orto'], MweCategory.VID),
+    mwe("Buttare giù", "Inghiottire",
+        ['buttare', 'giù'], MweCategory.VID),
+    mwe("Mettere dentro", "Arrestare",
+        ['mettere', 'dentro'], MweCategory.VID),
 ]
 
 turkey_time = datetime.datetime.now()
-mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
-for mwe in turkish_mwes:
-    add_mwe(mwe.name, mwe.description, Language.TURKISH, mwe_date, mwe.lemmas,
-            mwe.category)
-    mwe_date += datetime.timedelta(days=1)
+# mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
+# for mwe in turkish_mwes:
+#     add_mwe(mwe.name, mwe.description, Language.TURKISH, mwe_date, mwe.lemmas,
+#             mwe.category)
+#     mwe_date += datetime.timedelta(days=1)
 #
 # mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
 # for mwe in english_mwes:
@@ -99,8 +117,8 @@ for mwe in turkish_mwes:
 #             mwe.category)
 #     mwe_date += datetime.timedelta(days=1)
 
-# mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
-# for mwe in italian_mwes:
-#     add_mwe(mwe.name, mwe.description, Language.ITALIAN, mwe_date, mwe.lemmas,
-#             mwe.category)
-#     mwe_date += datetime.timedelta(days=1)
+mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
+for mwe in italian_mwes:
+    add_mwe(mwe.name, mwe.description, Language.ITALIAN, mwe_date, mwe.lemmas,
+            mwe.category)
+    mwe_date += datetime.timedelta(days=1)
