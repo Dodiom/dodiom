@@ -69,6 +69,7 @@ def clear_scores_for_today():
     for user in all_users:
         user.score_today_en = 0
         user.score_today_tr = 0
+        user.score_today_it = 0
     session = database.get_session()
     database.commit(session)
     scoreboard.iterate()
