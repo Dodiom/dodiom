@@ -33,13 +33,13 @@ def language_update_handler(user: User, update: Update, context: CallbackContext
         clear_state(context)
         reply_to(user, update,
                  user.language.get(Token.LANGUAGE_CHANGE_SUCCESSFUL),
-                 Keyboard.main(user.language))
+                 Keyboard.main(user))
     elif update.message.text == user.language.get(Token.LANGUAGE_TURKISH):
         change_user_language(user, Language.TURKISH)
         clear_state(context)
         reply_to(user, update,
                  user.language.get(Token.LANGUAGE_CHANGE_SUCCESSFUL),
-                 Keyboard.main(user.language))
+                 Keyboard.main(user))
     else:
         mwelog.info("User {user_name} entered wrong value ({message}) for language change.",
                      user_name=user.username, user_id=user.id, message=update.message.text)

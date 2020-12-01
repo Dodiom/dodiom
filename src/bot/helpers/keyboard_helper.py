@@ -1,15 +1,17 @@
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
+from config import mwexpress_config
 from i18n import Language, Token
+from models import User
 
 
 class Keyboard:
     @staticmethod
-    def main(language: Language) -> ReplyKeyboardMarkup:
+    def main(user: User) -> ReplyKeyboardMarkup:
         main_keyboard = [
-            [language.get(Token.TODAYS_MWE), language.get(Token.SUBMIT)],
-            [language.get(Token.REVIEW), language.get(Token.HELP)],
-            [language.get(Token.SHOW_SCOREBOARD), language.get(Token.ACHIEVEMENTS)]
+            [user.language.get(Token.TODAYS_MWE), user.language.get(Token.SUBMIT)],
+            [user.language.get(Token.REVIEW), user.language.get(Token.HELP)],
+            [user.language.get(Token.SHOW_SCOREBOARD), user.language.get(Token.ACHIEVEMENTS)]
         ]
         return ReplyKeyboardMarkup(main_keyboard)
 
@@ -44,5 +46,13 @@ class Keyboard:
             [language.get(Token.DO_NOT_LIKE_EXAMPLE)],
             [language.get(Token.REPORT_SUBMISSION)],
             [language.get(Token.QUIT_REVIEWING)]
+        ]
+        return ReplyKeyboardMarkup(review_keyboard)
+
+    @staticmethod
+    def email_verify_keyboard(language: Language):
+        review_keyboard = [
+            [language.get(Token.YES), language.get(Token.NO)],
+            [language.get(Token.CANCEL)],
         ]
         return ReplyKeyboardMarkup(review_keyboard)

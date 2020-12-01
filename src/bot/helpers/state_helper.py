@@ -13,6 +13,7 @@ class State(Enum):
     CHOOSING_SUBMISSION_CATEGORY = auto()
     CHANGING_LANGUAGE = auto()
     REVIEWING = auto()
+    ADDING_EMAIL = auto()
 
 
 def clear_state(context: CallbackContext) -> None:

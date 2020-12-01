@@ -56,7 +56,7 @@ def main_review_handler(user: User, update: Update, context: CallbackContext):
         _safe_delete_context_data(context, "submission")
         _safe_delete_context_data(context, "review_count")
         reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
-                 reply_markup=Keyboard.main(user.language))
+                 reply_markup=Keyboard.main(user))
 
 
 def _send_submission_to_review(user: User, update: Update, context: CallbackContext):
@@ -99,10 +99,10 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
     else:
         if "review_count" in context.user_data:
             reply_to(user, update, user.language.get(Token.NO_SUB_LEFT_TO_REVIEW),
-                     Keyboard.main(user.language))
+                     Keyboard.main(user))
         else:
             reply_to(user, update, user.language.get(Token.NO_SUBMISSIONS),
-                     Keyboard.main(user.language))
+                     Keyboard.main(user))
         clear_state(context)
         unmute_user(user.id)
         _safe_delete_context_data(context, "submission")
@@ -137,7 +137,7 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
     if update.message.text == user.language.get(Token.AGREE_NICE_EXAMPLE):
         add_review(user, submission, ReviewCategory.LIKE)
         reply_to(user, update,
-                     user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), submission_scores.get_review_score()))
+                 user.language.get(Token.THANKS_FOR_REVIEW) % (get_random_congrats_message(user.language), submission_scores.get_review_score()))
         _process_review_achievements(user, update)
         notification_manager.send_someone_liked_your_example(submission.user, context)
         scoreboard.iterate(update, context)
@@ -151,16 +151,17 @@ def _review_answer_handler(user: User, update: Update, context: CallbackContext)
         add_review(user, submission, ReviewCategory.SKIP)
         reply_to(user, update,
                  user.language.get(Token.REPORT_SUBMISSION_REPLY))
-        context.bot.send_message(1065263859, f"Someone reported this submission: {submission.value}\n"
-                                             f"Flag submission: /flag{submission.id}, "
-                                             f"ban user: /ban{submission.user.id}")
+        context.bot.send_message(mwexpress_config.moderator,
+                                 f"Someone reported this submission: {submission.value}\n"
+                                 f"Flag submission: /flag{submission.id}, "
+                                 f"ban user: /ban{submission.user.id}")
         _process_review_achievements(user, update)
         scoreboard.iterate(update, context)
     else:
         unmute_user(user.id)
         reply_to(user, update,
                  user.language.get(Token.REVIEW_CANCELLED),
-                 Keyboard.main(user.language))
+                 Keyboard.main(user))
         _safe_delete_context_data(context, "submission")
         clear_state(context)
         return

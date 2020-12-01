@@ -101,6 +101,9 @@ class ScoreBoard:
                     self._old_first_five_ids[language] = self._new_first_five_ids[language]
                     self._new_first_five_ids[language] = first_five_now[language]
 
+    def clear(self):
+        self.__init__()
+
     def send_to_user(self, user: User, update: Update):
         board = self.scoreboards[user.language]
         if len(board) > 0:
@@ -136,13 +139,13 @@ class ScoreBoard:
             update.message.reply_text(
                 scoreboard_message,
                 parse_mode=telegram.ParseMode.MARKDOWN_V2,
-                reply_markup=Keyboard.main(user.language)
+                reply_markup=Keyboard.main(user)
             )
         else:
             update.message.reply_text(
                 user.language.get(Token.SCOREBOARD_EMPTY),
                 parse_mode=telegram.ParseMode.MARKDOWN,
-                reply_markup=Keyboard.main(user.language)
+                reply_markup=Keyboard.main(user)
             )
 
     def get_old_ranking(self, user_id: int, language: Language) -> int:

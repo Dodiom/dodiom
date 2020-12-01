@@ -3,6 +3,7 @@ from telegram.ext import MessageHandler, Filters, CallbackContext
 
 from api.user import unmute_user
 from bot.handlers.achievements import achievements_handler
+from bot.handlers.email import main_email_handler
 from bot.handlers.feedback import feedback_handler
 from bot.handlers.help import help_handler
 from bot.handlers.language import language_change_handler, language_update_handler
@@ -56,6 +57,8 @@ def message(update: Update, context: CallbackContext):
                 language_update_handler(user, update, context)
             elif state == State.REVIEWING:
                 main_review_handler(user, update, context)
+            elif state == State.ADDING_EMAIL:
+                main_email_handler(user, update, context)
         else:
             if update.message.text == user.language.get(Token.TODAYS_MWE):
                 todays_mwe_handler(user, update)
@@ -73,6 +76,8 @@ def message(update: Update, context: CallbackContext):
                 scoreboard_handler(user, update, context)
             elif update.message.text == user.language.get(Token.ACHIEVEMENTS):
                 achievements_handler(user, update, context)
+            elif update.message.text == user.language.get(Token.ADD_EMAIL):
+                main_email_handler(user, update, context)
             elif submission_contains_todays_mwe(user, update.message.text):
                 context.user_data["sub_state"] = "typing_example"
                 main_submit_handler(user, update, context)
@@ -80,13 +85,13 @@ def message(update: Update, context: CallbackContext):
                 update.message.reply_text(
                     user.language.get(Token.ENTER_VALID_COMMAND),
                     parse_mode=ParseMode.MARKDOWN,
-                    reply_markup=Keyboard.main(user.language)
+                    reply_markup=Keyboard.main(user)
                 )
                 context.bot.send_photo(user.id, open("assets/keyboard_button.png", "rb"))
                 update.message.reply_text(
                          user.language.get(Token.WELCOME_MESSAGE_8),
                          parse_mode=ParseMode.MARKDOWN,
-                         reply_markup=Keyboard.main(user.language))
+                         reply_markup=Keyboard.main(user))
 
     except Exception as ex:
         clear_state(context)
@@ -97,7 +102,7 @@ def message(update: Update, context: CallbackContext):
         mwelog.error(f"erroneous message: {user.username}: {update.message.text}")
         mwelog.exception(str(ex))
         update.message.reply_text(user.language.get(Token.ERROR_OCCURRED),
-                                  reply_markup=Keyboard.main(user.language))
+                                  reply_markup=Keyboard.main(user))
 
 
 message_handler = MessageHandler(Filters.text, message, run_async=True)

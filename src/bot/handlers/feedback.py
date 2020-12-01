@@ -10,7 +10,7 @@ from models import User
 def feedback_handler(user: User, update: Update, context: CallbackContext) -> None:
     reply_to(user, update,
              user.language.get(Token.FEEDBACK_MESSAGE),
-             Keyboard.main(user.language))
+             Keyboard.main(user))
     reply_to(user, update,
              user.language.get(Token.FEEDBACK_URL),
-             Keyboard.main(user.language))
+             Keyboard.main(user))

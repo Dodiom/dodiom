@@ -56,7 +56,7 @@ def main_submit_handler(user: User, update: Update, context: CallbackContext):
         unmute_user(user.id)
         _clear_context(context)
         reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
-                 reply_markup=Keyboard.main(user.language))
+                 reply_markup=Keyboard.main(user))
 
 
 def start_submit_handler(user: User, update: Update, context: CallbackContext) -> None:
@@ -156,7 +156,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
         unmute_user(user.id)
         reply_to(user, update,
                  user.language.get(Token.SUBMISSION_CANCELLED),
-                 Keyboard.main(user.language))
+                 Keyboard.main(user))
         return
 
     parsed = context.user_data["parsed"]
@@ -170,7 +170,7 @@ def submit_category_handler(user: User, update: Update, context: CallbackContext
     reply_to(user, update,
              user.language.get(Token.THANKS_FOR_SUBMISSION) % (
                  get_random_congrats_message(user.language), submission.points),
-             Keyboard.main(user.language))
+             Keyboard.main(user))
 
     if random.random() < 0.75:
         time.sleep(1)

@@ -19,7 +19,7 @@ def todays_mwe_handler(user: User, update: Update):
         todays_mwe = get_todays_mwe(user.language)
         update.message.reply_text(text=user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
                                   parse_mode=ParseMode.HTML,
-                                  reply_markup=Keyboard.main(user.language))
+                                  reply_markup=Keyboard.main(user))
         if submission_scores.buffed_category[user.language] is not None:
             notification_messages = {
                 SubmissionCategory.POSITIVE_TOGETHER: Token.POS_TOG_WORTH_MORE,
@@ -33,14 +33,14 @@ def todays_mwe_handler(user: User, update: Update):
             update.message.reply_text(
                 text=user.language.get(Token.TODAYS_MWE_HELP_MESSAGE_1),
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=Keyboard.main(user.language))
+                reply_markup=Keyboard.main(user))
             time.sleep(5)
             update.message.reply_text(
                 text=user.language.get(Token.TODAYS_MWE_HELP_MESSAGE_2),
                 parse_mode=ParseMode.HTML,
-                reply_markup=Keyboard.main(user.language))
+                reply_markup=Keyboard.main(user))
             user.viewed_todays_mwe_help = True
             update_user(user)
     else:
         reply_to(user, update, user.language.get(Token.GAME_HOURS_FINISHED) % mwexpress_config.start_time.hour,
-                 reply_markup=Keyboard.main(user.language))
+                 reply_markup=Keyboard.main(user))

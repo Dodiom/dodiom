@@ -17,7 +17,7 @@ def help_handler(user: User, update: Update, context: CallbackContext) -> None:
         database.commit(session)
     reply_to(user, update,
              user.language.get(Token.HELP_MESSAGE),
-             Keyboard.main(user.language))
+             Keyboard.main(user))
     reply_to(user, update,
              user.language.get(Token.DISCLAIMER),
-             Keyboard.main(user.language))
+             Keyboard.main(user))

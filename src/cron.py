@@ -1,5 +1,6 @@
 import schedule
 import time
+import datetime
 
 from telegram import ParseMode
 
@@ -20,24 +21,25 @@ from models import AchievementType
 
 
 def send_game_starting_message_to_all() -> None:
-    mwelog.info("Sending game started message to all users")
-    unmute_everyone()
-    all_users = get_all_users()
-    for user in all_users:
-        try:
-            mwexpress_bot.bot.send_sticker(user.id, GOOD_MORNING_STICKER)
-            send_message_to_user(mwexpress_bot.bot, user,
-                                 user.language.get(Token.GAME_STARTED))
-            todays_mwe = get_todays_mwe(user.language)
-            send_message_to_user(mwexpress_bot.bot, user,
-                                 user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
-                                 reply_markup=Keyboard.main(user.language),
-                                 parse_mode=ParseMode.HTML)
-            time.sleep(0.3)
-        except Exception as ex:
-            mwelog.exception(str(ex))
-
-    mwelog.info("Sent game started message to all users")
+    weekday = datetime.datetime.today().weekday()
+    if weekday < 5:
+        mwelog.info("Sending game started message to all users")
+        unmute_everyone()
+        all_users = get_all_users()
+        for user in all_users:
+            try:
+                mwexpress_bot.bot.send_sticker(user.id, GOOD_MORNING_STICKER)
+                send_message_to_user(mwexpress_bot.bot, user,
+                                     user.language.get(Token.GAME_STARTED))
+                todays_mwe = get_todays_mwe(user.language)
+                send_message_to_user(mwexpress_bot.bot, user,
+                                     user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
+                                     reply_markup=Keyboard.main(user),
+                                     parse_mode=ParseMode.HTML)
+                time.sleep(0.3)
+            except Exception as ex:
+                mwelog.exception(str(ex))
+        mwelog.info("Sent game started message to all users")
 
 
 def end_of_day_job():
@@ -59,6 +61,17 @@ def award_champion():
                 send_message_to_user(mwexpress_bot.bot, first_user,
                                      first_user.language.get(Token.CHAMPION_ACH_CONGRATS_MSG),
                                      parse_mode=ParseMode.HTML)
+                if mwexpress_config.email_enabled:
+                    if first_user.email is None:
+                        send_message_to_user(mwexpress_bot.bot, first_user,
+                                             first_user.language.get(Token.TODAYS_WINNER_WITHOUT_EMAIL),
+                                             parse_mode=ParseMode.HTML)
+                    else:
+                        send_message_to_user(mwexpress_bot.bot, first_user,
+                                             first_user.language.get(Token.TODAYS_WINNER_WITH_EMAIL) % first_user.email,
+                                             parse_mode=ParseMode.HTML)
+                    mwexpress_bot.bot.send_message(mwexpress_config.moderator,
+                                                   f"Todays champion is: {first_user.username}")
             except Exception as ex:
                 mwelog.exception(ex)
 
@@ -72,7 +85,7 @@ def clear_scores_for_today():
         user.score_today_it = 0
     session = database.get_session()
     database.commit(session)
-    scoreboard.iterate()
+    scoreboard.clear()
 
 
 def unmute_everyone():

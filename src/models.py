@@ -138,6 +138,7 @@ class User(Base):
     muted = Column(Boolean, default=False, nullable=False)
     created = Column(DateTime, default=datetime.datetime.now, nullable=False)
     banned = Column(Boolean, default=False, nullable=False)
+    email = Column(String, default=None, nullable=True)
 
     submissions: List[Submission] = relationship("Submission", back_populates="user")
     reviews: List[Review] = relationship("Review", back_populates="user")

@@ -105,11 +105,11 @@ italian_mwes = [
 ]
 
 turkey_time = datetime.datetime.now()
-# mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
-# for mwe in turkish_mwes:
-#     add_mwe(mwe.name, mwe.description, Language.TURKISH, mwe_date, mwe.lemmas,
-#             mwe.category)
-#     mwe_date += datetime.timedelta(days=1)
+mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
+for mwe in turkish_mwes:
+    add_mwe(mwe.name, mwe.description, Language.TURKISH, mwe_date, mwe.lemmas,
+            mwe.category)
+    mwe_date += datetime.timedelta(days=1)
 #
 # mwe_date = date(turkey_time.year, turkey_time.month, turkey_time.day)
 # for mwe in english_mwes:

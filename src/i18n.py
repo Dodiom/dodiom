@@ -133,6 +133,18 @@ class Token(Enum):
     TWITTER_TIP = auto()
     GAME_TEMPORARILY_STOPPED = auto()
     DISCLAIMER = auto()
+    ADD_EMAIL = auto()
+    ADD_EMAIL_START = auto()
+    PLEASE_ENTER_EMAIL = auto()
+    INVALID_EMAIL = auto()
+    CONFIRM_EMAIL = auto()
+    YES = auto()
+    NO = auto()
+    EMAIL_SET = auto()
+    EMAIL_CANCELLED = auto()
+    TODAYS_WINNER_WITH_EMAIL = auto()
+    TODAYS_WINNER_WITHOUT_EMAIL = auto()
+    GAME_STARTED_AGAIN_ANNOUNCEMENT = auto()
 
 
 class Language(Enum):
@@ -830,6 +842,66 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "tr": "Dodiom akademik amaçla tasarlanmıştır. Bu botu kullanarak eklediğiniz verinin dil modelleri için kullanılmasını kabul etmiş sayılırsınız. Kişisel veriler kullanılmamakta ve üçüncü şahıslarla paylaşılmamaktadır.",
         "it": "Dodiom è un sistema sviluppato a scopo di ricerca scientifica. Nell\'utilizzare questo bot accetti che i dati che inserisci potranno essere usati per sviluppare modelli linguistici. Nessun dato personale verrà utilizzato o inviato a terze parti."
     },
+    Token.ADD_EMAIL: {
+        "en": "",
+        "tr": "E-posta Ekle",
+        "it": ""
+    },
+    Token.ADD_EMAIL_START: {
+        "en": "",
+        "tr": "Günün sonunda birinci olup ödül kazanmak için e-posta adresini buradan ekle.\n\n<b><u>Not:</u></b> D&R'da kullandığın e-posta adresini girmen senin için kolaylık sağlayabilir.",
+        "it": ""
+    },
+    Token.PLEASE_ENTER_EMAIL: {
+        "en": "",
+        "tr": "Lütfen e-posta adresini gir",
+        "it": ""
+    },
+    Token.INVALID_EMAIL: {
+        "en": "",
+        "tr": "Girdiğin e-posta adresinde bir hata var gibi, lütfen tekrar gir.",
+        "it": ""
+    },
+    Token.CONFIRM_EMAIL: {
+        "en": "",
+        "tr": "E-posta adresini <b><u>%s</u></b> olarak aldım, onaylıyor musun?",
+        "it": ""
+    },
+    Token.YES: {
+        "en": "",
+        "tr": "Evet",
+        "it": ""
+    },
+    Token.NO: {
+        "en": "",
+        "tr": "Hayır",
+        "it": ""
+    },
+    Token.EMAIL_SET: {
+        "en": "",
+        "tr": "Email'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek eklersen buraya tıklayabilirsin: /eposta_ekle",
+        "it": ""
+    },
+    Token.EMAIL_CANCELLED: {
+        "en": "",
+        "tr": "Email ekleme işlemi iptal edildi.",
+        "it": ""
+    },
+    Token.TODAYS_WINNER_WITH_EMAIL: {
+        "en": "",
+        "tr": "Tebrikler günü birinci bitirdin, <b><u>%s</u></b> e-posta adresine 25₺ D&R hediye çeki göndereceğiz.",
+        "it": ""
+    },
+    Token.TODAYS_WINNER_WITHOUT_EMAIL: {
+        "en": "",
+        "tr": "Tebrikler günü birinci bitirdin, D&R'dan 25₺ hediye kartı kazanmak için lütfen e-posta adresini ekle. E-posta eklemek için şuraya tıklayabilirsin: /eposta_ekle",
+        "it": ""
+    },
+    Token.GAME_STARTED_AGAIN_ANNOUNCEMENT: {
+        "en": "",
+        "tr": "Selam, Dodiom bütün hızıyla geri döndü, üstelik şimdi günü birinci tamamlayarak D&R online mağazasında kullanabileceğin 25TL'lik hediye çeki kazanabilirsin.",
+        "it": ""
+    }
 }
 
 

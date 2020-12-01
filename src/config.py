@@ -15,6 +15,8 @@ class Config:
         self.language = self._read_language(env.str("LANGUAGE", default="tr"))
         self.it_lang_server = env.str("ITALIAN_LANGUAGE_SERVER", default="")
         self.game_stopped = env.bool("GAME_STOPPED", default=False)
+        self.email_enabled = env.bool("EMAIL_ENABLED", default=False)
+        self.moderator = env.int("MODERATOR", default=1065263859)
 
     @staticmethod
     def _read_time(time_str: str) -> time:

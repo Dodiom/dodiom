@@ -1,3 +1,5 @@
+import time
+
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
@@ -5,6 +7,9 @@ from api.user import get_all_users
 from bot.helpers.notification_manager import notification_manager
 from bot.helpers.submission_scores import submission_scores
 from bot.helpers.user_helper import send_message_to_user, get_user_from_update
+from bot.stickers import EXCITED_STICKER
+from config import mwexpress_config
+from i18n import Token
 
 
 def stats(update: Update, context: CallbackContext):
@@ -34,3 +39,15 @@ def send_i_need_x_examples(update: Update, context: CallbackContext):
 
 
 i_need_x_examples_handler = CommandHandler('sendhelp', send_i_need_x_examples, run_async=True)
+
+
+def send_game_started_again_with_awards(update: Update, context: CallbackContext):
+    user = get_user_from_update(update)
+    if user.id == mwexpress_config.moderator or user.id == 1065263859:
+        for user in get_all_users():
+            context.bot.send_sticker(user.id, EXCITED_STICKER)
+            send_message_to_user(context.bot, user, user.language.get(Token.GAME_STARTED_AGAIN_ANNOUNCEMENT))
+            time.sleep(0.5)
+
+
+game_started_again_handler = CommandHandler('game_started_again', send_game_started_again_with_awards, run_async=True)

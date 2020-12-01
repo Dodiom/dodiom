@@ -52,12 +52,11 @@ def start(update: Update, context: CallbackContext):
     context.bot.send_photo(user.id, open("assets/keyboard_button.png", "rb"))
     time.sleep(0.5)
     reply_to(user, update,
-             user.language.get(Token.WELCOME_MESSAGE_8),
-             Keyboard.main(user.language))
+             user.language.get(Token.WELCOME_MESSAGE_8))
     time.sleep(5)
     reply_to(user, update,
              user.language.get(Token.DISCLAIMER),
-             Keyboard.main(user.language))
+             Keyboard.main(user))
 
 
 start_handler = CommandHandler('start', start, run_async=True)
