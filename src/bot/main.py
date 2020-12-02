@@ -1,7 +1,7 @@
 from telegram.ext import Updater, Dispatcher
 
 from bot.handlers.announcements import announcements_handler, review_happy_hour_handler, i_need_x_examples_handler, \
-    game_started_again_handler
+    game_started_again_handler, claim_email_command_handler
 from bot.handlers.email import email_command_handler
 from bot.handlers.message import message_handler, sticker_handler
 from bot.handlers.start import start_handler
@@ -23,6 +23,7 @@ class MWExpress:
         self.dispatcher.add_handler(stats_handler)
         self.dispatcher.add_handler(email_command_handler)
         self.dispatcher.add_handler(game_started_again_handler)
+        self.dispatcher.add_handler(claim_email_command_handler)
         self.dispatcher.add_handler(message_handler)
         self.dispatcher.add_handler(sticker_handler)
 

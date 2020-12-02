@@ -37,6 +37,9 @@ def achievements_handler(user: User, update: Update, context: CallbackContext):
     update.message.reply_html(user.language.get(Token.LOCKED_ACHIEVEMENTS)
                               + "\n" + print_locked_achievements(user, user_achievements))
 
+    if user.became_champion and user.email is None:
+        update.message.reply_text(user.language.get(Token.CHAMP_BUT_NO_EMAIL))
+
 
 def print_unlocked_achievements(user: User, achievements: List[AchievementType]) -> str:
     unlocked_message = ""

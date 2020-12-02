@@ -57,3 +57,21 @@ def send_game_started_again_with_awards(update: Update, context: CallbackContext
 
 
 game_started_again_handler = CommandHandler('game_started_again', send_game_started_again_with_awards, run_async=True)
+
+
+def claim_email_announcement(update: Update, context: CallbackContext):
+    mwelog.info("Sending claim email announcement to champions")
+    user = get_user_from_update(update)
+    if user.id == mwexpress_config.moderator or user.id == 1065263859:
+        for user in get_all_users():
+            if user.became_champion:
+                try:
+                    mwelog.info(f"Sending claim email message to {user.username}")
+                    context.bot.send_sticker(user.id, EXCITED_STICKER)
+                    context.bot.send_message(user.id, user.language.get(Token.CHAMP_BUT_NO_EMAIL))
+                    time.sleep(0.5)
+                except Exception as ex:
+                    mwelog.exception(str(ex))
+
+
+claim_email_command_handler = CommandHandler('claim_emails', claim_email_announcement, run_async=True)

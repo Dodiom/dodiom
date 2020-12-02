@@ -139,6 +139,7 @@ class User(Base):
     created = Column(DateTime, default=datetime.datetime.now, nullable=False)
     banned = Column(Boolean, default=False, nullable=False)
     email = Column(String, default=None, nullable=True)
+    became_champion = Column(Boolean, default=False, nullable=False)
 
     submissions: List[Submission] = relationship("Submission", back_populates="user")
     reviews: List[Review] = relationship("Review", back_populates="user")

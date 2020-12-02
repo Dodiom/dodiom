@@ -144,6 +144,7 @@ class Token(Enum):
     TODAYS_WINNER_WITH_EMAIL = auto()
     TODAYS_WINNER_WITHOUT_EMAIL = auto()
     GAME_STARTED_AGAIN_ANNOUNCEMENT = auto()
+    CHAMP_BUT_NO_EMAIL = auto()
 
 
 class Language(Enum):
@@ -398,7 +399,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.GAME_HOURS_FINISHED: {
         "en": "Today\'s game has ended. The new game will start at %d am UTC.",
-        "tr": "Oyun bugünlük bitti, yeni günün oyunu saat %d\'da tekrar başlayacak.",
+        "tr": "Oyun bugünlük bitti, yeni günün oyunu saat %d\'de tekrar başlayacak.",
         "it": "Il gioco di oggi è terminato, il nuovo gioco inizierà alle %d di mattina"
     },
     Token.GAME_STARTED: {
@@ -894,6 +895,11 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     Token.GAME_STARTED_AGAIN_ANNOUNCEMENT: {
         "en": "",
         "tr": "Selam, Dodiom bütün hızıyla geri döndü, üstelik şimdi günü birinci tamamlayarak D&R online mağazasında kullanabileceğin 25TL'lik hediye çeki kazanabilirsin.",
+        "it": ""
+    },
+    Token.CHAMP_BUT_NO_EMAIL: {
+        "en": "",
+        "tr": "Yakın zamanda şampiyon olmuşsun ama henüz e-posta adresini eklememişsin, 25 TL D&R hediye çeki için lütfen e-posta adresini ekle: /eposta_ekle",
         "it": ""
     }
 }

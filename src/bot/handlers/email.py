@@ -9,6 +9,7 @@ from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, reply_html, get_user_from_update
 from i18n import Token
+from log import mwelog
 from models import User
 
 
@@ -31,17 +32,16 @@ def email_handler(update: Update, context: CallbackContext):
 
 
 def ask_for_email(user: User, update: Update, context: CallbackContext):
+    mwelog.info(f"Asked for email from {user.username}")
     context.user_data["sub_state"] = "typing_email"
     reply_html(user, update, user.language.get(Token.ADD_EMAIL_START),
                reply_markup=Keyboard.remove())
-    # time.sleep(1)
-    # reply_to(user, update, user.language.get(Token.PLEASE_ENTER_EMAIL),
-    #          reply_markup=Keyboard.remove())
 
 
 def check_email_and_ask_confirmation(user: User, update: Update, context: CallbackContext):
     email_regex = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)'
     email = update.message.text
+    mwelog.info(f"Email got from {user.username}: {email}")
     if not re.match(email_regex, email):
         reply_to(user, update, user.language.get(Token.INVALID_EMAIL),
                  reply_markup=Keyboard.remove())
@@ -73,6 +73,7 @@ def confirm_email(user: User, update: Update, context: CallbackContext):
         _clear_context(context)
         reply_html(user, update, user.language.get(Token.EMAIL_SET) % email,
                    Keyboard.main(user))
+        mwelog.info(f"{user.username} confirms {email} is correct")
     else:
         _clear_context(context)
         reply_to(user, update, user.language.get(Token.EMAIL_CANCELLED),
