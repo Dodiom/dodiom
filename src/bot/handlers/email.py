@@ -34,9 +34,9 @@ def ask_for_email(user: User, update: Update, context: CallbackContext):
     context.user_data["sub_state"] = "typing_email"
     reply_html(user, update, user.language.get(Token.ADD_EMAIL_START),
                reply_markup=Keyboard.remove())
-    time.sleep(1)
-    reply_to(user, update, user.language.get(Token.PLEASE_ENTER_EMAIL),
-             reply_markup=Keyboard.remove())
+    # time.sleep(1)
+    # reply_to(user, update, user.language.get(Token.PLEASE_ENTER_EMAIL),
+    #          reply_markup=Keyboard.remove())
 
 
 def check_email_and_ask_confirmation(user: User, update: Update, context: CallbackContext):

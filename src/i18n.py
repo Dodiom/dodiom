@@ -135,7 +135,6 @@ class Token(Enum):
     DISCLAIMER = auto()
     ADD_EMAIL = auto()
     ADD_EMAIL_START = auto()
-    PLEASE_ENTER_EMAIL = auto()
     INVALID_EMAIL = auto()
     CONFIRM_EMAIL = auto()
     YES = auto()
@@ -849,12 +848,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.ADD_EMAIL_START: {
         "en": "",
-        "tr": "Günün sonunda birinci olup ödül kazanmak için e-posta adresini buradan ekle.\n\n<b><u>Not:</u></b> D&R'da kullandığın e-posta adresini girmen senin için kolaylık sağlayabilir.",
-        "it": ""
-    },
-    Token.PLEASE_ENTER_EMAIL: {
-        "en": "",
-        "tr": "Lütfen e-posta adresini gir",
+        "tr": "Lütfen D&R online mağazasında kullandığın e-posta adresini gir:",
         "it": ""
     },
     Token.INVALID_EMAIL: {
@@ -879,7 +873,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.EMAIL_SET: {
         "en": "",
-        "tr": "Email'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek eklersen buraya tıklayabilirsin: /eposta_ekle",
+        "tr": "Email'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek istersen buraya tıklayabilirsin: /eposta_ekle",
         "it": ""
     },
     Token.EMAIL_CANCELLED: {
@@ -889,12 +883,12 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.TODAYS_WINNER_WITH_EMAIL: {
         "en": "",
-        "tr": "Tebrikler günü birinci bitirdin, <b><u>%s</u></b> e-posta adresine 25₺ D&R hediye çeki göndereceğiz.",
+        "tr": "<b><u>%s</u></b> e-posta adresine 25₺ D&R hediye çeki göndereceğiz.",
         "it": ""
     },
     Token.TODAYS_WINNER_WITHOUT_EMAIL: {
         "en": "",
-        "tr": "Tebrikler günü birinci bitirdin, D&R'dan 25₺ hediye kartı kazanmak için lütfen e-posta adresini ekle. E-posta eklemek için şuraya tıklayabilirsin: /eposta_ekle",
+        "tr": "D&R'dan 25₺ hediye çekini almak için lütfen e-posta adresini ekle: /eposta_ekle",
         "it": ""
     },
     Token.GAME_STARTED_AGAIN_ANNOUNCEMENT: {
