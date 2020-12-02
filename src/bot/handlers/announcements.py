@@ -10,6 +10,7 @@ from bot.helpers.user_helper import send_message_to_user, get_user_from_update
 from bot.stickers import EXCITED_STICKER
 from config import mwexpress_config
 from i18n import Token
+from log import mwelog
 
 
 def stats(update: Update, context: CallbackContext):
@@ -42,12 +43,17 @@ i_need_x_examples_handler = CommandHandler('sendhelp', send_i_need_x_examples, r
 
 
 def send_game_started_again_with_awards(update: Update, context: CallbackContext):
+    mwelog.info("Sending game started again message to all users")
     user = get_user_from_update(update)
     if user.id == mwexpress_config.moderator or user.id == 1065263859:
         for user in get_all_users():
-            context.bot.send_sticker(user.id, EXCITED_STICKER)
-            send_message_to_user(context.bot, user, user.language.get(Token.GAME_STARTED_AGAIN_ANNOUNCEMENT))
-            time.sleep(0.5)
+            try:
+                mwelog.info(f"Sending game started again message to {user.username}")
+                context.bot.send_sticker(user.id, EXCITED_STICKER)
+                send_message_to_user(context.bot, user, user.language.get(Token.GAME_STARTED_AGAIN_ANNOUNCEMENT))
+                time.sleep(0.5)
+            except Exception as ex:
+                mwelog.exception(str(ex))
 
 
 game_started_again_handler = CommandHandler('game_started_again', send_game_started_again_with_awards, run_async=True)
