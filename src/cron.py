@@ -21,25 +21,23 @@ from models import AchievementType
 
 
 def send_game_starting_message_to_all() -> None:
-    weekday = datetime.datetime.today().weekday()
-    if weekday < 5:
-        mwelog.info("Sending game started message to all users")
-        unmute_everyone()
-        all_users = get_all_users()
-        for user in all_users:
-            try:
-                mwexpress_bot.bot.send_sticker(user.id, GOOD_MORNING_STICKER)
-                send_message_to_user(mwexpress_bot.bot, user,
-                                     user.language.get(Token.GAME_STARTED))
-                todays_mwe = get_todays_mwe(user.language)
-                send_message_to_user(mwexpress_bot.bot, user,
-                                     user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
-                                     reply_markup=Keyboard.main(user),
-                                     parse_mode=ParseMode.HTML)
-                time.sleep(0.3)
-            except Exception as ex:
-                mwelog.exception(str(ex))
-        mwelog.info("Sent game started message to all users")
+    mwelog.info("Sending game started message to all users")
+    unmute_everyone()
+    all_users = get_all_users()
+    for user in all_users:
+        try:
+            mwexpress_bot.bot.send_sticker(user.id, GOOD_MORNING_STICKER)
+            send_message_to_user(mwexpress_bot.bot, user,
+                                 user.language.get(Token.GAME_STARTED))
+            todays_mwe = get_todays_mwe(user.language)
+            send_message_to_user(mwexpress_bot.bot, user,
+                                 user.language.get(Token.TODAYS_MWE_REPLY_TEXT) % (todays_mwe.name, todays_mwe.meaning),
+                                 reply_markup=Keyboard.main(user),
+                                 parse_mode=ParseMode.HTML)
+            time.sleep(0.3)
+        except Exception as ex:
+            mwelog.exception(str(ex))
+    mwelog.info("Sent game started message to all users")
 
 
 def end_of_day_job():
