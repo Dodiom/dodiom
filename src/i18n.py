@@ -843,64 +843,64 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Dodiom è un sistema sviluppato a scopo di ricerca scientifica. Nell\'utilizzare questo bot accetti che i dati che inserisci potranno essere usati per sviluppare modelli linguistici. Nessun dato personale verrà utilizzato o inviato a terze parti."
     },
     Token.ADD_EMAIL: {
-        "en": "",
+        "en": "Add Email",
         "tr": "E-posta Ekle",
-        "it": ""
+        "it": "Aggiungi la tua e-mail"
     },
     Token.ADD_EMAIL_START: {
-        "en": "",
+        "en": "Please enter your e-mail address which you use in the <Book Store Name here>",
         "tr": "Lütfen D&R online mağazasında kullandığın e-posta adresini gir:",
-        "it": ""
+        "it": "Per favore inserisci l'indirizzo e-mail che usi per Amazon.it digitale."
     },
     Token.INVALID_EMAIL: {
-        "en": "",
+        "en": "It looks like the e-mail address you entered is invalid, please try again.",
         "tr": "Girdiğin e-posta adresinde bir hata var gibi, lütfen tekrar gir.",
-        "it": ""
+        "it": "Il tuo indirizzo e-mail non è valido, per favore riprova."
     },
     Token.CONFIRM_EMAIL: {
-        "en": "",
+        "en": "I saved your e-mail address as <b><u>%s</u></b>, do you accept?",
         "tr": "E-posta adresini <b><u>%s</u></b> olarak aldım, onaylıyor musun?",
-        "it": ""
+        "it": "Ho salvato il tuo indirizzo e-mail come <b><u>%s</u></b>, accetti?"
     },
     Token.YES: {
-        "en": "",
+        "en": "Yes",
         "tr": "Evet",
-        "it": ""
+        "it": "Sì"
     },
     Token.NO: {
-        "en": "",
+        "en": "No",
         "tr": "Hayır",
-        "it": ""
+        "it": "No"
     },
     Token.EMAIL_SET: {
-        "en": "",
+        "en": "I saved your e-mail address as <b><u>%s</u></b>, thank you? You can always update it with: /add_email",
         "tr": "Email'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek istersen buraya tıklayabilirsin: /eposta_ekle",
-        "it": ""
+        "it": "Ho salvato il tuo indirizzo e-mail come <b><u>%s</u></b>, grazie! Lo puoi sempre aggiornare con: /aggiungi_email"
     },
     Token.EMAIL_CANCELLED: {
-        "en": "",
+        "en": "You cancelled adding email",
         "tr": "Email ekleme işlemi iptal edildi.",
-        "it": ""
+        "it": "Hai cancellato il tuo indirizzo e-mail."
     },
     Token.TODAYS_WINNER_WITH_EMAIL: {
-        "en": "",
+        "en": "We'll send ₺25 gift card to you e-mail: <b><u>%s</u></b>",
         "tr": "<b><u>%s</u></b> e-posta adresine 25₺ D&R hediye çeki göndereceğiz.",
-        "it": ""
+        "it": "Ti invieremo un buono regalo Amazon.it digitale di € 5 alla tua e-mail: <b><u>%s</u></b>"
     },
     Token.TODAYS_WINNER_WITHOUT_EMAIL: {
-        "en": "",
+        "en": "To get a ₺25 <BOOK STORE NAME> gift card, please /add_email",
         "tr": "D&R'dan 25₺ hediye çekini almak için lütfen e-posta adresini ekle: /eposta_ekle",
-        "it": ""
+        "it": "Per ottenere il buono regalo Amazon.it digitale di € 5  per favore /aggiungi_email"
     },
     Token.GAME_STARTED_AGAIN_ANNOUNCEMENT: {
-        "en": "",
+        "en": "Hello, Dodiom is back again. Also now you can win ₺25 gift card from <BOOK STORE NAME> if you finish the day in the first place.",
         "tr": "Selam, Dodiom bütün hızıyla geri döndü, üstelik şimdi günü birinci tamamlayarak D&R online mağazasında kullanabileceğin 25TL'lik hediye çeki kazanabilirsin.",
-        "it": ""
+        "it": "Ciao, Dodiom è di nuovo qui. Puoi vincere un buono regalo Amazon.it digitale di € 5 se diventi il campione del giorno."
     },
     Token.CHAMP_BUT_NO_EMAIL: {
-        "en": "",
+        "en": "You've became champion recently but haven't add email, to get ₺25 <BOOK STORE NAME> gift card, please /add_email",
         "tr": "Yakın zamanda şampiyon olmuşsun ama henüz e-posta adresini eklememişsin, 25 TL D&R hediye çeki için lütfen e-posta adresini ekle: /eposta_ekle",
-        "it": ""
+        "it": "Sei diventato il campione ma non hai aggiunto la tua  e-mail, per ottenere il buono regalo Amazon.it digitale di € 2,5,  per favore /aggiungi_email"
     }
 }
 

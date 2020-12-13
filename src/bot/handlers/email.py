@@ -1,5 +1,4 @@
 import re
-import time
 
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
@@ -8,6 +7,7 @@ from api.user import update_user
 from bot.helpers.keyboard_helper import Keyboard
 from bot.helpers.state_helper import set_state, State, clear_state
 from bot.helpers.user_helper import reply_to, reply_html, get_user_from_update
+from config import mwexpress_config
 from i18n import Token
 from log import mwelog
 from models import User
@@ -74,6 +74,11 @@ def confirm_email(user: User, update: Update, context: CallbackContext):
         reply_html(user, update, user.language.get(Token.EMAIL_SET) % email,
                    Keyboard.main(user))
         mwelog.info(f"{user.username} confirms {email} is correct")
+        try:
+            context.bot.send_message(mwexpress_config.moderator,
+                                     f"{user.username} set their email as: {email}")
+        except Exception as ex:
+            mwelog.exception(ex)
     else:
         _clear_context(context)
         reply_to(user, update, user.language.get(Token.EMAIL_CANCELLED),
@@ -88,4 +93,4 @@ def _clear_context(context: CallbackContext):
         del context.user_data["email"]
 
 
-email_command_handler = CommandHandler(['eposta_ekle', 'add_email'], email_handler, run_async=True)
+email_command_handler = CommandHandler(['eposta_ekle', 'add_email', 'aggiungi_email'], email_handler, run_async=True)
