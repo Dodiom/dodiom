@@ -4,7 +4,7 @@ from telegram.ext import CallbackContext
 from api.mwe import get_todays_mwe
 from bot.helpers.scoreboard import scoreboard
 from database import database
-from i18n import Token
+from i18n import Token, Language
 from models import User, Submission
 
 
@@ -17,4 +17,5 @@ def scoreboard_handler(user: User, update: Update, context: CallbackContext):
         update.message.reply_text(user.language.get(Token.TODAYS_TARGET) % (100 - submission_count_now))
     if user.became_champion and user.email is None:
         update.message.reply_text(user.language.get(Token.CHAMP_BUT_NO_EMAIL))
-    update.message.reply_text(user.language.get(Token.SURVEY_MESSAGE))
+    if user.language == Language.TURKISH:
+        update.message.reply_text(user.language.get(Token.SURVEY_MESSAGE))
