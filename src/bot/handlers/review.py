@@ -31,6 +31,7 @@ def _user_not_in_reviewers(submission: Submission, user: User) -> bool:
 
 def get_submissions_to_review(mwe: Mwe, user: User) -> List[Submission]:
     session = database.get_session()
+    time.sleep(0.3)
     submissions = session.query(Submission) \
         .filter(Submission.user != user) \
         .filter(Submission.mwe == mwe) \

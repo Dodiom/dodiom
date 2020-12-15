@@ -1,6 +1,5 @@
 import schedule
 import time
-import datetime
 
 from telegram import ParseMode
 

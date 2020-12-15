@@ -145,6 +145,7 @@ class Token(Enum):
     TODAYS_WINNER_WITHOUT_EMAIL = auto()
     GAME_STARTED_AGAIN_ANNOUNCEMENT = auto()
     CHAMP_BUT_NO_EMAIL = auto()
+    SURVEY_MESSAGE = auto()
 
 
 class Language(Enum):
@@ -901,6 +902,11 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "en": "You've became champion recently but haven't add email, to get ₺25 <BOOK STORE NAME> gift card, please /add_email",
         "tr": "Yakın zamanda şampiyon olmuşsun ama henüz e-posta adresini eklememişsin, 25 TL D&R hediye çeki için lütfen e-posta adresini ekle: /eposta_ekle",
         "it": "Sei diventato il campione ma non hai aggiunto la tua  e-mail, per ottenere il buono regalo Amazon.it digitale di € 2,5,  per favore /aggiungi_email"
+    },
+    Token.SURVEY_MESSAGE: {
+        "en": "Hey, today Dodo has some very important questions for you: <survey link>",
+        "tr": "Hey, Dodo'nun sana çok önemli soruları var. https://forms.gle/95KvzQ4HpubCxN7W9",
+        "it": ""
     }
 }
 

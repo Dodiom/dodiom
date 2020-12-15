@@ -17,7 +17,11 @@ def stats(update: Update, context: CallbackContext):
     message = update.message.text.replace("/announce ", "")
     if len(message) > 10:
         for user in get_all_users():
-            send_message_to_user(context.bot, user, message)
+            try:
+                send_message_to_user(context.bot, user, message)
+                time.sleep(0.3)
+            except Exception as ex:
+                mwelog.exception(ex)
 
 
 announcements_handler = CommandHandler('announce', stats, run_async=True)
