@@ -406,7 +406,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     Token.GAME_STARTED: {
         "en": "Good morning! Dodo has started a new game.",
         "tr": "Günaydın, yeni oyun başladı.",
-        "it": "Buon giorno! Un nuovo gioco è iniziato."
+        "it": "Buon giorno! Un nuovo gioco è iniziato. Vi ricordo che oggi il 🎖 Campione del giorno  riceverà un buono di € 5,00 da spendere su http://Amazon.it digitale."
     },
     Token.GAME_ENDED: {
         "en": "The game has ended for today. Thank you for playing!",
