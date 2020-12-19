@@ -45,6 +45,7 @@ def message(update: Update, context: CallbackContext):
         if mwexpress_config.game_stopped:
             update.message.reply_sticker(COFFEE_STICKER)
             update.message.reply_text(user.language.get(Token.GAME_TEMPORARILY_STOPPED))
+            update.message.reply_text(user.language.get(Token.SURVEY_MESSAGE))
             return
 
         if get_state(context) != State.NONE:
