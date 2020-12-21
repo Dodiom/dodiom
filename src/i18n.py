@@ -252,7 +252,7 @@ translations = {
     Token.AGREE_NICE_EXAMPLE: {
         "en": "👍 I agree. Nice example",
         "tr": "👍 Katılıyorum. Doğru tespit.",
-        "it": "👍 Bell\'esempio, mi piace."
+        "it": "👍 Bell\'esempio, sono d'accordo."
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
         "en": "👎 I do not like this example",
