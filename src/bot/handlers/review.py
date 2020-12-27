@@ -24,21 +24,20 @@ from api.review import add_review
 from nlp.parsing import parser
 
 
-def _user_not_in_reviewers(submission: Submission, user: User) -> bool:
-    all_reviewer_names = [x.user.username for x in submission.reviews]
-    return user.username not in all_reviewer_names
-
-
 def get_submissions_to_review(mwe: Mwe, user: User) -> List[Submission]:
     session = database.get_session()
-    time.sleep(0.3)
     submissions = session.query(Submission) \
         .filter(Submission.user != user) \
         .filter(Submission.mwe == mwe) \
         .filter(Submission.flagged == False) \
         .all()
+    reviews_made_by_user = session.query(Review) \
+        .filter(Review.user == user) \
+        .filter(Review.mwe == mwe) \
+        .all()
+    reviews_made_by_user_sub_ids = [x.submission_id for x in reviews_made_by_user]
     submissions = sorted(submissions, key=lambda x: x.review_count)
-    return [x for x in submissions if _user_not_in_reviewers(x, user)]
+    return [x for x in submissions if x.id not in reviews_made_by_user_sub_ids]
 
 
 def main_review_handler(user: User, update: Update, context: CallbackContext):
