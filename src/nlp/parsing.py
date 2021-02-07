@@ -2,6 +2,7 @@ import itertools
 import threading
 from functools import lru_cache
 from typing import List, Tuple, Dict
+from fnmatch import fnmatch
 
 import nltk
 from nltk.stem.snowball import SnowballStemmer
@@ -9,7 +10,6 @@ import tokenizations
 import zeyrek
 
 from i18n import Language
-from log import mwelog
 from models import Mwe
 from nlp.italian.lemma import it_lemmatizer
 
@@ -30,10 +30,24 @@ class Parsed:
         self.lemmas_flattened = set(_flatten_str_list(self.lemmas))
 
     def contains_mwe(self, mwe: Mwe) -> bool:
-        return all([lemma in self.lemmas_flattened for lemma in mwe.lemmas])
+        return self.contains_mwe_with_lemmas(mwe.lemmas)
 
     def contains_mwe_with_lemmas(self, lemmas: List[str]) -> bool:
-        return all([lemma in self.lemmas_flattened for lemma in lemmas])
+        all_lemmas_exist = True
+
+        for lemma in lemmas:
+            this_lemma_exists = False
+            for possible_lemma in lemma.split("|"):
+                if "*" in possible_lemma or "?" in possible_lemma:
+                    if any([fnmatch(parsed_lemma, possible_lemma) for parsed_lemma in self.lemmas_flattened]):
+                        this_lemma_exists = True
+                    elif any([fnmatch(parsed_token, possible_lemma) for parsed_token in self.tokens]):
+                        this_lemma_exists = True
+                else:
+                    this_lemma_exists = any([parsed_lemma == possible_lemma for parsed_lemma in self.lemmas_flattened])
+            all_lemmas_exist = all_lemmas_exist and this_lemma_exists
+
+        return all_lemmas_exist
 
     def get_mwe_indices(self, mwe: Mwe) -> Tuple:
         if not self.contains_mwe(mwe):
@@ -43,9 +57,18 @@ class Parsed:
         submission_lemmas = self.get_lemmas(mwe)
         for ix_tm, mwe_lemma in enumerate(mwe.lemmas):
             mwe_lemma_positions[mwe_lemma] = []
-            for ix, lemma in enumerate(submission_lemmas):
-                if lemma == mwe_lemma:
-                    mwe_lemma_positions[mwe_lemma].append(ix)
+            for possible_lemma in mwe_lemma.split("|"):
+                if "*" in possible_lemma or "?" in possible_lemma:
+                    for ix, lemma in enumerate(submission_lemmas):
+                        if fnmatch(lemma, possible_lemma):
+                            mwe_lemma_positions[mwe_lemma].append(ix)
+                    for ix, token in enumerate(self.tokens):
+                        if fnmatch(token, possible_lemma):
+                            mwe_lemma_positions[mwe_lemma].append(ix)
+                else:
+                    for ix, lemma in enumerate(submission_lemmas):
+                        if lemma == possible_lemma:
+                            mwe_lemma_positions[mwe_lemma].append(ix)
 
         mwe_instances = list(itertools.product(*[x for x in mwe_lemma_positions.values()]))
         mwe_instances_sorted = sorted(mwe_instances, key=lambda x: max(x) - min(x))
@@ -96,7 +119,7 @@ class Parser:
     def parse(self, language: Language, text: str,
               mwe_lemmas: str = None) -> Parsed:
         with self.parser_lock:
-            mwelog.info("Parsing cache miss")
+            # mwelog.info("Parsing cache miss")
             if language == Language.ENGLISH:
                 tokens = nltk.word_tokenize(text)
                 token_positions = tokenizations.get_original_spans(tokens, text)
@@ -110,7 +133,7 @@ class Parser:
 
                 if mwe_lemmas is not None:
                     if not parsed.contains_mwe_with_lemmas(mwe_lemmas.split("|")):
-                        mwelog.info("Refreshing stemmer")
+                        # mwelog.info("Refreshing stemmer")
                         self.turkish_stemmer = zeyrek.MorphAnalyzer()
                         token_positions = tokenizations.get_original_spans(tokens, text)
                         lemmas = [self._get_tr_stem(token) for token in tokens]

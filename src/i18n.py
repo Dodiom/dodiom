@@ -145,6 +145,8 @@ class Token(Enum):
     TODAYS_WINNER_WITHOUT_EMAIL = auto()
     GAME_STARTED_AGAIN_ANNOUNCEMENT = auto()
     CHAMP_BUT_NO_EMAIL = auto()
+    GIFT_CARD_RECIPIENT_NAME = auto()
+    GIFT_CARD_MESSAGE = auto()
     SURVEY_MESSAGE = auto()
 
 
@@ -252,7 +254,7 @@ translations = {
     Token.AGREE_NICE_EXAMPLE: {
         "en": "👍 I agree. Nice example",
         "tr": "👍 Katılıyorum. Doğru tespit.",
-        "it": "👍 Bell\'esempio, sono d'accordo."
+        "it": "👍 Bell\'esempio, sono d\'accordo."
     },
     Token.DO_NOT_LIKE_EXAMPLE: {
         "en": "👎 I do not like this example",
@@ -321,7 +323,7 @@ Hello 😊
 Dodo is trying to learn English, but has a hard time learning English idioms. Could you help him? We ask you to give Dodo plenty of examples, to understand how people use idioms in their daily speech.
 
 Dodo needs lots of  idiom and non-idiom examples.
-For example, to learn the idiom \"give up\"\nhe needs an idiom example such as \"Ok, I give up now.\" \nand a non-idiom example such as \"Can you give that book up to me?\"
+For example, to learn the idiom \"pull (one\'s leg)\"\nhe needs an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \nand a non-idiom example such as \"For next exercise, pull your leg to your chest.\"
 """,
         "tr": """
 Merhaba 😊 
@@ -444,7 +446,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Semplice! Dammi diversi esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali."
     },
     Token.WELCOME_MESSAGE_6: {
-        "en": "For example, in order to learn the idiom \"Give up\"\nI need an idiom example such as \"Ok, I give up now.\" \n and a non-idiom example such as \"Can you give that book up to me?\"",
+        "en": "For example, in order to learn the idiom \"pull (one\'s) leg\"\nI need an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \n and a non-idiom example such as \"For next exercise, pull your leg to your chest.\"",
         "tr": "Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek",
         "it": "Per esempio, per imparare il modo di dire \"prendere all\'amo\"\n ho bisogno di una frase come \"Sa come prendere all\'amo il suo capo\" \n  e un di un’altra in cui la stessa espressione non viene usata in modo  idiomatico. Ad esempio: \"Ha preso all\'amo una bella trota\"."
     },
@@ -484,7 +486,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Sia tu che il giocatore che valuti guadagnerete punti."
     },
     Token.HINT_MESSAGE_1: {
-        "en": "Pro tip! Examples where the words that make up the phrase are next to each other within a sentence, but do not form an idiom, now earn more points. Ex: Will you please <b><u>give up</u></b> that book to me?",
+        "en": "For example, in order to learn the idiom \"pull (one\'s) leg\"\nI need an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \n and a non-idiom example such as \"For next exercise, pull your leg to your chest.\"",
         "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. Örn: “Bugün üç <b><u>ayva yedim</u></b>.",
         "it": "Forza dai! Esempi in cui le parole che compongono il modo di dire sono vicine ma non vengono usate in senso idiomatico guadagnano ora più punti. Es.: Ha preso all\'amo una bella trota."
     },
@@ -494,7 +496,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Valuta i suggerimenti degli altri per guadagnare più punti."
     },
     Token.HINT_MESSAGE_3: {
-        "en": "Might some other words appear between the idiom\'s words?  \nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢  Help me out - you win more points with such examples.",
+        "en": "Might some other words appear between the idiom\'s words?  \nExample: </u></b>Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢  Help me out - you win more points with such examples.",
         "tr": "Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.\nÖrn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.\nBöyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.",
         "it": "Sai che talvolta ci possono essere altre parole tra le parole del modo di dire? \nEsempio: L\'ha <b><u>preso</u></b> proprio <b><u>all\'amo</u></b>il suo capo!\nHo pochi esempi di questo tipo.😢 Dai forza! Puoi guadagnare più punti con questi esempi."
     },
@@ -779,7 +781,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Sbrigati, per un tempo limitato gli esempi idiomatici valgono 15 punti, invece di 10."
     },
     Token.NEG_TOG_WORTH_MORE: {
-        "en": "Psst! For a limited time, non-idiom examples (such as: Will you please <b><u>give up</u></b> that book to me?) are worth 15 points, instead of 10.",
+        "en": "Psst! For a limited time, non-idiom examples (such as: For next exercise, <b><u>pull</u></b> your <b><u>leg</u></b> to your chest.) are worth 15 points, instead of 10.",
         "tr": "Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor.",
         "it": "Sbrigati, per un tempo limitato, esempi non idiomatici (es: \"Ha <b><u>preso all\'amo</u></b> una bella trota\" ) valgono 15 punti, invece di 10."
     },
@@ -841,7 +843,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     Token.DISCLAIMER: {
         "en": "Dodiom is a developed for research purposes. In using this bot you accept that the data you add can be used to develop linguistic models. No personal data will be used or forwarded to third parties.",
         "tr": "Dodiom akademik amaçla tasarlanmıştır. Bu botu kullanarak eklediğiniz verinin dil modelleri için kullanılmasını kabul etmiş sayılırsınız. Kişisel veriler kullanılmamakta ve üçüncü şahıslarla paylaşılmamaktadır.",
-        "it": "Dodiom è un sistema sviluppato a scopo di ricerca scientifica. Nell\'utilizzare questo bot accetti che i dati che inserisci potranno essere usati per sviluppare modelli linguistici. Nessun dato personale verrà utilizzato o inviato a terze parti."
+        "it": "Dodiom è un sistema sviluppato a scopi di ricerca scientifica. Nell\'utilizzare questo bot accetti che i dati che inserisci potranno essere usati per sviluppare modelli linguistici. Nessun dato personale verrà utilizzato o inviato a terze parti."
     },
     Token.ADD_EMAIL: {
         "en": "Add Email",
@@ -851,7 +853,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     Token.ADD_EMAIL_START: {
         "en": "Please enter your e-mail address which you use in the <Book Store Name here>",
         "tr": "Lütfen D&R online mağazasında kullandığın e-posta adresini gir:",
-        "it": "Per favore inserisci l'indirizzo e-mail che usi per Amazon.it digitale."
+        "it": "Per favore inserisci l\'indirizzo e-mail che usi per Amazon.it digitale."
     },
     Token.INVALID_EMAIL: {
         "en": "It looks like the e-mail address you entered is invalid, please try again.",
@@ -875,7 +877,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
     },
     Token.EMAIL_SET: {
         "en": "I saved your e-mail address as <b><u>%s</u></b>, thank you? You can always update it with: /add_email",
-        "tr": "Email'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek istersen buraya tıklayabilirsin: /eposta_ekle",
+        "tr": "Email\'ini <b><u>%s</u></b> olarak kaydettim, teşekkür ederim. İleride değiştirmek istersen buraya tıklayabilirsin: /eposta_ekle",
         "it": "Ho salvato il tuo indirizzo e-mail come <b><u>%s</u></b>, grazie! Lo puoi sempre aggiornare con: /aggiungi_email"
     },
     Token.EMAIL_CANCELLED: {
@@ -884,30 +886,40 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Hai cancellato il tuo indirizzo e-mail."
     },
     Token.TODAYS_WINNER_WITH_EMAIL: {
-        "en": "We'll send ₺25 gift card to you e-mail: <b><u>%s</u></b>",
+        "en": "We\'ll send ₺25 gift card to you e-mail: <b><u>%s</u></b>",
         "tr": "<b><u>%s</u></b> e-posta adresine 25₺ D&R hediye çeki göndereceğiz.",
         "it": "Ti invieremo un buono regalo Amazon.it digitale di € 5 alla tua e-mail: <b><u>%s</u></b>"
     },
     Token.TODAYS_WINNER_WITHOUT_EMAIL: {
         "en": "To get a ₺25 <BOOK STORE NAME> gift card, please /add_email",
-        "tr": "D&R'dan 25₺ hediye çekini almak için lütfen e-posta adresini ekle: /eposta_ekle",
+        "tr": "D&R\'dan 25₺ hediye çekini almak için lütfen e-posta adresini ekle: /eposta_ekle",
         "it": "Per ottenere il buono regalo Amazon.it digitale di € 5  per favore /aggiungi_email"
     },
     Token.GAME_STARTED_AGAIN_ANNOUNCEMENT: {
         "en": "Hello, Dodiom is back again. Also now you can win ₺25 gift card from <BOOK STORE NAME> if you finish the day in the first place.",
-        "tr": "Selam, Dodiom bütün hızıyla geri döndü, üstelik şimdi günü birinci tamamlayarak D&R online mağazasında kullanabileceğin 25TL'lik hediye çeki kazanabilirsin.",
+        "tr": "Selam, Dodiom bütün hızıyla geri döndü, üstelik şimdi günü birinci tamamlayarak D&R online mağazasında kullanabileceğin 25TL\'lik hediye çeki kazanabilirsin.",
         "it": "Ciao, Dodiom è di nuovo qui. Puoi vincere un buono regalo Amazon.it digitale di € 5 se diventi il campione del giorno."
     },
     Token.CHAMP_BUT_NO_EMAIL: {
-        "en": "You've became champion recently but haven't add email, to get ₺25 <BOOK STORE NAME> gift card, please /add_email",
-        "tr": "Yakın zamanda şampiyon olmuşsun ama henüz e-posta adresini eklememişsin, 25 TL D&R hediye çeki için lütfen e-posta adresini ekle: /eposta_ekle",
-        "it": "Sei diventato il campione ma non hai aggiunto la tua  e-mail, per ottenere il buono regalo Amazon.it digitale di € 2,5,  per favore /aggiungi_email"
+        "en": "You\'ve became champion recently but haven\'t add email, to get ₺25 <BOOK STORE NAME> gift card, please /add_email",
+        "tr": "",
+        "it": "Sei diventato il campione ma non hai aggiunto la tua  e-mail, per ottenere il buono regalo Amazon.it digitale di € 5,  per favore /aggiungi_email"
+    },
+    Token.GIFT_CARD_RECIPIENT_NAME: {
+        "en": "Dodiom Champion",
+        "tr": "Dodiom Şampiyonu",
+        "it": "Campione di Dodiom"
+    },
+    Token.GIFT_CARD_MESSAGE: {
+        "en": "Congratulations, you finished today in the first place and won €2.5 gift card from Amazon. Thank you for playing Dodiom. :)",
+        "tr": "Tebrikler, günü birinci bitirdin ve 25 TL D&R hediye çeki kazandın. Dodiom\'u oynadığınız için teşekkür ederim, iyi harcamalar. :)",
+        "it": "Congratulazioni, sei il campione del giorno e hai vinto un buono regalo Amazon da € 5. Grazie per aver giocato a Dodiom. :)"
     },
     Token.SURVEY_MESSAGE: {
         "en": "Hey, today Dodo has some very important questions for you: <survey link>",
-        "tr": "Hey, Dodo'nun sana çok önemli soruları var. https://forms.gle/95KvzQ4HpubCxN7W9",
-        "it": "Ciao, oggi Dodo ha delle domande molto importanti da farti: https://forms.gle/nuLjEDfHtXWLsaSK9"
-    }
+        "tr": "Hey, Dodo\'nun sana çok önemli soruları var. https://forms.gle/95KvzQ4HpubCxN7W9",
+        "it": "Ciao, oggi Dodo ha delle domande molto importanti da farti:  <survey link>"
+    },
 }
 
 
