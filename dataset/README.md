@@ -6,7 +6,7 @@ For Turkish and Italian, one CSV and one Excel file are provided.
 
 ## Dataset Structure
 
-Dataset consists of X columns:
+Dataset consists of 11 columns:
 
 | Column        | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
