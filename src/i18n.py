@@ -323,7 +323,7 @@ Hello 😊
 Dodo is trying to learn English, but has a hard time learning English idioms. Could you help him? We ask you to give Dodo plenty of examples, to understand how people use idioms in their daily speech.
 
 Dodo needs lots of  idiom and non-idiom examples.
-For example, to learn the idiom \"pull (one\'s leg)\"\nhe needs an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \nand a non-idiom example such as \"For next exercise, pull your leg to your chest.\"
+For example, to learn the idiom \"give up\"\nhe needs an idiom example such as \"Ok, I give up now.\" \nand a non-idiom example such as \"Can you give that book up to me?\"
 """,
         "tr": """
 Merhaba 😊 
@@ -446,7 +446,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Semplice! Dammi diversi esempi di modi di dire italiani e di frasi in cui le stesse espressioni non sono usate come modi di dire ma nei loro significati letterali."
     },
     Token.WELCOME_MESSAGE_6: {
-        "en": "For example, in order to learn the idiom \"pull (one\'s) leg\"\nI need an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \n and a non-idiom example such as \"For next exercise, pull your leg to your chest.\"",
+        "en": "For example, in order to learn the idiom \"Give up\"\nI need an idiom example such as \"Ok, I give up now.\" \n and a non-idiom example such as \"Can you give that book up to me?\"",
         "tr": "Mesela “ayvayı yemek” deyimini öğrenmem için\n“İşte şimdi ayvayı yedik.” deyim örneği\n“Az önce iki ayva yedim.” deyim olmayan örnek",
         "it": "Per esempio, per imparare il modo di dire \"prendere all\'amo\"\n ho bisogno di una frase come \"Sa come prendere all\'amo il suo capo\" \n  e un di un’altra in cui la stessa espressione non viene usata in modo  idiomatico. Ad esempio: \"Ha preso all\'amo una bella trota\"."
     },
@@ -486,7 +486,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Sia tu che il giocatore che valuti guadagnerete punti."
     },
     Token.HINT_MESSAGE_1: {
-        "en": "For example, in order to learn the idiom \"pull (one\'s) leg\"\nI need an idiom example such as \"I don\'t believe you, you\'re just pulling my leg.\" \n and a non-idiom example such as \"For next exercise, pull your leg to your chest.\"",
+        "en": "Pro tip! Examples where the words that make up the phrase are next to each other within a sentence, but do not form an idiom, now earn more points. Ex: Will you please <b><u>give up</u></b> that book to me?",
         "tr": "Acele et! Deyimi oluşturan sözcüklerin cümle içerisinde yanyana geldiği ancak deyim anlamı oluşturmadıkları örnekler şu anda daha çok puan kazandırıyor. Örn: “Bugün üç <b><u>ayva yedim</u></b>.",
         "it": "Forza dai! Esempi in cui le parole che compongono il modo di dire sono vicine ma non vengono usate in senso idiomatico guadagnano ora più punti. Es.: Ha preso all\'amo una bella trota."
     },
@@ -496,7 +496,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Valuta i suggerimenti degli altri per guadagnare più punti."
     },
     Token.HINT_MESSAGE_3: {
-        "en": "Might some other words appear between the idiom\'s words?  \nExample: </u></b>Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢  Help me out - you win more points with such examples.",
+        "en": "Might some other words appear between the idiom\'s words?  \nExample: Will you <b><u>give</u></b> smoking <b><u>up</u></b>?\nI have very few examples like this.😢  Help me out - you win more points with such examples.",
         "tr": "Deyimi oluşturan sözcüklerin arasına başka sözcükler de girebiliyormuş.\nÖrn: “İyi mi olur yoksa <b><u>ayvayı</u></b> mı <b><u>yeriz</u></b> göreceğiz”.\nBöyle örneğim çok az 😢 Acele et. Şu anda bu tür örneklerle daha fazla puan kazanabilirsin.",
         "it": "Sai che talvolta ci possono essere altre parole tra le parole del modo di dire? \nEsempio: L\'ha <b><u>preso</u></b> proprio <b><u>all\'amo</u></b>il suo capo!\nHo pochi esempi di questo tipo.😢 Dai forza! Puoi guadagnare più punti con questi esempi."
     },
@@ -781,7 +781,7 @@ A Dodo servono molti esempi di modi di dire italiani e di frasi in cui le stesse
         "it": "Sbrigati, per un tempo limitato gli esempi idiomatici valgono 15 punti, invece di 10."
     },
     Token.NEG_TOG_WORTH_MORE: {
-        "en": "Psst! For a limited time, non-idiom examples (such as: For next exercise, <b><u>pull</u></b> your <b><u>leg</u></b> to your chest.) are worth 15 points, instead of 10.",
+        "en": "Psst! For a limited time, non-idiom examples (such as: Will you please <b><u>give up</u></b> that book to me?) are worth 15 points, instead of 10.",
         "tr": "Acele et, kısa bir süreliğine deyim olmayan örnekler 10 puan yerine 15 puan kazandırıyor.",
         "it": "Sbrigati, per un tempo limitato, esempi non idiomatici (es: \"Ha <b><u>preso all\'amo</u></b> una bella trota\" ) valgono 15 punti, invece di 10."
     },

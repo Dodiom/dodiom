@@ -8,13 +8,14 @@ mwe = Mwe(name="pull (one's) leg",
           meaning="example meaning",
           language=Language.ENGLISH,
           date=datetime.now().date(),
-          lemmas=["pull", "my|your|his|her|its|*s", "leg"],
+          lemmas=["pull", "my|your|our|their|his|her|*s", "leg"],
           category=MweCategory.VID)
 
 sentence = "Please stop pulling my leg."
 parsed = parser.parse(mwe.language, sentence)
 
-parsed.get_mwe_indices(mwe)
+a = parsed.get_mwe_indices(mwe)
+b = parsed.contains_mwe(mwe)
 
 lemmas = input("Lemmas > ").split(" ")
 
