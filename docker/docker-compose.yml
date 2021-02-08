@@ -50,7 +50,7 @@ services:
       - mwe-logs
     environment:
       DB_CONNECTION_STRING: "postgresql://mwe:mwedb123@mwe-db:5432/mwedb"
-      TELEGRAM_API_KEY: "1040589231:AAH47Z81mjmCIjf8B21lpND6r63n6dxheug"
+      TELEGRAM_API_KEY: "API_KEY_HERE"
       SEQ_LOG_HOST: "mwe-logs"
       START_TIME: "00:01"
       END_TIME: "23:59"
