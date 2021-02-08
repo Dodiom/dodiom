@@ -44,7 +44,8 @@ class Parsed:
                     elif any([fnmatch(parsed_token, possible_lemma) for parsed_token in self.tokens]):
                         this_lemma_exists = True
                 else:
-                    this_lemma_exists = any([parsed_lemma == possible_lemma for parsed_lemma in self.lemmas_flattened])
+                    if any([parsed_lemma == possible_lemma for parsed_lemma in self.lemmas_flattened]):
+                        this_lemma_exists = True
             all_lemmas_exist = all_lemmas_exist and this_lemma_exists
 
         return all_lemmas_exist

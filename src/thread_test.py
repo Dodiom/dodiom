@@ -11,7 +11,7 @@ mwe = Mwe(name="pull (one's) leg",
           lemmas=["pull", "my|your|our|their|his|her|*s", "leg"],
           category=MweCategory.VID)
 
-sentence = "Please stop pulling my leg."
+sentence = "Stop pulling my leg, will you."
 parsed = parser.parse(mwe.language, sentence)
 
 a = parsed.get_mwe_indices(mwe)
