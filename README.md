@@ -1,6 +1,6 @@
-# Mwexpress
+# Dodiom
 
-Code for the Telegram bot [MWExpress](https://t.me/mwetest_bot).
+Code for the Telegram bot [Dodiom](https://t.me/mwetest_bot).
 
 ## Setup
 
