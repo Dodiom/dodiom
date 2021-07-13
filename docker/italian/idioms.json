@@ -1,0 +1,16 @@
+[
+    {
+        "day": "2021-07-14",
+        "name": "abbaiare alla luna",
+        "meaning": "Imprecare invano, gridare inutilmente contro qualcuno che è lontano e non può, perciò, sentirci",
+        "lemmas": ["abbaiare", "alla", "luna"],
+        "category": "VID"
+    },
+    {
+        "day": "2021-07-15",
+        "name": "Acchiappare farfall",
+        "meaning": "Fare cose inutili.",
+        "lemmas": ["acchiappare", "farfalla"],
+        "category": "VID"
+    }
+]

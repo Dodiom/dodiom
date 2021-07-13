@@ -7,7 +7,7 @@ pytz
 envparse
 zeyrek
 nltk
-pytokenizations
+pytokenizations==0.7.2
 requests
 jupyter
 pandas

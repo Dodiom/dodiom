@@ -4,7 +4,7 @@ from bot.helpers.submission_scores import submission_scores
 from i18n import Language
 from models import User, Submission, Mwe, SubmissionCategory
 from database import database
-from nlp.parsing import Parsed
+from nlp.parser import Parsed
 
 
 def add_submission(user: User, parsed: Parsed, mwe: Mwe, positive: bool) -> Submission:
@@ -30,7 +30,7 @@ def add_submission(user: User, parsed: Parsed, mwe: Mwe, positive: bool) -> Subm
 
     submission = Submission(
         value=parsed.text,
-        lemmas=parsed.get_lemmas(mwe),
+        lemmas=parsed.lemmas,
         words=parsed.tokens,
         language=user.language,
         points=submission_points,

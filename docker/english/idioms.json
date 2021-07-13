@@ -1,0 +1,16 @@
+[
+    {
+        "day": "2021-07-14",
+        "name": "(to) give up",
+        "meaning": "cease making an effort; admit defeat",
+        "lemmas": ["give", "up"],
+        "category": "VPC"
+    },
+    {
+        "day": "2021-07-15",
+        "name": "let (someone) know",
+        "meaning": "to give information to (someone)",
+        "lemmas": ["let", "know"],
+        "category": "VPC"
+    }
+]

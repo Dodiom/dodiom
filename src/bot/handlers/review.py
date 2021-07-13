@@ -77,7 +77,7 @@ def _send_submission_to_review(user: User, update: Update, context: CallbackCont
         if "review_count" not in context.user_data:
             context.user_data["review_count"] = 0
 
-        parsed = parser.parse(submission.language, submission.value, "|".join(submission.mwe.lemmas))
+        parsed = parser.parse(submission.value, submission.mwe)
         review_example = submission.value
         for index in reversed(sorted(submission.mwe_indices)):
             start_index = parsed.token_positions[index][0]

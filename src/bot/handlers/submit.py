@@ -85,7 +85,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
     """ Gets the submission text from user """
     submission_value = update.message.text
 
-    sentence_count = parser.get_sentence_count(user.language, submission_value)
+    sentence_count = parser.get_sentence_count(submission_value)
     if sentence_count != 1:
         reply_to(user, update,
                  user.language.get(Token.PLEASE_ENTER_ONE_SENTENCE) % sentence_count)
@@ -93,7 +93,7 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
     todays_mwe = get_todays_mwe(user.language)
     try:
-        parsed = parser.parse(user.language, submission_value, "|".join(todays_mwe.lemmas))
+        parsed = parser.parse(submission_value, todays_mwe)
     except Exception as ex:
         mwelog.error(ex)
         reply_to(user, update,
@@ -129,10 +129,10 @@ def submit_message_handler(user: User, update: Update, context: CallbackContext)
 
 def submission_contains_todays_mwe(user: User, submission: str) -> bool:
     todays_mwe = get_todays_mwe(user.language)
-    if parser.get_sentence_count(user.language, submission) != 1:
+    if parser.get_sentence_count(submission) != 1:
         return False
     try:
-        parsed = parser.parse(user.language, submission, "|".join(todays_mwe.lemmas))
+        parsed = parser.parse(submission, todays_mwe)
         return parsed.contains_mwe(todays_mwe)
     except Exception as ex:
         mwelog.exception(str(ex))

@@ -2,13 +2,11 @@ version: "3.5"
 
 services:
   mwe-db:
-    image: postgres:12.2-alpine
+    image: postgres:13.3-alpine
     container_name: mwe-db
-    restart: always
+    restart: unless-stopped
     ports:
-      - 5432:5432
-    networks:
-      - mwexpress
+      - '5432:5432'
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
@@ -17,13 +15,11 @@ services:
       POSTGRES_DB: mwedb
 
   mwe-db-ui:
-    image: adminer
+    image: adminer:4.8.1-standalone
     container_name: mwe-db-ui
-    restart: always
+    restart: unless-stopped
     ports:
-      - 8080:8080
-    networks:
-      - mwexpress
+      - '8080:8080'
     depends_on:
       - mwe-db
     environment:
@@ -31,35 +27,46 @@ services:
       ADMINER_PLUGINS: "enum-types"
 
   mwe-logs:
-    image: datalust/seq:2020.2.4593
+    image: datalust/seq:2021.3.5943-pre
     container_name: mwe-logs
+    restart: unless-stopped
     ports:
-    - 5341:80
-    networks:
-      - mwexpress
+      - '5341:80'
     environment:
       ACCEPT_EULA: Y
-      
+
+  italian-nlp:
+    build:
+      dockerfile: italian_nlp.Dockerfile
+      context: .
+    container_name: italian-nlp
+    restart: unless-stopped
+    ports:
+      - "8012:8012"
+
   mwexpress:
-    image: docker.pkg.github.com/alisentas/mwexpress/mwexpress
+    build:
+      dockerfile: ../docker/italian/mwexpress.Dockerfile
+      context: ../../src
     container_name: mwexpress
-    networks:
-      - mwexpress
+    restart: unless-stopped
     depends_on:
       - mwe-db
       - mwe-logs
+      - italian-nlp
+    volumes:
+      - ./idioms.json:/app/idioms.json
     environment:
       DB_CONNECTION_STRING: "postgresql://mwe:mwedb123@mwe-db:5432/mwedb"
       TELEGRAM_API_KEY: "API_KEY_HERE"
       SEQ_LOG_HOST: "mwe-logs"
       START_TIME: "00:01"
       END_TIME: "23:59"
-
-      
-networks:
-  mwexpress:
-    name: mwexpress
-    driver: bridge
+      LANGUAGE: "it"
+      GAME_STOPPED: "false"
+      EMAIL_ENABLED: "true"
+      MODERATOR: "MODERATOR_TELEGRAM_ID_HERE"
+      ITALIAN_LANGUAGE_SERVER: 'http://italian-nlp:8012'
 
 volumes:
   log_data:

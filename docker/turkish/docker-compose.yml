@@ -1,0 +1,64 @@
+version: "3.5"
+
+services:
+  mwe-db:
+    image: postgres:13.3-alpine
+    container_name: mwe-db
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mwedb123
+      POSTGRES_USER: mwe
+      POSTGRES_DB: mwedb
+
+  mwe-db-ui:
+    image: adminer:4.8.1-standalone
+    container_name: mwe-db-ui
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mwe-db
+    environment:
+      ADMINER_DEFAULT_SERVER: "mwe-db"
+      ADMINER_PLUGINS: "enum-types"
+
+  mwe-logs:
+    image: datalust/seq:2021.3.5943-pre
+    container_name: mwe-logs
+    restart: unless-stopped
+    ports:
+      - '5341:80'
+    environment:
+      ACCEPT_EULA: Y
+      
+  mwexpress:
+    build:
+      dockerfile: ../docker/turkish/mwexpress.Dockerfile
+      context: ../../src
+    container_name: mwexpress
+    restart: unless-stopped
+    depends_on:
+      - mwe-db
+      - mwe-logs
+    volumes:
+      - ./idioms.json:/app/idioms.json
+    environment:
+      DB_CONNECTION_STRING: "postgresql://mwe:mwedb123@mwe-db:5432/mwedb"
+      TELEGRAM_API_KEY: "API_KEY_HERE"
+      SEQ_LOG_HOST: "mwe-logs"
+      START_TIME: "00:01"
+      END_TIME: "23:59"
+      LANGUAGE: "tr"
+      GAME_STOPPED: "false"
+      EMAIL_ENABLED: "true"
+      MODERATOR: "MODERATOR_TELEGRAM_ID_HERE"
+
+volumes:
+  log_data:
+    driver: local
+  db_data:
+    driver: local

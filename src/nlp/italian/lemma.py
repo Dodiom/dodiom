@@ -16,9 +16,9 @@ class ItalianLemmatizer:
         for token in resp["sentences"][0]["tokens"]:
             tokens.append(token["originalText"])
             if token["lemma"] != "[PUNCT]":
-                lemmas.append([token["lemma"]])
+                lemmas.append(token["lemma"])
             else:
-                lemmas.append([token["originalText"]])
+                lemmas.append(token["originalText"])
         return tokens, lemmas
 
 

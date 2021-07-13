@@ -1,0 +1,16 @@
+[
+    {
+        "day": "2021-07-14",
+        "name": "ayvayı yemek",
+        "meaning": "kötü bir duruma düşmek",
+        "lemmas": ["ayva", "yemek"],
+        "category": "VID"
+    },
+    {
+        "day": "2021-07-15",
+        "name": "ortaya çıkmak",
+        "meaning": "yokken var olmak, meydana çıkmak, türemek",
+        "lemmas": ["orta", "çık"],
+        "category": "VID"
+    }
+]

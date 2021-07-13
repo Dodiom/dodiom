@@ -4,11 +4,17 @@ Code for the Telegram bot [Dodiom](https://t.me/mwetest_bot).
 
 ## Setup
 
-Create a new bot using [BotFather](https://t.me/botfather), get it's token and put it in `docker/docker-compose.yml` and then run
+Create a new bot using [BotFather](https://t.me/botfather), get it's token and put it in `docker/english/docker-compose.yml`, also put "1" for moderator id there (you can change this with your own Telegram ID after you find it) and then run
 
-````shell script
+```sh
+cd docker/english
+docker-compose build  # might take some time
 docker-compose up -d
-````
+docker-compose down
+docker-compose up -d  # restart second time for initial data changes to be applied
+```
+
+You can put your own idioms in `docker/english/idioms.json`.
 
 You can see the Database in [http://localhost:8080](http://localhost:8080) and logs in [http://localhost:5341](http://localhost:5341) after starting the bot.
 
