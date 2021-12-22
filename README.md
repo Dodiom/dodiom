@@ -4,7 +4,7 @@ Code for the Telegram bot [Dodiom](https://t.me/mwetest_bot).
 
 ## Setup
 
-Create a new bot using [BotFather](https://t.me/botfather), get it's token and put it in `docker/english/docker-compose.yml`, also put "1" for moderator id there (you can change this with your own Telegram ID after you find it) and then run
+Create a new bot using [BotFather](https://t.me/botfather), get its token and put it in `docker/english/docker-compose.yml`, also put "1" for moderator id there (you can change this with your own Telegram ID after you find it) and then run
 
 ```sh
 cd docker/english
@@ -23,13 +23,14 @@ You can see the Database in [http://localhost:8080](http://localhost:8080) and l
 If you use Dodiom in a scientific publication, please kindly cite [Gamified Crowdsourcing for Idiom Corpora Construction](https://arxiv.org/abs/2102.00881) paper.
 
 ```bib
-@misc{eryigit2021gamified,
+@article{eryigit2021gamified,
       title={Gamified Crowdsourcing for Idiom Corpora Construction}, 
       author={Gülşen Eryiğit and Ali Şentaş and Johanna Monti},
       year={2021},
       eprint={2102.00881},
       archivePrefix={arXiv},
-      primaryClass={cs.CL}
+      primaryClass={cs.CL},
+      notes={accepted for publication in Natural Language Engineering}
 }
 ```
 
