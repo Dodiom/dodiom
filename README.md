@@ -20,7 +20,7 @@ You can see the Database in [http://localhost:8080](http://localhost:8080) and l
 
 ## Publications
 
-If you use Dodiom in a scientific publication, please kindly cite [Gamified Crowdsourcing for Idiom Corpora Construction](https://arxiv.org/abs/2102.00881) article published in Natural Language Engineering, Cambridge Press.
+If you use Dodiom in a scientific publication, please kindly cite [Gamified Crowdsourcing for Idiom Corpora Construction](https://www.cambridge.org/core/journals/natural-language-engineering/article/gamified-crowdsourcing-for-idiom-corpora-construction/A69DC2EC025689C5495A3859387468A3) article published in Natural Language Engineering, Cambridge Press.
 
 ```bib
 @article{eryigit2021gamified,
